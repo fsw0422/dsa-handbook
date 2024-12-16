@@ -114,3 +114,11 @@ def func1(num: int):
     def func2(_num: int):
         ...
 ```
+
+- Use single-line swap, as it removes the need to introduce another variable
+  
+```python
+...
+
+a, b = b, a
+```

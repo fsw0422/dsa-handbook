@@ -43,8 +43,8 @@ Let's revisit Fibonacci Sequence calculation on how Dynamic Programming can opti
         memo = [None for _ in range(num + 1)]
 
         def dfs(n: int) -> int:
-            if num == 0 or num == 1:
-                return num
+            if n == 0 or n == 1:
+                return n
 
             if memo[n] != None:
                 return memo[n]
@@ -52,7 +52,7 @@ Let's revisit Fibonacci Sequence calculation on how Dynamic Programming can opti
             memo[n] = dfs(n - 1) + dfs(n - 2)
             return memo[n]
 
-        return dfs(num)
+        return dfs(n)
     ```
 
 - _Tabulation_

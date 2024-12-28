@@ -239,7 +239,7 @@ You can build the Graph in either way.
 
 - _Breadth First Search (BFS)_:
   Queue is used for implementation.
-  Used for finding the shortest path between 2 vertices.
+  Used for find the shortest path between 2 vertices, minimal steps to reach a target etc. 
   In fact, BFS is a generalization of Level-order traversal of Binary Tree in previous chapter (as Graph is also one form of generalization of a N-ary Tree)
 
     ```python
@@ -274,6 +274,8 @@ You can build the Graph in either way.
     ```
 
     [LeetCode 934. Shortest Bridge](https://leetcode.com/problems/shortest-bridge)
+
+    [LeetCode 322. Coin Change](https://leetcode.com/problems/coin-change)
 
 ## Advanced Graph Topics
 

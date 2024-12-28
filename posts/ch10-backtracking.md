@@ -26,6 +26,6 @@ This trait often leads Backtracking solutions to undo decisions in order to expl
 
 ## Tips
 
-- When the problem asks for a result where all exploration paths matter (compuiting all combination, route of a graph etc), it is highly likely be solved with Backtracking.
+- When the problem asks for a result where all exploration paths matter (computing all combination, route of a graph etc), it is highly likely be solved with Backtracking.
 
 - Make sure you draw the call graph for better understanding for yourself as well as the interviewer.

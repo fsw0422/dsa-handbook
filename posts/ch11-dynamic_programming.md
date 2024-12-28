@@ -139,6 +139,6 @@ However, as Tabulation often is more efficient in terms of space complexity (sin
 Tabulation, as explained above can also (but not always) lead to further space optimization as well.
 If you have defined the base case well, both Memoization and Tabulation will share the same base case and similar code structure.
 
-- If the problem asks for anything in context of min / max that requires exploration OR anything in context of prefix sum, it is highly likely to be solved optimally with Dynamic Programming.
+- If the problem asks for anything in context of min / max / number-of-XYZ etc that requires exploration OR anything in context of prefix sum, it is highly likely to be solved optimally with Dynamic Programming.
 As described in the first bullet-point, when initially coming up with a DFS function to solve these problems, the function will often return a type of either `int` or `bool`.
 These return values are likely cachable, thus eligible for Memoization.

@@ -125,8 +125,8 @@ Let's revisit Fibonacci Sequence calculation on how Dynamic Programming can opti
     [LeetCode 238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self)
 
 - Backtracking problems:
-  Backtracking problems can be solved optimally with Dynamic Programming however, if constraints get complicated, it's not easy to identify or define overlapping sub-problems.
-  In most cases, Backtracking solution will be enough to pass the interview however, there are some Backtracking problems that are worth to know that it can be solved with Dynamic Programming.
+  Backtracking problems can be solved optimally with Dynamic Programming however, if constraints get complicated, it's not easy to identify overlapping sub-problems.
+  In most cases, Backtracking solution will be enough to pass the interview however, there are some Backtracking problems where overlapping sub-problems are easier to identify, thus can be further optimized with Dynamic Programming.
   
     [LeetCode 55. Jump Game](https://leetcode.com/problems/jump-game)
 

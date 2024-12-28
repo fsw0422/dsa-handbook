@@ -275,26 +275,6 @@ You can build the Graph in either way.
 
     [LeetCode 934. Shortest Bridge](https://leetcode.com/problems/shortest-bridge)
 
-## Backtracking
-
-_Backtracking_ problems require you to search large number of paths in order to reach the solution (often has exponential time complexity).
-DFS becomes very handy for these problems.
-Make sure you draw the call graph for better understanding for yourself as well as the interviewer.
-
-[LeetCode 78. Subsets](https://leetcode.com/problems/subsets)
-
-[LeetCode 90. Subsets II](https://leetcode.com/problems/subsets-ii)
-
-[LeetCode 46. Permutations](https://leetcode.com/problems/permutations)
-
-[LeetCode 47. Permutations II](https://leetcode.com/problems/permutations-ii)
-
-[LeetCode 77. Combinations](https://leetcode.com/problems/combinations)
-
-[LeetCode 39. Combination Sum](https://leetcode.com/problems/combination-sum)
-
-[LeetCode 40. Combination Sum II](https://leetcode.com/problems/combination-sum-ii)
-
 ## Advanced Graph Topics
 
 These are advanced Graph topics.

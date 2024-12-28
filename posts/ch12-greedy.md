@@ -22,4 +22,10 @@ You may occasionally see a Greedy solution that optimizes Dynamic Programming so
 
 [LeetCode 55. Jump Game](https://leetcode.com/problems/jump-game)
 
-Tip: If the problem asks for min/max for a solution, it's worth to try either a Dynamic Programming or Greedy solution.
+[LeetCode 45. Jump Game II](https://leetcode.com/problems/jump-game-ii)
+
+
+## Tips
+
+- If the problem looks like it can be solved with Dynamic Programming, quickly try a Greedy solution if it works.
+  If it doesn't, fallback to Dynamic Programming.

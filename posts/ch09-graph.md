@@ -31,9 +31,9 @@
             def __init__(self, graph: Dict[Any, Set[Any]]):
                 self.vtx_to_parent = {vtx: vtx for vtx in graph.keys()}
                 self.vtx_to_rank = {vtx: 0 for vtx in graph.keys()}
-                for vtx, neighbours in graph.items():
-                    for neighbour in neighbours:
-                        self.union(vtx, neighbour)
+                for vtx, nbrs in graph.items():
+                    for nbr in nbrs:
+                        self.union(vtx, nbr)
     
             def union(self, vtx1: Any, vtx2: Any):
                 parent1 = self.find(vtx1)

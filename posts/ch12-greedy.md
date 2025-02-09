@@ -24,7 +24,6 @@ You may occasionally see a Greedy solution that optimizes Dynamic Programming so
 
 [LeetCode 45. Jump Game II](https://leetcode.com/problems/jump-game-ii)
 
-
 ## Tips
 
 - If the problem looks like it can be solved with Dynamic Programming, quickly try a Greedy solution if it works.

@@ -38,7 +38,7 @@ async def get_data_by_id(uuid: int) -> str:
 
 # This is another Coroutine block that calls the other Coroutine
 async def get_data_with_uuid_1() -> str:
-    return await get_data_by_id(1) # Once invoked, other Coroutines are given chance to be run
+    return await get_data_by_id(1) # Once invoked with 'await', other Coroutines are given chance to be run
 
 
 loop = asyncio.get_event_loop()

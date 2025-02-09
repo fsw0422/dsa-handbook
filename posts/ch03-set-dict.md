@@ -53,24 +53,27 @@ john_age = dict_['John'] # TC: O(1) - 2
 dict_.pop('Amy') # TC: O(1) - 23, {'John': 23, 'George': 43} (Removes key and returns value. Raises 'KeyError' if key does not exist)
 dict_.pop('Adam', 0) # TC: O(1) - 0, {'John': 23, 'George': 43} (Removes key and returns value. Returns default value if key does not exist)
 
-keys, vals, items = dict_.keys(), dict_.values(), dict_.items() # Each returns its own immutable class object (it can't be indexed with 'enumerate(..)')
+# Each returns its own immutable class object (it can't be indexed with 'enumerate(..)')
+keys = dict_.keys()
 if 'John' in dict_: # TC: O(1)
     ...
 for key in dict_:
     ...
-if 'John' in dict_.keys(): # TC: O(1)
+if 'John' in keys(): # TC: O(1)
     ...
-for key in dict_.keys():
-    ...
-
-if 2 in dict_.values(): # TC: O(N)
-    ...
-for val in dict_.values():
+for key in keys():
     ...
 
-if ('John', 23) in dict_.items(): # TC: O(N)
+vals = dict_.values()
+if 2 in vals: # TC: O(N)
     ...
-for key, val in dict_.items():
+for val in vals:
+    ...
+
+items = dict_.items()
+if ('John', 23) in items: # TC: O(N)
+    ...
+for key, val in items:
     ...
 
 """

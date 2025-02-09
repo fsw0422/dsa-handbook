@@ -175,6 +175,7 @@ Utility Operations for input sanitization or debug output
 str_list = 'hello,how,are,you'.split(',') # ['hello', 'how', 'are', 'you']
 ','.join(str_list) # 'hello,how,are,you'
 
-name, rank = 'Eminem', 3
+name = 'Eminem'
+rank = 3
 f'Name: {name}, Rank: {rank}' # 'Name: Eminem, Rank: 3'
 ```

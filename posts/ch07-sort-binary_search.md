@@ -61,7 +61,8 @@ However, due to its penalty in time complexity, improved algorithms like below a
             return
 
         mid = len(nums) // 2
-        left, right = nums[:mid], nums[mid:]
+        left = nums[:mid]
+        right = nums[mid:]
 
         merge_sort(left)
         merge_sort(right)
@@ -208,7 +209,8 @@ if left != right: # It means value is found
             There are problems that require you to tweak this function in order to solve the problem.
             """
             def binary_search(nums: List[int], target) -> int:
-                lo, hi = 0, len(nums) - 1
+                lo = 0
+                hi = len(nums) - 1
                 while lo <= hi:
                     mid = lo + (hi - lo) // 2 # Prevent overflow
 

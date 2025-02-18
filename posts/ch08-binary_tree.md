@@ -63,8 +63,8 @@ def inorder_recursive(root: TreeNode) -> List[Any]:
 
 
 def inorder_iterative(root: TreeNode) -> List[Any]:
-    stk = deque()
     res = list()
+    stk = deque()
     cur = root
     while stk or cur:
         while cur:
@@ -95,8 +95,8 @@ def preorder_iterative(root: TreeNode) -> List[Any]:
     if root is None:
         return list()
 
-    stk = deque()
     res = list()
+    stk = deque()
     stk.append(root)
     while stk:
         cur = stk.pop()
@@ -129,8 +129,8 @@ def postorder_iterative(root: TreeNode) -> List[Any]:
     if root is None:
         return list()
 
-    stk = deque()
     res = list()
+    stk = deque()
     cur = root 
     last = None
 
@@ -149,8 +149,8 @@ def postorder_iterative(root: TreeNode) -> List[Any]:
 
                 
 def level_order(root: TreeNode) -> List[Any]:
-    que = deque()
     res = list()
+    que = deque()
     que.append(root)
     while que:
         size = len(que)

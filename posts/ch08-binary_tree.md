@@ -133,7 +133,6 @@ def postorder_iterative(root: TreeNode) -> List[Any]:
     stk = deque()
     cur = root 
     last = None
-
     while stk or cur:
         if cur:
             stk.append(cur)
@@ -156,12 +155,11 @@ def level_order(root: TreeNode) -> List[Any]:
         size = len(que)
         while size > 0:
             polled = que.popleft()
+            res.append(polled)
             if polled.left:
                 que.append(polled.left)
-                res.append(polled.left)
             if polled.right:
                 que.append(polled.right)
-                res.append(polled.right)
             size -= 1
     return res
 ```

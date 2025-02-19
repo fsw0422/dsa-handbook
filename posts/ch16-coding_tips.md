@@ -17,7 +17,8 @@ lo, mid, piv, hi # 'low' / 'middle' / 'high / 'pivot' (3 pointers but handling l
 cur, prv, nxt # 'current' / 'previous' / 'next' (3 pointers advancing) 
 row, col # 'row' / 'column' 
 memo, dp # 'memoization'(top-down) 'dynamic programming' (bottom-up)
-val # 'val'
+val # 'value'
+lvl # 'level
 amt # 'amount'
 targ # 'target'
 cnt # 'count'

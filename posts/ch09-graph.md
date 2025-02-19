@@ -226,9 +226,11 @@ You can build the Graph in either way.
                 cur = stk.pop()
                 res.append(cur)
                 for nbr in graph[cur]:
-                    if nbr not in seen:
-                        seen.add(nbr)
-                        stk.append(nbr)
+                    if nbr in seen:
+                        continue
+
+                    seen.add(nbr)
+                    stk.append(nbr)
 
         recurse(start_vtx)
         #iterate(start_vtx)
@@ -263,14 +265,14 @@ You can build the Graph in either way.
         que.append(start_vtx)
         while que:
             cur = que.popleft()
-            seen.append(cur)
+            res.append(cur)
             for nbr in graph[cur]:
                 if nbr in seen:
                     continue
   
                 seen.add(nbr)
                 que.append(nbr)
-        return collected
+        return res
     ```
 
     [LeetCode 934. Shortest Bridge](https://leetcode.com/problems/shortest-bridge)

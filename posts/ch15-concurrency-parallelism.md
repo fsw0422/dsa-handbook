@@ -114,9 +114,9 @@ Before going into each isolation level, here is a small glossary.
 
     - Phantoms may show in series of read-modify-write queries during transaction (write-skew).
 
-- Lost updates can happen on read-modify-and-write.
+- Lost updates can happen on read-modify-and-write (race condition).
 
-    - Need to use either lock (Pessimistic Concurrency Control) or compare-and-set (Optimistic Concurrency Control) on the row(s) in the write *query* (and error-prone).
+    - Need to use either lock (Pessimistic Concurrency Control) or compare-and-set (Optimistic Concurrency Control) on the row(s) in the write *query* (and error-prone) during the transaction.
       When using compare-and-set, high contention towards the same row can lead to a lot of transaction restarts.
 
 #### Read Committed (Using MVCC)
@@ -130,9 +130,9 @@ Before going into each isolation level, here is a small glossary.
 
     - Phantoms may show in series of read-modify-write queries during transaction (write-skew).
 
-- Lost updates can happen on read-modify-and-write.
+- Lost updates can happen on read-modify-and-write (race condition).
 
-    - Need to use either lock (Pessimistic Concurrency Control) or compare-and-set (Optimistic Concurrency Control) on the row(s) in the write *query* (and error-prone).
+    - Need to use either lock (Pessimistic Concurrency Control) or compare-and-set (Optimistic Concurrency Control) on the row(s) in the write *query* (and error-prone) during the transaction.
       When using compare-and-set, high contention towards the same row can lead to a lot of transaction restarts.
 
 #### Snapshot Isolation (Using MVCC)
@@ -146,9 +146,9 @@ Before going into each isolation level, here is a small glossary.
 
     - Phantoms may show in some read-modify-write queries during transaction (write-skew).
 
-- Lost updates can happen on read-modify-and-write.
+- Lost updates can happen on read-modify-and-write (race condition).
 
-    - Need to use either lock (Pessimistic Concurrency Control) or compare-and-set (Optimistic Concurrency Control) on the row(s) in the write *query* (and error-prone).
+    - Need to use either lock (Pessimistic Concurrency Control) or compare-and-set (Optimistic Concurrency Control) on the row(s) in the write *query* (and error-prone) during the transaction.
       When using compare-and-set, high contention towards the same row can lead to a lot of transaction restarts.
 
 #### Serialized (Pessimistic Concurrency Control in transaction level)
@@ -162,7 +162,7 @@ Before going into each isolation level, here is a small glossary.
 
 - No dirty read / writes (other transactions *can* happen in parallel), lost updates, phantoms.
 
-    - Implements special algorithm that detects invalidated transactions when write is committed during the current transaction.
+    - Implements special algorithm that detects all other affected transactions when write is committed during the transaction (and potentially restart them).
 
     - High contention towards the same row can lead to a lot of transaction restarts.
 

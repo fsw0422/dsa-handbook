@@ -156,7 +156,7 @@ Before going into each isolation level, here is a small glossary.
 - No dirty read / writes (other transactions *cannot* happen in parallel), lost updates, phantoms.
 
     - Readers and writer both block each other by using single lock to a row during the *transaction* (Notice the different from Read Committed, that it's the entire *transaction*).
-      This is often called 2PL (Two-Phase-Lock), and suffers from performance penalty.
+      Most widely known locks are 'Two-Phase Lock (2PL)', 'Predicate Lock' and 'Index-Range Lock'. They all suffer from performance penalty due to locks.
 
 #### Serializable Snapshot Isolation (Optimistic Concurrency Control in transaction level)
 

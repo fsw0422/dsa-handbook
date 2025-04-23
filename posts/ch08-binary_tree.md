@@ -28,7 +28,7 @@ Almost all Binary Tree problems are given a Root Node that represents the tree, 
 ```python
 ...
 
-from typing import Any, List
+from typing import Any
 from collections import deque
 
 
@@ -47,7 +47,7 @@ class TreeNode:
         self.right = right
         
         
-def inorder_recursive(root: TreeNode) -> List[Any]:
+def inorder_recursive(root: TreeNode) -> list[Any]:
     res = list()
 
     def recurse(_root: TreeNode):
@@ -62,7 +62,7 @@ def inorder_recursive(root: TreeNode) -> List[Any]:
     return res
 
 
-def inorder_iterative(root: TreeNode) -> List[Any]:
+def inorder_iterative(root: TreeNode) -> list[Any]:
     res = list()
     stk = deque()
     cur = root
@@ -76,7 +76,7 @@ def inorder_iterative(root: TreeNode) -> List[Any]:
     return res 
 
 
-def preorder_recursive(root: TreeNode) -> List[Any]:
+def preorder_recursive(root: TreeNode) -> list[Any]:
     res = list()
 
     def recurse(_root: TreeNode):
@@ -91,7 +91,7 @@ def preorder_recursive(root: TreeNode) -> List[Any]:
     return res 
 
 
-def preorder_iterative(root: TreeNode) -> List[Any]:
+def preorder_iterative(root: TreeNode) -> list[Any]:
     if root is None:
         return list()
 
@@ -110,7 +110,7 @@ def preorder_iterative(root: TreeNode) -> List[Any]:
     return res
 
 
-def postorder_recursive(root: TreeNode) -> List[Any]:
+def postorder_recursive(root: TreeNode) -> list[Any]:
     res = list()
 
     def recurse(_root: TreeNode):
@@ -125,7 +125,7 @@ def postorder_recursive(root: TreeNode) -> List[Any]:
     return res
 
 
-def postorder_iterative(root: TreeNode) -> List[Any]:
+def postorder_iterative(root: TreeNode) -> list[Any]:
     if root is None:
         return list()
 
@@ -147,7 +147,7 @@ def postorder_iterative(root: TreeNode) -> List[Any]:
     return res 
 
                 
-def level_order(root: TreeNode) -> List[Any]:
+def level_order(root: TreeNode) -> list[Any]:
     res = list()
     que = deque()
     que.append(root)

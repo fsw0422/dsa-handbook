@@ -14,11 +14,8 @@ However, due to its penalty in time complexity, improved algorithms like below a
 
     ```python
     ...
-  
-    from typing import List
 
-
-    def merge_sort(nums: List[int]):
+    def merge_sort(nums: list[int]):
         """
         Stable sorting algorithm (elements with same key preserves ordering) using Divide and Conquer technique.
         The divide step is implemented in simple recursion top-down, while the merge step merge the split 2 lists bottom-up.
@@ -29,7 +26,7 @@ However, due to its penalty in time complexity, improved algorithms like below a
         SC: O(N)
         """
 
-        def merge(lo: List[int], hi: List[int]):
+        def merge(lo: list[int], hi: list[int]):
             """
             We re-use the input list for sorted result, however this is not in-place sort, as we slice list in half and create copy on every recursion
             """
@@ -78,10 +75,7 @@ However, due to its penalty in time complexity, improved algorithms like below a
     ```python
     ...
   
-    from typing import List
-
-
-    def quick_sort(nums: List[int]):
+    def quick_sort(nums: list[int]):
         """
         Unstable sorting algorithm (elements with same key does NOT preserve ordering) using Divide and Conquer technique
         Most widely adapted sorting algorithm due to its performance
@@ -202,13 +196,11 @@ if left != right: # It means value is found
             ```python
             ...
           
-            from typing import List
-          
             """
             This function is simplified (but customizable) Binary Search function.
             There are problems that require you to tweak this function in order to solve the problem.
             """
-            def binary_search(nums: List[int], target) -> int:
+            def binary_search(nums: list[int], target) -> int:
                 lo = 0
                 hi = len(nums) - 1
                 while lo <= hi:

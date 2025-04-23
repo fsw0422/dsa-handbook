@@ -23,12 +23,12 @@
         ```python
         ...
       
-        from typing import Any, Dict, Set
+        from typing import Any
     
     
         class DisjointSet:
     
-            def __init__(self, graph: Dict[Any, Set[Any]]):
+            def __init__(self, graph: dict[Any, set[Any]]):
                 self.vtx_to_parent = {vtx: vtx for vtx in graph.keys()}
                 self.vtx_to_rank = {vtx: 0 for vtx in graph.keys()}
                 for vtx, nbrs in graph.items():
@@ -73,11 +73,11 @@
         ```python
         ...
       
-        from typing import Any, Dict, Set, List, Deque
+        from typing import Any
         from collections import defaultdict, deque
 
 
-        def topsort(graph: Dict[Any, Set[Any]]) -> List[Any]:
+        def topsort(graph: dict[Any, set[Any]]) -> list[Any]:
             """
             Using Khan's Algorithm
             """
@@ -196,11 +196,11 @@ You can build the Graph in either way.
   In fact, DFS is a generalization of Pre / Post / In-order traversals of Binary Tree in previous chapter (as Graph is also one form of generalization of a N-ary Tree)
 
     ```python
-    from typing import Any, Dict, Set, List
+    from typing import Any
     from collections import deque
 
 
-    def dfs(graph: Dict[Any, Set[Any]], start_vtx: Any) -> List[Any]:
+    def dfs(graph: dict[Any, set[Any]], start_vtx: Any) -> list[Any]:
         """
         TC: O(|V| + |E|)
         SC: O(|V|) (Adjacency List) / O(|V| ^ 2) (Adjacency Matrix)
@@ -247,11 +247,11 @@ You can build the Graph in either way.
     ```python
     ...
   
-    from typing import Any, Dict, Set, List
+    from typing import Any 
     from collections import deque
 
 
-    def bfs(graph: Dict[Any, Set[Any]], start_vtx: Any) -> List[Any]:
+    def bfs(graph: dict[Any, set[Any]], start_vtx: Any) -> list[Any]:
         """
         TC: O(|V| + |E|)
         SC: O(|V|) (Adjacency List) / O(|V| ^ 2) (Adjacency Matrix)

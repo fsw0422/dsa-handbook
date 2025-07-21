@@ -4,6 +4,7 @@
 ...
 
 import heapq
+from typing import List
 
 
 """
@@ -21,7 +22,7 @@ Top / Bottom K
 TC: O(N * logK)
 SC: O(K)
 """
-def top_k(nums: list[int], k: int) -> list[int]:
+def top_k(nums: List[int], k: int) -> List[int]:
     """
     Uses min heap, so that everytime the heap is full, we pop from the smallest element
     """
@@ -38,7 +39,7 @@ def top_k(nums: list[int], k: int) -> list[int]:
     return res
 
 
-def bottom_k(nums: list[int], k: int) -> list[int]:
+def bottom_k(nums: List[int], k: int) -> List[int]:
     """
     Uses max heap, so that everytime the heap is full, we pop from the largest element
     """

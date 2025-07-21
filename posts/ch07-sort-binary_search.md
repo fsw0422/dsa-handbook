@@ -11,10 +11,14 @@ There are several sorting algorithms with quadratic runtime (_Bubble Sort_, _Ins
 However, due to its penalty in time complexity, improved algorithms like below are more likely to be in interviews.
 
 - _Merge Sort_
+
   ```python
   ...
+  
+  from typing import List
 
-  def merge_sort(nums: list[int]):
+
+  def merge_sort(nums: List[int]):
       """
       Stable sorting algorithm (elements with same key preserves ordering) using Divide and Conquer technique.
       The divide step is implemented in simple recursion top-down, while the merge step merge the split 2 lists bottom-up.
@@ -25,7 +29,7 @@ However, due to its penalty in time complexity, improved algorithms like below a
       SC: O(N)
       """
 
-      def merge(lo: list[int], hi: list[int]):
+      def merge(lo: List[int], hi: List[int]):
           """
           We re-use the input list for sorted result, however this is not in-place sort, as we slice list in half and create copy on every recursion
           """
@@ -68,10 +72,14 @@ However, due to its penalty in time complexity, improved algorithms like below a
   The more generic version of merge step will be _K Way Merge_ where it merges K Lists.
   - [LeetCode 23. Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists)
 - _Quick Sort_
+
   ```python
   ...
   
-  def quick_sort(nums: list[int]):
+    from typing import List
+
+
+  def quick_sort(nums: List[int]):
       """
       Unstable sorting algorithm (elements with same key does NOT preserve ordering) using Divide and Conquer technique
       Most widely adapted sorting algorithm due to its performance
@@ -183,12 +191,14 @@ if left != right: # It means value is found
 
       ```python
       ...
+          
+      from typing import List
       
       """
       This function is simplified (but customizable) Binary Search function.
       There are problems that require you to tweak this function in order to solve the problem.
       """
-      def binary_search(nums: list[int], target) -> int:
+      def binary_search(nums: List[int], target) -> int:
           lo = 0
           hi = len(nums) - 1
           while lo <= hi:

@@ -24,7 +24,6 @@ Let's revisit Fibonacci Sequence calculation on how Dynamic Programming can opti
     
         return fib(num - 1) + fib(num - 2)
     ```
-
 - _Memoization_ (DFS with cache)
 
     ```python
@@ -56,7 +55,6 @@ Let's revisit Fibonacci Sequence calculation on how Dynamic Programming can opti
 
         return dfs(num)
     ```
-
 - _Tabulation_
 
     ```python
@@ -101,36 +99,23 @@ Let's revisit Fibonacci Sequence calculation on how Dynamic Programming can opti
             prv, cur = cur, cur + prv # This line is not sequential. Left-side 'prv' and right-side 'prv' is same value
         return cur
     ```
-
 - Recurrence Relation problems:
   Recurrence Relation problems are classic problems that can be optimally solved with Dynamic Programming.
-
-    [LeetCode 70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs)
-
-    [LeetCode 198. Min Cost Climbing Stairs](https://leetcode.com/problems/min-cost-climbing-stairs)
-                    
-    [LeetCode 198. House Robber](https://leetcode.com/problems/house-robber)
-    
-    [LeetCode 213. House Robber II](https://leetcode.com/problems/house-robber-ii)
-
-    [LeetCode 1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence)
-
+  - [LeetCode 70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs)
+  - [LeetCode 198. Min Cost Climbing Stairs](https://leetcode.com/problems/min-cost-climbing-stairs)
+  - [LeetCode 198. House Robber](https://leetcode.com/problems/house-robber)
+  - [LeetCode 213. House Robber II](https://leetcode.com/problems/house-robber-ii)
+  - [LeetCode 1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence)
 - Sub-list / Sub-string problems:
   Tabulation is mostly used to solve these problems.
-
-    [LeetCode 53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray)
-    
-    [LeetCode 121. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock)
-    
-    [LeetCode 238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self)
-
+  - [LeetCode 53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray)
+  - [LeetCode 121. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock)
+  - [LeetCode 238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self)
 - Backtracking problems:
   Backtracking problems can be solved optimally with Dynamic Programming however, if constraints get complicated, it's not easy to identify overlapping sub-problems.
   In most cases, Backtracking solution will be enough to pass the interview however, there are some Backtracking problems where overlapping sub-problems are easier to identify, thus can be further optimized with Dynamic Programming.
-  
-    [LeetCode 55. Jump Game](https://leetcode.com/problems/jump-game)
-
-    [LeetCode 45. Jump Game II](https://leetcode.com/problems/jump-game-ii)
+  - [LeetCode 55. Jump Game](https://leetcode.com/problems/jump-game)
+  - [LeetCode 45. Jump Game II](https://leetcode.com/problems/jump-game-ii)
 
 ## Tips
 
@@ -138,7 +123,6 @@ Let's revisit Fibonacci Sequence calculation on how Dynamic Programming can opti
 However, as Tabulation often is more efficient in terms of space complexity (since it does not use the recursion call stack), try solving the problem first with Memoization, and then optimize towards Tabulation if interviewer explicitly asks for a bottom-up approach.
 Tabulation, as explained above can also (but not always) lead to further space optimization as well.
 If you have defined the base case well, both Memoization and Tabulation will share the same base case and similar code structure.
-
 - If the problem asks for anything in context of min / max / number-of-XYZ etc that requires exploration OR anything in context of prefix sum, it is highly likely to be solved optimally with Dynamic Programming.
 As described in the first bullet-point, when initially coming up with a DFS function to solve these problems, the function will often return a type of either `int` or `bool`.
 These return values are likely cachable, thus eligible for Memoization.

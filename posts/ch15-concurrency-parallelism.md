@@ -9,10 +9,8 @@ To resolve this, there were many asynchronous paradigms that emerged in the past
 
 - _Callbacks_:
   When thread blocks, thread is returned back to thread pool and reassigned on call-back functions. This however led to problems like call-back hell.
-
 - _Reactive (Rx)_:
   Using the Observer Pattern, Reactive paradigms doesn't suffer from call-backs, however had its own problem of composing streams and the huge learning curve behind it.
-
 - _Coroutines_:
   Coroutines paradigm take a different approach where the language provides its own building blocks of the program with something called Coroutines.
   Each Coroutine call will suspend the caller Coroutine until it finishes, but never blocks the thread underneath so that the thread can immediately start executing other Coroutines.
@@ -54,7 +52,6 @@ When using locks, it's easy to write code that contain Deadlocks.
 Here are some generic remedies.
 
 - *Prevent* it from happening by using timeouts when acquiring locks.
-
 - *Detect-and-cure* by maintaining a dependency graph for threads and periodically check cycles.
 
 However, careful use of locks must be practiced before relying on generic remedies.
@@ -62,7 +59,6 @@ However, careful use of locks must be practiced before relying on generic remedi
 There are other paradigms to avoid race conditions, however it's only worth just mentioning it to the interviewer to demonstrate your knowledge of options.
 
 - Actors
-
 - Purely Functional Programming
 
 ```python
@@ -100,79 +96,58 @@ Before going into each isolation level, here is a small glossary.
 
 - _Query_:
   Single database operation
-
 - _Transaction_:
   Entire transaction that may be composed of several _Queries_
 
 #### Read Committed (Using Locks)
 
 - No dirty read / writes (all other committed transactions are shown during current transaction).
-
-    - Readers and writer block each other by using single lock to a row during the *query*.
-
-    - Phantoms may show in read-only queries during transaction (read-skew).
-
-    - Phantoms may show in series of read-modify-write queries during transaction (write-skew).
-
+  - Readers and writer block each other by using single lock to a row during the *query*.
+  - Phantoms may show in read-only queries during transaction (read-skew).
+  - Phantoms may show in series of read-modify-write queries during transaction (write-skew).
 - Lost updates can happen on read-modify-and-write (race condition).
-
-    - Need to use either lock (Pessimistic Concurrency Control) or compare-and-set (Optimistic Concurrency Control) on the row(s) in the write *query* (and error-prone) during the transaction.
-      When using compare-and-set, high contention towards the same row can lead to a lot of transaction restarts.
+  - Need to use either lock (Pessimistic Concurrency Control) or compare-and-set (Optimistic Concurrency Control) on the row(s) in the write *query* (and error-prone) during the transaction.
+    When using compare-and-set, high contention towards the same row can lead to a lot of transaction restarts.
 
 #### Read Committed (Using MVCC)
 
 - No dirty read / writes (all other committed transactions are shown during current transaction).
-
-    - Readers do not block writer and writer does not block readers.
-      Implementation may differ based on using (Pessimistic Concurrency Control) or compare-and-set (Optimistic Concurrency Control).
-
-    - Phantoms may show in read-only queries during transaction (read-skew).
-
-    - Phantoms may show in series of read-modify-write queries during transaction (write-skew).
-
+  - Readers do not block writer and writer does not block readers.
+    Implementation may differ based on using (Pessimistic Concurrency Control) or compare-and-set (Optimistic Concurrency Control).
+  - Phantoms may show in read-only queries during transaction (read-skew).
+  - Phantoms may show in series of read-modify-write queries during transaction (write-skew).
 - Lost updates can happen on read-modify-and-write (race condition).
-
-    - Need to use either lock (Pessimistic Concurrency Control) or compare-and-set (Optimistic Concurrency Control) on the row(s) in the write *query* (and error-prone) during the transaction.
-      When using compare-and-set, high contention towards the same row can lead to a lot of transaction restarts.
+  - Need to use either lock (Pessimistic Concurrency Control) or compare-and-set (Optimistic Concurrency Control) on the row(s) in the write *query* (and error-prone) during the transaction.
+    When using compare-and-set, high contention towards the same row can lead to a lot of transaction restarts.
 
 #### Snapshot Isolation (Using MVCC)
 
 - No dirty read / writes (only rows of committed transactions before the current transaction are shown).
-
-    - Readers do not block writer and writer does not block readers.
-      Implementation may differ based on using (Pessimistic Concurrency Control) or compare-and-set (Optimistic Concurrency Control).
-
-    - Phantoms *do not* show in read-only queries during transaction (read-skew).
-
-    - Phantoms may show in some read-modify-write queries during transaction (write-skew).
-
+  - Readers do not block writer and writer does not block readers.
+    Implementation may differ based on using (Pessimistic Concurrency Control) or compare-and-set (Optimistic Concurrency Control).
+  - Phantoms *do not* show in read-only queries during transaction (read-skew).
+  - Phantoms may show in some read-modify-write queries during transaction (write-skew).
 - Lost updates can happen on read-modify-and-write (race condition).
-
-    - Need to use either lock (Pessimistic Concurrency Control) or compare-and-set (Optimistic Concurrency Control) on the row(s) in the write *query* (and error-prone) during the transaction.
-      When using compare-and-set, high contention towards the same row can lead to a lot of transaction restarts.
+  - Need to use either lock (Pessimistic Concurrency Control) or compare-and-set (Optimistic Concurrency Control) on the row(s) in the write *query* (and error-prone) during the transaction.
+    When using compare-and-set, high contention towards the same row can lead to a lot of transaction restarts.
 
 #### Serialized (Pessimistic Concurrency Control in transaction level)
 
 - No dirty read / writes (other transactions *cannot* happen in parallel), lost updates, phantoms.
-
-    - Readers and writer both block each other by using single lock to a row during the *transaction* (Notice the different from Read Committed, that it's the entire *transaction*).
-      Most widely known locks are 'Two-Phase Lock (2PL)', 'Predicate Lock' and 'Index-Range Lock'. They all suffer from performance penalty due to locks.
+  - Readers and writer both block each other by using single lock to a row during the *transaction* (Notice the different from Read Committed, that it's the entire *transaction*).
+    Most widely known locks are 'Two-Phase Lock (2PL)', 'Predicate Lock' and 'Index-Range Lock'. They all suffer from performance penalty due to locks.
 
 #### Serializable Snapshot Isolation (Optimistic Concurrency Control in transaction level)
 
 - No dirty read / writes (other transactions *can* happen in parallel), lost updates, phantoms.
-
-    - Implements special algorithm that detects all other affected transactions when write is committed during the transaction (and potentially restart them).
-
-    - High contention towards the same row can lead to a lot of transaction restarts.
+  - Implements special algorithm that detects all other affected transactions when write is committed during the transaction (and potentially restart them).
+  - High contention towards the same row can lead to a lot of transaction restarts.
 
 # Remarks on Concurrency and Parallelism
 
 It's best to combine both asynchronous and parallel programming for optimizations.
 For example,
-
 - If your application is mostly waiting on IO (disk access, network etc), concurrency will be enough however, you'd want to minimize thread waiting time through asynchronous programming.
-
 - If your application is composed of tasks are not overlapping in general, parallel programming can be a boon.
 
 Modern web applications are a good example of mix-of-both, where each request is served in parallel however, each thread does not block on IO.

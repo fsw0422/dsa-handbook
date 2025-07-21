@@ -56,11 +56,8 @@ def bottom_k(nums: list[int], k: int) -> list[int]:
 ```
 
 Keep in mind that there is no point using Heap if you just throw all elements in it to find the top-K / bottom-K elements since it has no benefit over sort-and-iterate in terms of time / space complexity. Key is to keep the Heap size as 'K' by removing the next value after inserting a new element.
-
-[LeetCode 215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array)
+- [LeetCode 215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array)
 
 Oftentimes, Heaps are used for quick access, update of min / max values while iterating a list.
-
-[LeetCode 253. Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii)
-
-[LeetCode 1438. Longest Continuous Subarray with Absolute Diff Less Than or Equal to Limit](https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit)
+- [LeetCode 253. Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii)
+- [LeetCode 1438. Longest Continuous Subarray with Absolute Diff Less Than or Equal to Limit](https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit)

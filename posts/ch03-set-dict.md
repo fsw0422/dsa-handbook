@@ -90,16 +90,12 @@ Counter(['banana', 'orange', 'apple', 'apple']) # {'banana': 1, 'orange': 1, 'ap
 Counter('hello') # {'h': 1, 'e': 1, 'l': 2, 'o': 1}
 ```
 
-- Make sure you understand how Set / Dictionary works internally.
+Make sure you understand how Set / Dictionary works internally.
+- [LeetCode 705. Design HashSet](https://leetcode.com/problems/design-hashset)
+- [LeetCode 706. Design HashMap](https://leetcode.com/problems/design-hashmap)
 
-    [LeetCode 705. Design HashSet](https://leetcode.com/problems/design-hashset)
+Set / Dictionary often comes as supporting data structure of a main data structure for optimization purpose (mostly for List / String in interviews).
+- [LeetCode 1. Two Sum](https://leetcode.com/problems/two-sum)
+- [LeetCode 125. Valid Palindrome](https://leetcode.com/problems/valid-palindrome)
 
-    [LeetCode 706. Design HashMap](https://leetcode.com/problems/design-hashmap)
-
-- Set / Dictionary often comes as supporting data structure of a main data structure for optimization purpose (mostly for List / String in interviews).
-
-    [LeetCode 1. Two Sum](https://leetcode.com/problems/two-sum)
-
-    [LeetCode 125. Valid Palindrome](https://leetcode.com/problems/valid-palindrome)
-
-- Set / Dictionary is used to represent Graphs (covered later) and mark visited nodes
+Set / Dictionary is also used to represent Graphs (covered later) and mark visited nodes.

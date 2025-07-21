@@ -6,10 +6,8 @@ However, primary ones that are most used are
 
 - `bool`:
   Either `True` or `False`.
-
 - `int`:
   Has infinite precision, meaning it can hold very large number that is bound to system memory (`2^63-1` for 64-bit system).
-
 - `float`:
   Does not have infinite precision (follows _IEEE 754 Floating-Point-Standard_).
 
@@ -36,8 +34,7 @@ num = (num >> (n - 1)) & 1 # Get 'n'th bit
 num = num | (1 << n) # Sets the 'n'th bit to 1
 num = num & ~(1 << n) # Sets the 'n'th bit to 0
 ```
-
-[LetCode 191. Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits)
+- [LetCode 191. Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits)
 
 # Math
 
@@ -75,6 +72,5 @@ random.shuffle([1, 3, 2, 4]) # In-place shuffles the list
 random.choice([1, 3, 2, 4]) # Random single item from list
 ```
 
-[LeetCode 50. Pow(x, n)](https://leetcode.com/problems/powx-n)
-
-[LeetCode 204. Count Primes](https://leetcode.com/problems/count-primes)
+- [LeetCode 50. Pow(x, n)](https://leetcode.com/problems/powx-n)
+- [LeetCode 204. Count Primes](https://leetcode.com/problems/count-primes)

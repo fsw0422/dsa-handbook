@@ -84,31 +84,6 @@ Others
 tuple([1, 2, 3]) # (1, 2, 3) (You can use 'tuple' as immutable list. All operations that can be applied are identical to a normal 'list')
 zip([1, 2, 3], ['zebra', 'tiger', 'giraffe']) # TC: O(1) - (1, 'zebra'), (2, 'tiger'), (3, 'giraffe') (You can also feed an iterator instead of a list as parameter)
 enumerate([1, 2, 3]) # TC: O(1) - (0, 1), (1, 2), (2, 3) (Useful when you need to map value -> index. You can also feed an iterator instead of a list as parameter)
-
-"""
-In interviews, there are rarely cases where you will need to define a custom class over primary type
-However just in case you need to, here is an example of a 'Contact' class
-"""
-class Contact:
-
-    def __init__(self, name: str, age: int):
-        self.name = name
-        self.age = age
-
-    def __hash__(self) -> int:
-        # Hash function that is used for data structures like 'set' / 'dict' to determine the equality
-        return hash((self.name, self.age))
-
-    def __eq__(self, other: 'Contact') -> bool: # When self-referencing class within class, it should be double-quoted
-        # Used when '==' or 'sort()'
-        return self.name == other.name and self.age == other.age
-
-    def __lt__(self, other: 'Contact') -> bool:
-        # Used when '<' or '>' or 'sort()'
-        return (self.name, self.age) < (other.name, other.age)
-
-    def __repr__(self) -> str:
-        return f'Contact(name={self.name}, age={self.age})'
 ```
 
 # String

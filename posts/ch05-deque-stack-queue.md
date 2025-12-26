@@ -17,7 +17,7 @@ deq = deque([1, 2, 3])
 deq.append(4) # TC: O(1) - [1, 2, 3, 4]
 deq.appendleft(0) # TC: O(1) - [0, 1, 2, 3, 4]
 deq.pop() # TC: O(1) - 4, [0, 1, 2, 3]
-deq.popleft() # TC: O(1) - 0, [1, 2, 2]
+deq.popleft() # TC: O(1) - 0, [1, 2, 3]
 
 """
 Queue

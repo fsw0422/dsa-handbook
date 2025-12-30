@@ -131,9 +131,15 @@ str_.endswith('Suffix') # TC: O(S) - True
 """
 Stringify
 """
-str(0.2) # '0.2'
 str(1) # '1'
+str(0.2) # '0.2'
 str([1, 2, 3]) # '123'
+
+"""
+Numberify
+"""
+int('23') # 23 (int)
+float('3.14') # 3.14 (float)
 
 """
 Others

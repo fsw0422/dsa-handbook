@@ -49,9 +49,6 @@ Basic Operations
 abs(-1) # 1
 max(5, 3) # 5
 min(5, 3) # 3
-str(23) # '23' (str)
-int('23') # 23 (int)
-float('3.14') # 3.14 (float)
 
 """
 Additional math functions

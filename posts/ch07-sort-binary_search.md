@@ -23,17 +23,11 @@ However, due to its penalty in time complexity, improved algorithms like below a
       Stable sorting algorithm (elements with same key preserves ordering) using Divide and Conquer technique.
       The divide step is implemented in simple recursion top-down, while the merge step merge the split 2 lists bottom-up.
   
-      Merge sort is NOT an in-place algorithm as it allocates additional space through recursion
-  
       TC: O(N*logN)
       SC: O(N)
       """
 
       def merge(lo: List[int], hi: List[int]):
-          """
-          We re-use the input list for sorted result, however this is not in-place sort, as we slice list in half and create copy on every recursion
-          """
-  
           i, j, k = 0, 0, 0
 
           while i < len(lo) and j < len(hi):
@@ -83,9 +77,6 @@ However, due to its penalty in time complexity, improved algorithms like below a
       """
       Unstable sorting algorithm (elements with same key does NOT preserve ordering) using Divide and Conquer technique
       Most widely adapted sorting algorithm due to its performance
-  
-      Quick sort is NOT an in-place algorithm as it allocates additional space through recursion
-      Please do not confuse since input list is modified
   
       TC: O(N*logN)
       SC: O(logN)

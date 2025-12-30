@@ -24,7 +24,8 @@ list_ = [1, 6, 9, 7]
 list_.append(3) # TC: Amortized O(1) - [1, 6, 9, 7, 3]
 list_.insert(2, 1) # TC: O(N) - [1, 6, 1, 9, 7, 3] (If index is out-of-bounds towards lowest index, it will insert in first index. If index is out-of-bounds towards highest index, it will append to end of list)
 list_.remove(1) # TC: O(N) - [6, 1, 9, 7, 3] (If value does not exist, raises 'ValueError')
-first = list_[1]  # TC: O(1) - 1
+value_of_3rd_index = list_[2]  # TC: O(1) - 9 (index starts from 0)
+value_of_last_index = list_[-1]  # TC: O(1) - 3
 
 len(list_) # TC: O(1) - 3
 min(list_) # TC: O(N) - 9 (We mostly care about numbers, as elements in interviews)

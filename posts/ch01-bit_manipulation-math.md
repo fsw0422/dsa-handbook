@@ -46,6 +46,13 @@ import random
 """
 Basic Operations
 """
+1 + 2 # 3
+5 - 2 # 3
+3 * 4 # 12
+7 / 2 # 3.5
+7 // 2 # 3 - quotient
+7 % 2 # 1 - remainder
+
 abs(-1) # 1
 max(5, 3) # 5
 min(5, 3) # 3
@@ -53,8 +60,8 @@ min(5, 3) # 3
 """
 Additional math functions
 """
-math.ceil(3.12) # 4 (int)
-math.floor(3.12) # 3 (int)
+math.ceil(3.12) # 4
+math.floor(3.12) # 3
 math.sqrt(9) # 3
 math.inf # float('Inf')
 -math.inf # float(-'Inf')

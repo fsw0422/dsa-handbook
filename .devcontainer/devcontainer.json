@@ -1,0 +1,23 @@
+{
+  "name": "dsa-handbook",
+  "build": {
+    "context": "..",
+    "dockerfile": "../Dockerfile"
+  },
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/ubuntu/.ssh,type=bind,readonly",
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.zshrc,target=/home/ubuntu/.zshrc,type=bind,readonly",
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=/home/ubuntu/.gitconfig,type=bind,readonly"
+  ],
+  "shutdownAction": "stopContainer",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "configureZshAsDefaultShell": true
+    }
+  },
+  "remoteUser": "ubuntu",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/home/ubuntu/dsa-handbook,type=bind",
+  "workspaceFolder": "/home/ubuntu/dsa-handbook",
+  // Waiting for devcontainer extension for customization feature https://github.com/devcontainers/spec/issues/22#event-20876902965
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y pandoc texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended && if [ -f .devcontainer/setup-custom-dev-env.sh ]; then sh .devcontainer/setup-custom-dev-env.sh; fi"
+}

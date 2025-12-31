@@ -4,3 +4,5 @@ venv/
 .envrc
 *.swp
 *.swo
+.devcontainer/setup-custom-dev-env.sh
+pdf_output/

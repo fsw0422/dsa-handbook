@@ -7,12 +7,12 @@
 - _Depth_ and _Height_:
   Height starts from Leaf Node, Depth starts from Root Node, thus **height of a tree == maximum depth of subtree**.
 
-  ![image](/images/binary_tree/height_depth.png)
+  ![image](../images/binary_tree/height_depth.png)
 
   - [LeetCode 110. Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree)
 - Various strains of Binary Trees.
 
-  ![image](/images/binary_tree/variants.png)
+  ![image](../images/binary_tree/variants.png)
 
   Heap and Binary Search Tree are Complete Binary Tree.
   Perfect Binary Tree contains `2^(h + 1) + 1` nodes and `2^h` Leaf Nodes.

@@ -8,11 +8,12 @@ You will encounter in most part, 2 kinds of questions for Linked List in intervi
   ```python
   ...
   
+  from __future__ import annotations
   from typing import Any
   
   class ListNode:
       
-      def __init__(self, val: Any, next_: 'ListNode'):
+      def __init__(self, val: Any, next_: ListNode):
           self.val = val
           self.next = next_
   ```
@@ -23,11 +24,12 @@ You will encounter in most part, 2 kinds of questions for Linked List in intervi
   ```python
   ...
   
+  from __future__ import annotations
   from typing import Any
   
   class ListNode:
       
-      def __init__(self, val: Any, prev: 'ListNode', next_: 'ListNode'):
+      def __init__(self, val: Any, prev: ListNode, next_: ListNode):
           self.val = val
           self.next = next_
           self.prev = prev

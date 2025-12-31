@@ -24,7 +24,8 @@ Almost all Binary Tree problems are given a Root Node that represents the tree, 
 ```python
 ...
 
-from typing import Any, List
+from __future__ import annotations
+from typing import Any, List, Optional
 from collections import deque
 
 
@@ -37,7 +38,7 @@ SC: O(logN)
 
 class TreeNode:
 
-    def __init__(self, val: Any, left: Optional['TreeNode'], right: Optional['TreeNode']):
+    def __init__(self, val: Any, left: Optional[TreeNode], right: Optional[TreeNode]):
         self.val = val
         self.left = left
         self.right = right

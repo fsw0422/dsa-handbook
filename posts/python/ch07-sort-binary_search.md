@@ -84,9 +84,9 @@ However, due to their time-complexity penalty, improved algorithms like below ar
   
       def sort(lo: int, hi: int):
   
-          def hoare_partition(lo: int, hi: int) -> int:
-              i, j = lo - 1, hi + 1
-              piv = nums[lo]
+          def hoare_partition(_lo: int, _hi: int) -> int:
+              i, j = _lo - 1, _hi + 1
+              piv = nums[_lo]
               while True:
                   i += 1
                   while nums[i] < piv:
@@ -99,14 +99,14 @@ However, due to their time-complexity penalty, improved algorithms like below ar
                   nums[i], nums[j] = nums[j], nums[i]
               return j
   
-          def lomuto_partition(lo: int, hi: int) -> int:
-              piv = nums[hi]
-              i = lo
-              for j in range(lo, hi):
+          def lomuto_partition(_lo: int, _hi: int) -> int:
+              piv = nums[_hi]
+              i = _lo
+              for j in range(_lo, _hi):
                   if nums[j] <= piv:
                       nums[i], nums[j] = nums[j], nums[i]
                       i += 1
-              nums[i], nums[hi] = nums[hi], nums[i]
+              nums[i], nums[_hi] = nums[_hi], nums[i]
               return i
   
           if lo >= hi:

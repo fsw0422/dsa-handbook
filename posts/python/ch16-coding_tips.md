@@ -114,7 +114,7 @@
   rng[START]
   rng[END]
   ```
-- When a nested function has the same name as the outer function, prepend '\_'.
+- When a nested function parameter has the same name as an outer function parameter, prepend '\_'.
 
   ```python
   ...

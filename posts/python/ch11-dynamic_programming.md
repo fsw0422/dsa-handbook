@@ -41,17 +41,17 @@ Let's revisit Fibonacci sequence calculation to see how Dynamic Programming can 
   
       memo = [-1 for _ in range(num + 1)]
   
-      def dfs(n: int) -> int:
-          if n == 0:
+      def dfs(_num: int) -> int:
+          if _num == 0:
               return 0
-          if n == 1:
+          if _num == 1:
               return 1
   
-          if memo[n] != -1:
-              return memo[n]
+          if memo[_num] != -1:
+              return memo[_num]
   
-          memo[n] = dfs(n - 1) + dfs(n - 2)
-          return memo[n]
+          memo[_num] = dfs(_num - 1) + dfs(_num - 2)
+          return memo[_num]
   
       return dfs(num)
   ```

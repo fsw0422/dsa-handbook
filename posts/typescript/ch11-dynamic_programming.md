@@ -41,14 +41,14 @@ Let's revisit Fibonacci sequence calculation to see how Dynamic Programming can 
 
         const memo: number[] = new Array(num + 1).fill(-1);
 
-        function dfs(n: number): number {
-            if (n === 0) return 0;
-            if (n === 1) return 1;
+        function dfs(_num: number): number {
+            if (_num === 0) return 0;
+            if (_num === 1) return 1;
 
-            if (memo[n] !== -1) return memo[n];
+            if (memo[_num] !== -1) return memo[_num];
 
-            memo[n] = dfs(n - 1) + dfs(n - 2);
-            return memo[n];
+            memo[_num] = dfs(_num - 1) + dfs(_num - 2);
+            return memo[_num];
         }
 
         return dfs(num);

@@ -83,9 +83,9 @@ However, due to their time-complexity penalty, improved algorithms like below ar
 
       function sort(lo: number, hi: number): void {
 
-          function hoarePartition(lo: number, hi: number): number {
-              let i = lo - 1, j = hi + 1;
-              const piv = nums[lo];
+          function hoarePartition(_lo: number, _hi: number): number {
+              let i = _lo - 1, j = _hi + 1;
+              const piv = nums[_lo];
               while (true) {
                   i++;
                   while (nums[i] < piv) i++;
@@ -97,16 +97,16 @@ However, due to their time-complexity penalty, improved algorithms like below ar
               return j;
           }
 
-          function lomutoPartition(lo: number, hi: number): number {
-              const piv = nums[hi];
-              let i = lo;
-              for (let j = lo; j < hi; j++) {
+          function lomutoPartition(_lo: number, _hi: number): number {
+              const piv = nums[_hi];
+              let i = _lo;
+              for (let j = _lo; j < _hi; j++) {
                   if (nums[j] <= piv) {
                       [nums[i], nums[j]] = [nums[j], nums[i]];
                       i++;
                   }
               }
-              [nums[i], nums[hi]] = [nums[hi], nums[i]];
+              [nums[i], nums[_hi]] = [nums[_hi], nums[i]];
               return i;
           }
 

@@ -1,74 +1,114 @@
 # Heap
 
-We will be using [@datastructures-js/heap](https://datastructures-js.info/docs/heap) which provides performant, type-safe `MinHeap` and `MaxHeap` implementations.
+TypeScript does not have a built-in heap. Below is a minimal MinHeap implementation for interview use.
 
 ```typescript
 ...
 
-import { MinHeap, MaxHeap, Heap } from '@datastructures-js/heap';
+class MinHeap<T> {
+    private heap: T[] = []
 
+    constructor(
+        private compare: (a: T, b: T) => number = (a: any, b: any) => a - b
+    ) {}
 
-/**
- * Basic Operations
- */
-const hp = new MinHeap<number>(null, [1, 4, 2, 5, 3]); // TC: O(N) => Auto-heapified
-hp.push(0); // TC: O(logN) - pushes 0
-hp.extractRoot(); // TC: O(logN) - removes and returns smallest => also aliased as `.pop()`
-hp.root(); // TC: O(1) - returns smallest without removing
-hp.size(); // TC: O(1)
-hp.isEmpty(); // TC: O(1)
+    get size(): number { return this.heap.length }
 
-// MaxHeap for primitives
-const maxHp = new MaxHeap<number>(null, [1, 4, 2, 5, 3]); // TC: O(N) - Auto-heapified
-maxHp.root(); // TC: O(1) - Returns: 5
+    peek(): T | undefined { return this.heap[0] }
 
-// Custom Heap with compare function (for objects or custom ordering)
-const customHp = new Heap<{ id: number; val: number }>(
-    (a, b) => a.val - b.val // min heap by 'val'
-);
+    push(val: T): void {
+        this.heap.push(val)
+        this.bubbleUp(this.heap.length - 1)
+    }
 
-/**
- * Top / Bottom K
- *
- * TC: O(N * logK)
- * SC: O(K)
- */
-function topK(nums: number[], k: number): number[] {
-    /**
-    * Uses min heap, so that every time the heap is full, we pop the smallest element
-     */
-    const minHp = new MinHeap<number>();
-    for (const num of nums) {
-        minHp.push(num);
-        if (minHp.size() > k) {
-            minHp.pop();
+    pop(): T | undefined {
+        if (this.heap.length === 0) return undefined
+        const top = this.heap[0]
+        const last = this.heap.pop()!
+        if (this.heap.length > 0) {
+            this.heap[0] = last
+            this.sinkDown(0)
+        }
+        return top
+    }
+
+    private bubbleUp(i: number): void {
+        while (i > 0) {
+            const par = Math.floor((i - 1) / 2)
+            if (this.compare(this.heap[i], this.heap[par]) >= 0) break
+            ;[this.heap[i], this.heap[par]] = [this.heap[par], this.heap[i]]
+            i = par
         }
     }
 
-    const res: number[] = [];
-    while (!minHp.isEmpty()) {
-        res.push(minHp.pop()!);
+    private sinkDown(i: number): void {
+        const n = this.heap.length
+        while (true) {
+            let smallest = i
+            const l = 2 * i + 1
+            const r = 2 * i + 2
+            if (l < n && this.compare(this.heap[l], this.heap[smallest]) < 0) smallest = l
+            if (r < n && this.compare(this.heap[r], this.heap[smallest]) < 0) smallest = r
+            if (smallest === i) break
+            ;[this.heap[i], this.heap[smallest]] = [this.heap[smallest], this.heap[i]]
+            i = smallest
+        }
     }
-    return res;
 }
 
-function bottomK(nums: number[], k: number): number[] {
-    /**
-    * Uses max heap, so that every time the heap is full, we pop the largest element
-     */
-    const maxHp = new MaxHeap<number>();
+/*
+Basic Operations
+*/
+const hp = new MinHeap<number>()
+for (const num of [1, 4, 2, 5, 3]) hp.push(num) // TC: O(N * logN) to build by repeated insertion. O(N) heapify can be implemented separately
+hp.push(0) // TC: O(logN)
+hp.pop() // TC: O(logN)
+hp.peek() // TC: O(1)
+
+/*
+For Max Heap, pass a reversed comparator
+*/
+const maxHp = new MinHeap<number>((a, b) => b - a)
+
+/*
+Top / Bottom K
+
+TC: O(N * logK)
+SC: O(K)
+*/
+function topK(nums: number[], k: number): number[] {
+    // Uses min heap, so that every time the heap is full, we pop the smallest element
+    const minHp = new MinHeap<number>()
     for (const num of nums) {
-        maxHp.push(num);
-        if (maxHp.size() > k) {
-            maxHp.pop();
+        minHp.push(num)
+        if (minHp.size > k) {
+            minHp.pop()
         }
     }
 
-    const res: number[] = [];
-    while (!maxHp.isEmpty()) {
-        res.push(maxHp.pop()!);
+    const res: number[] = []
+    while (minHp.size > 0) {
+        res.push(minHp.pop()!)
     }
-    return res;
+    return res
+}
+
+
+function bottomK(nums: number[], k: number): number[] {
+    // Uses max heap, so that every time the heap is full, we pop the largest element
+    const maxHp = new MinHeap<number>((a, b) => b - a)
+    for (const num of nums) {
+        maxHp.push(num)
+        if (maxHp.size > k) {
+            maxHp.pop()
+        }
+    }
+
+    const res: number[] = []
+    while (maxHp.size > 0) {
+        res.push(maxHp.pop()!)
+    }
+    return res
 }
 ```
 

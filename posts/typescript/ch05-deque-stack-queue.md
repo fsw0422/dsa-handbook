@@ -1,44 +1,88 @@
 # Deque / Stack / Queue
 
-We will be using [@datastructures-js](https://datastructures-js.info/) packages which provide performant, type-safe implementations with O(1) operations across the board (unlike raw arrays where `shift`/`unshift` are O(N)).
+TypeScript does not have a built-in deque. Arrays can be used for Stack (efficient `push`/`pop`) and Queue (though `shift` is O(N)).
+For performance-critical Queue/Deque implementations, a doubly-linked list or circular buffer should be used.
+
+We will be using Arrays for both Stack / Queue as they contain all operations needed for interview purposes.
 
 ```typescript
 ...
 
-import { Deque } from '@datastructures-js/deque';
-import { Queue } from '@datastructures-js/queue';
-import { Stack } from '@datastructures-js/stack';
+/*
+Queue - Allocation & Basic Operations
 
+For interview purposes, using an array with 'push' and 'shift' is acceptable.
+Note: 'shift()' is O(N). For true O(1) dequeue, implement a linked-list-based queue.
+*/
+const que: number[] = [1, 2, 3]
+que.push(4) // TC: O(1) - State: [1, 2, 3, 4] => Enqueue
+que.shift() // TC: O(N) - Returns: 1, State: [2, 3, 4] => Dequeue
+que[0] // TC: O(1) - Returns: 2 => Front
 
-/**
- * Deque - Allocation & Basic Operations
- */
-const deq = new Deque<number>([1, 2, 3]);
-deq.pushBack(4); // TC: O(1) - State: [1, 2, 3, 4]
-deq.pushFront(0); // TC: O(1) - State: [0, 1, 2, 3, 4]
-deq.popBack(); // TC: O(1) - Returns: 4, State: [0, 1, 2, 3]
-deq.popFront(); // TC: O(1) - Returns: 0, State: [1, 2, 3]
-deq.front(); // TC: O(1) - Returns: 1
-deq.back(); // TC: O(1) - Returns: 3
+if (que.length > 0) { ... } // If queue is not empty => Mostly used in queues as items are added / removed frequently
+while (que.length > 0) { ... } // While queue is not empty => Mostly used in queues as items are added / removed frequently
 
-if (!deq.isEmpty()) { ... } // TC: O(1) - If deque is not empty => Mostly used in stacks or queues or deque as items are added / removed frequently
-while (!deq.isEmpty()) { ... } // TC: O(N) - While deque is not empty => Mostly used in stacks or queues or deque as items are added / removed frequently
+/*
+Stack - Allocation & Basic Operations
+*/
+const stk: number[] = [1, 2, 3]
+stk.push(4) // TC: O(1) - State: [1, 2, 3, 4] => Push
+stk.pop() // TC: O(1) - Returns: 4, State: [1, 2, 3] => Pop
+stk[stk.length - 1] // TC: O(1) - Returns: 3 => Peek
+stk.at(-1) // TC: O(1) - Returns: 3 => Peek (alternative)
 
-/**
- * Queue - Allocation & Basic Operations
- */
-const que = new Queue<number>([1, 2, 3]);
-que.enqueue(4); // TC: O(1) - State: [1, 2, 3, 4]
-que.dequeue(); // TC: O(1) Amortized - Returns: 1, State: [2, 3, 4]
-que.front(); // TC: O(1) - Returns: 2
+if (stk.length > 0) { ... } // If stack is not empty
+while (stk.length > 0) { ... } // While stack is not empty
 
-/**
- * Stack - Allocation & Basic Operations
- */
-const stk = new Stack<number>([1, 2, 3]);
-stk.push(4); // TC: O(1) - State: [1, 2, 3, 4]
-stk.pop(); // TC: O(1) - Returns: 4, State: [1, 2, 3]
-stk.peek(); // TC: O(1) - Returns: 3
+/*
+Deque - Using a simple linked-list-based implementation for O(1) operations on both ends
+*/
+class Deque<T> {
+    private head: { val: T, prv: any, nxt: any } | null = null
+    private tail: { val: T, prv: any, nxt: any } | null = null
+    private _size: number = 0
+
+    get size(): number { return this._size }
+
+    pushBack(val: T): void {
+        const node = { val, prv: this.tail, nxt: null }
+        if (this.tail) this.tail.nxt = node
+        else this.head = node
+        this.tail = node
+        this._size++
+    }
+
+    pushFront(val: T): void {
+        const node = { val, prv: null, nxt: this.head }
+        if (this.head) this.head.prv = node
+        else this.tail = node
+        this.head = node
+        this._size++
+    }
+
+    popBack(): T | undefined {
+        if (!this.tail) return undefined
+        const val = this.tail.val
+        this.tail = this.tail.prv
+        if (this.tail) this.tail.nxt = null
+        else this.head = null
+        this._size--
+        return val
+    }
+
+    popFront(): T | undefined {
+        if (!this.head) return undefined
+        const val = this.head.val
+        this.head = this.head.nxt
+        if (this.head) this.head.prv = null
+        else this.tail = null
+        this._size--
+        return val
+    }
+
+    peekFront(): T | undefined { return this.head?.val }
+    peekBack(): T | undefined { return this.tail?.val }
+}
 ```
 
 Deque can contain the snapshot of sliding window.

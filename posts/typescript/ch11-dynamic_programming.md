@@ -8,97 +8,100 @@ Let's revisit Fibonacci sequence calculation to see how Dynamic Programming can 
 
 - DFS without cache
 
-    ```typescript
-    ...
+  ```typescript
+  ...
 
-    function fib(num: number): number {
-        /**
-         * TC: O(2^N)
-         * SC: O(N)
-         *
-         * Constraint: 0 <= num <= 45
-         */
+  function fib(num: number): number {
+      /*
+      TC: O(2^N)
+      SC: O(N)
 
-        if (num <= 1) return num;
+      Constraint: 0 <= num <= 45
+      */
 
-        return fib(num - 1) + fib(num - 2);
-    }
-    ```
+      if (num <= 1) return num
+
+      return fib(num - 1) + fib(num - 2)
+  }
+  ```
 - Memoization (DFS with cache)
 
-    ```typescript
-    ...
+  ```typescript
+  ...
 
-    function fibMemoized(num: number): number {
-        /**
-         * Starts from the original problem and descends toward the base-case (hence top-down approach)
-         *
-         * TC: O(N)
-         * SC: O(N)
-         *
-         * Constraint: 0 <= num <= 45
-         */
+  function fibMemoized(num: number): number {
+      /*
+      Starts from the original problem and descends toward the base-case (hence top-down approach)
 
-        const memo: number[] = new Array(num + 1).fill(-1);
+      TC: O(N)
+      SC: O(N)
 
-        function dfs(_num: number): number {
-            if (_num === 0) return 0;
-            if (_num === 1) return 1;
+      Constraint: 0 <= num <= 45
+      */
 
-            if (memo[_num] !== -1) return memo[_num];
+      const memo: number[] = new Array(num + 1).fill(-1)
 
-            memo[_num] = dfs(_num - 1) + dfs(_num - 2);
-            return memo[_num];
-        }
+      function dfs(_num: number): number {
+          if (_num === 0) return 0
+          if (_num === 1) return 1
 
-        return dfs(num);
-    }
-    ```
+          if (memo[_num] !== -1) return memo[_num]
+
+          memo[_num] = dfs(_num - 1) + dfs(_num - 2)
+          return memo[_num]
+      }
+
+      return dfs(num)
+  }
+  ```
 - Tabulation
 
-    ```typescript
-    ...
+  ```typescript
+  ...
 
-    function fibTabulation(num: number): number {
-        /**
-         * Starts from the base-case and ascends toward the original problem (hence bottom-up approach)
-         *
-         * TC: O(N)
-         * SC: O(N)
-         *
-         * Constraint: 0 <= num <= 45
-         */
+  function fibTabulation(num: number): number {
+      /*
+      Starts from the base-case and ascends toward the original problem (hence bottom-up approach)
 
-        if (num <= 1) return num;
+      TC: O(N)
+      SC: O(N)
 
-        const dp: number[] = new Array(num + 1).fill(-1);
+      Constraint: 0 <= num <= 45
+      */
 
-        dp[0] = 0;
-        dp[1] = 1;
-        for (let i = 2; i <= num; i++) {
-            dp[i] = dp[i - 1] + dp[i - 2];
-        }
-        return dp[num];
-    }
+      if (num <= 1) return num
 
-    function fibTabulationSpaceOptimized(num: number): number {
-        /**
-         * TC: O(N)
-         * SC: O(1)
-         *
-         * Constraint: 0 <= num <= 45
-         */
+      const dp: number[] = new Array(num + 1).fill(-1)
 
-        if (num <= 1) return num;
+      dp[0] = 0
+      dp[1] = 1
+      for (let i = 2; i <= num; i++) {
+          dp[i] = dp[i - 1] + dp[i - 2]
+      }
+      return dp[num]
+  }
 
-        let prv = 0;
-        let cur = 1;
-        for (let i = 2; i <= num; i++) {
-            [prv, cur] = [cur, cur + prv]; // This line is not sequential. Left-side 'prv' and right-side 'prv' is same value
-        }
-        return cur;
-    }
-    ```
+
+  function fibTabulationSpaceOptimized(num: number): number {
+      /*
+      TC: O(N)
+      SC: O(1)
+
+      Constraint: 0 <= num <= 45
+      */
+
+      if (num <= 1) return num
+
+      let prv = 0
+      let cur = 1
+      for (let i = 2; i <= num; i++) {
+          const tmp = cur
+          cur = cur + prv
+          prv = tmp
+      }
+      return cur
+  }
+  ```
 - Recurrence Relation problems:
   Recurrence Relation problems are classic problems that can be optimally solved with Dynamic Programming.
   - [LeetCode 70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs)
@@ -112,8 +115,8 @@ Let's revisit Fibonacci sequence calculation to see how Dynamic Programming can 
   - [LeetCode 121. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock)
   - [LeetCode 238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self)
 - Backtracking problems:
-Backtracking problems can be solved optimally with Dynamic Programming however, if constraints get complicated, it's not easy to identify overlapping subproblems.
-In most cases, Backtracking solution will be enough to pass the interview however, there are some Backtracking problems where overlapping subproblems are easier to identify, thus can be further optimized with Dynamic Programming.
+  Backtracking problems can be solved optimally with Dynamic Programming however, if constraints get complicated, it's not easy to identify overlapping subproblems.
+  In most cases, Backtracking solution will be enough to pass the interview however, there are some Backtracking problems where overlapping subproblems are easier to identify, thus can be further optimized with Dynamic Programming.
   - [LeetCode 55. Jump Game](https://leetcode.com/problems/jump-game)
   - [LeetCode 45. Jump Game II](https://leetcode.com/problems/jump-game-ii)
 

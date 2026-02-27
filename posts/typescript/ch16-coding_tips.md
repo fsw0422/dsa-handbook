@@ -1,89 +1,123 @@
 ## Coding Tips
 
-- Try to make variable names as short as possible (but readable) as it's repetitive to type the whole variable every time in use, especially if you don't have autocompletion during interviews.
+- Try to make variable names as short as possible (but readable) as it's repetitive to type the whole variable every time, especially if you don't have autocompletion during interviews.
+
   ```typescript
   ...
 
-  const result: any[] = []; // (X)
-  const res: any[] = []; // (O)
+  // Clearly readable and concise when shortened
+  const result = ... // (X)
+  const res = ... // (O)
 
-  const stack = ...; // (X)
-  const stk = ...; // (O)
+  const stack = ... // (X)
+  const stk = ... // (O)
 
-  const queue = ...; // (X)
-  const que = ...; // (O)
+  const queue = ... // (X)
+  const que = ... // (O)
 
-  const graph = ...; // (X)
-  const gph = ...; // (O)
+  const graph = ... // (X)
+  const gph = ... // (O)
+
+  // When shortened and not readable, just use entire word
+  const s // (X)
+  const st // (X)
+  const stt // (X)
+  const start // (O)
+
+  // If it makes sense in context, it's generally ok
+  const [s, e] = ... // start / end
+  const [l, r] = ... // left / right
+  let [lo, hi] = ... // low / high
   ```
-- For `Array`, `string`, `Set`, `Map`, unless the context naturally guides you to name your variables / parameters in a certain way, use generic reserved names (under 'Basic Operations' in every chapter).
-  It's designed to be concise, and not clash with built-in functions or keywords.
+- For 'Array', 'string', 'Set', 'Map', unless the context naturally guides you to name your variables / parameters in a certain way, use generic reserved names (under 'Basic Operations' in every chapter).
+  It's designed to be concise, and not clash with built-in types or keywords.
+
   ```typescript
   ...
 
-  /**
-   * Uses names in function context
-   */
+  /*
+  Uses names in function context
+  */
   function compareMarkedWords(wrds: string[]): void {
-      const seen = ...;
+      const seen = ...
   }
 
-  /**
-   * Uses generic reserved names
-   */
+  /*
+  Uses generic reserved names
+  */
   function compareUniqueStrings(txt: string): void {
-      const utxts = ...;
+      const utxts = ...
   }
   ```
-- Always use *single quote* (') over *double quote* (") as pressing the Shift key every time is repetitive.
+- Use *single quote* (') over *double quote* (") as pressing the Shift key every time is repetitive.
+
   ```typescript
   ...
 
-  "string"; // (X)
-  'string'; // (O)
+  "string" // (X)
+  'string' // (O)
   ```
-- If two or more words are unavoidable (like adjectives or 2 variables with same type), use camelCase to concatenate them.
+- Although not preferred, but if two or more words are unavoidable for readability (like adjectives or 2 variables with same type), use camelCase to concatenate them.
+
   ```typescript
   ...
 
-  const awesomeNum: number = 3;
+  const awesomeNum = 3
   ```
-- Avoid keywords for single-word variables.
+- Avoid built-in type names for single-word variables.
   
   ```typescript
   ...
 
-  const string: string = ''; // (X)
-  const txt: string = ''; // (O)
+  const string = '' // (X)
+  const txt = '' // (O)
 
-  const number: number = 0; // (X)
-  const num: number = 0; // (O)
+  const number = 0 // (X)
+  const num = 0 // (O)
   ```
-- Rather than Enums, use constants to save time
+- Don't use function parameters as mutable working variables; keep parameters as inputs and assign transformed values to new local variables.
+
   ```typescript
   ...
 
-  const interval = Array.from({ length: 10 }, (_, i) => i);
+  function increment(num: number): void {
+      num += 1 // (X)
+      const nnum = num + 1 // (O)
+  }
+  ```
+- Group related variable assignments in a single line when they belong to the same context (e.g., pointers, bounds, counters).
 
-  /**
-   * Not recommended as it needs a lot more coding
-   */
+  ```typescript
+  ...
+
+  let [l, r] = [0, 0]
+  let [lo, hi] = [0, nums.length - 1]
+  let [i, j] = [0, n - 1]
+  ```
+- Rather than Enums, use constants to save time
+
+  ```typescript
+  ...
+
+  /*
+  Not recommended as it needs a lot more coding
+  */
   enum Interval {
       START = 0,
       END = 1,
   }
-  interval[Interval.START];
-  interval[Interval.END];
+  rng[Interval.START]
+  rng[Interval.END]
 
-  /**
-   * Recommended as it's simpler
-   */
-  const START = 0;
-  const END = 1;
-  interval[START];
-  interval[END];
+  /*
+  Recommended as it's simpler
+  */
+  const [START, END] = [0, 1]
+  rng[START]
+  rng[END]
   ```
 - When a nested function parameter has the same name as an outer function parameter, prepend '\_'.
+
   ```typescript
   ...
 
@@ -93,12 +127,12 @@
       }
   }
   ```
-- Use destructuring swap, as it removes the need to introduce another variable.
+- Use destructuring swap to remove the need to introduce another variable.
     
   ```typescript
   ...
 
-  [a, b] = [b, a];
+  [a, b] = [b, a]
   ```
 - In interviews, there are rarely cases where you will need to define a custom class (with method overrides) over primitive types for the encapsulation of data group.
   However, just in case you need to, here is an example of a 'Contact' class.
@@ -107,46 +141,28 @@
   ...
 
   class Contact {
-      name: string;
-      age: number;
+      constructor(
+          public name: string,
+          public age: number,
+      ) {}
 
-      constructor(name: string, age: number) {
-          this.name = name;
-          this.age = age;
+      // For use as Map key or Set element, provide a string key
+      key(): string {
+          return `${this.name}:${this.age}`
       }
 
-      // Used for equality checks (no built-in eq like Python, must implement manually)
       equals(other: Contact): boolean {
-          return this.name === other.name && this.age === other.age;
+          return this.name === other.name && this.age === other.age
       }
 
-      // Used for sorting with Array.sort()
+      // Used for custom sorting
       compareTo(other: Contact): number {
-          if (this.name !== other.name) return this.name < other.name ? -1 : 1;
-          return this.age - other.age;
+          if (this.name !== other.name) return this.name < other.name ? -1 : 1
+          return this.age - other.age
       }
 
       toString(): string {
-          return `Contact(name=${this.name}, age=${this.age})`;
+          return `Contact(name=${this.name}, age=${this.age})`
       }
   }
-
-  // Sorting contacts
-  const contacts: Contact[] = [...];
-  contacts.sort((a, b) => a.compareTo(b));
-  ```
-- Use `const` by default, only use `let` when reassignment is needed. Never use `var`.
-  ```typescript
-  ...
-
-  var num = 3; // (X)
-  let num = 3; // (O) when reassignment needed
-  const num = 3; // (O) when no reassignment needed
-  ```
-- Use strict equality (`===` and `!==`) instead of loose equality (`==` and `!=`).
-  ```typescript
-  ...
-
-  if (a == b) { ... } // (X)
-  if (a === b) { ... } // (O)
   ```

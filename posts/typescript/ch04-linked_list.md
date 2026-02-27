@@ -3,18 +3,18 @@
 You will encounter in most part, 2 kinds of questions for Linked List in interviews.
 
 - Using a predefined singly-linked list node class.
-  Note that these problems are generally solved with previous, current, nxt and temp pointers.
+  Note that these problems are generally solved with previous, current, next and temp pointers.
 
   ```typescript
   ...
 
   class ListNode<T> {
-      val: T;
-      nxt: ListNode<T> | null;
+      val: T
+      nxt: ListNode<T> | null
 
       constructor(val: T, nxt: ListNode<T> | null = null) {
-          this.val = val;
-          this.nxt = nxt;
+          this.val = val
+          this.nxt = nxt
       }
   }
   ```
@@ -26,14 +26,14 @@ You will encounter in most part, 2 kinds of questions for Linked List in intervi
   ...
 
   class ListNode<T> {
-      val: T;
-      prv: ListNode<T> | null;
-      nxt: ListNode<T> | null;
+      val: T
+      prv: ListNode<T> | null
+      nxt: ListNode<T> | null
 
       constructor(val: T, prv: ListNode<T> | null = null, nxt: ListNode<T> | null = null) {
-          this.val = val;
-          this.prv = prv;
-          this.nxt = nxt;
+          this.val = val
+          this.prv = prv
+          this.nxt = nxt
       }
   }
   ```
@@ -43,8 +43,8 @@ You will encounter in most part, 2 kinds of questions for Linked List in intervi
 ## Tips
 
 - Dummy node:
-  When using a dummy node, we don't need to check the corner case where the head is `null`.
-  Definition of an empty list is now nxt node of head node is `null`.
+  When using a dummy node, we don't need to check the corner case where the head is null.
+  Definition of an empty list is now 'next node of head node equals null.
 - Tail node:
   When you track the tail node, it's easier to append new nodes.
   Creating a new list as a result of another operation will be a good example.

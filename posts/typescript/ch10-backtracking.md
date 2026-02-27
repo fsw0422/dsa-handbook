@@ -6,7 +6,7 @@ For this reason, DFS becomes handy for these problem solution, thus often result
 ## Difference between Recurrence Relation
 
 Backtracking and Recurrence Relation (e.g Fibonacci, House Robber without Dynamic Programming) problems are often confused to be in same category, as both often involve recursion.
-However, problems that require Backtracking creates a decision tree for a large solution space (e.g get all subsets [large solution space] from a list of numbers by either selecting or not selecting each element in list [decision tree]).
+However, problems that require Backtracking creates a decision tree for a large solution space (e.g get all subsets [large solution space] from an array of numbers by either selecting or not selecting each element in array [decision tree]).
 This trait often leads Backtracking solutions to undo decisions in order to explore alternate paths.
 - [LeetCode 78. Subsets](https://leetcode.com/problems/subsets)
 - [LeetCode 90. Subsets II](https://leetcode.com/problems/subsets-ii)

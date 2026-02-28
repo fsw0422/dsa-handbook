@@ -60,6 +60,12 @@ max(5, 3) # Returns: 5
 min(5, 3) # Returns: 3
 
 """
+Gotcha
+"""
+res = 2
+res *= 3 + 1 # Returns: 8 => Same as `res = res * (3 + 1)`
+
+"""
 Additional math functions
 """
 math.ceil(3.12) # Returns: 4

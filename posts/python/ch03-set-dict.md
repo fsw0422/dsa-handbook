@@ -7,6 +7,7 @@
 Allocation
 """
 set() # Returns: {}
+frozenset([1, 2, 3]) # Returns: frozenset({1, 2, 3}) => Immutable version of 'set'
 {1, 2, 3}
 
 """
@@ -36,6 +37,7 @@ for unum in unums:
 ...
 
 from collections import defaultdict, Counter
+from types import MappingProxyType
 
 
 """
@@ -43,6 +45,7 @@ Allocation
 """
 dict() # Returns: {}
 {'birds': 1, 'mammals': 2, 'reptiles': 1}
+MappingProxyType({'birds': 1, 'mammals': 2, 'reptiles': 1}) # Returns: mappingproxy({'birds': 1, 'mammals': 2, 'reptiles': 1}) => Immutable version of 'dict'
 defaultdict(int) # If accessed like `d[n]`, it will automatically initialize the value with default value depending on the type (`int`: 0, `float`: 0.0, `bool`: False, `str`: "", `list`: [], `set`: {}, `dict`: {})
 
 """

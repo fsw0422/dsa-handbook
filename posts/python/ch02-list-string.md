@@ -7,6 +7,7 @@
 Allocation
 """
 list() # Returns: []
+tuple([1, 2, 3]) # Returns: (1, 2, 3) => Immutable version of 'list'
 [1, 2, 3]
 [
     [1, 2],
@@ -97,7 +98,7 @@ enumerate([1, 2, 3]) # TC: O(1) - Returns: enumerate object => Yields (0, 1), (1
 """
 Allocation
 """
-str() # Returns: ''
+str() # Returns: '' => strings are immutable
 'hello'
 'a' * 5 # Returns: 'aaaaa'
 
@@ -149,7 +150,6 @@ float('3.14') # Returns: 3.14 => float
 """
 Others
 """
-tuple('hello') # Returns: ('h', 'e', 'l', 'l', 'o') => If you need to, you can use tuple as immutable list. All operations that can be applied are identical to a normal list
 ord('a') # Returns: 97 => Converts character into unique integer. This is mostly useful when you want to further optimize time/space complexity from using Dictionaries (for example character counts), if you know that you are only dealing with English characters
 
 """

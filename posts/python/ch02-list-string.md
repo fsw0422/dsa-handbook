@@ -3,17 +3,21 @@
 ```Python
 ...
 
+from typing import List, Tuple
+
 """
 Allocation
 """
-list() # Returns: []
-tuple([1, 2, 3]) # Returns: (1, 2, 3) => Immutable version of 'list'
+
+lst: List[int] = list() # Returns: []
 [1, 2, 3]
 [
     [1, 2],
     [3, 4],
     [5, 6],
 ]
+ilst: Tuple[int, ...] = tuple([1, 2, 3]) # Returns: (1, 2, 3) => Immutable version of 'list'
+name_age_par: Tuple[str, int] = ('John', 23) # Tuple can be used for pair, triple etc. However, better to use data classes if data model grows (refer to chapter 16 for more info).
 
 """
 Basic Operations

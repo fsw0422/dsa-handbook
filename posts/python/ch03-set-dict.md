@@ -3,11 +3,13 @@
 ```python
 ...
 
+from typing import Set, FrozenSet
+
 """
 Allocation
 """
-set() # Returns: {}
-frozenset([1, 2, 3]) # Returns: frozenset({1, 2, 3}) => Immutable version of 'set'
+ust: Set[int] = set() # Returns: {}
+iust: FrozenSet[int] = frozenset([1, 2, 3]) # Returns: frozenset({1, 2, 3}) => Immutable version of 'set'
 {1, 2, 3}
 
 """
@@ -38,30 +40,32 @@ for unum in unums:
 
 from collections import defaultdict, Counter
 from types import MappingProxyType
+from typing import Dict, DefaultDict, Mapping
 
 
 """
 Allocation
 """
-dict() # Returns: {}
+
+name_to_count: Dict[str, int] = dict() # Returns: {}
 {'birds': 1, 'mammals': 2, 'reptiles': 1}
-MappingProxyType({'birds': 1, 'mammals': 2, 'reptiles': 1}) # Returns: mappingproxy({'birds': 1, 'mammals': 2, 'reptiles': 1}) => Immutable version of 'dict'
-defaultdict(int) # If accessed like `d[n]`, it will automatically initialize the value with default value depending on the type (`int`: 0, `float`: 0.0, `bool`: False, `str`: "", `list`: [], `set`: {}, `dict`: {})
+def_name_to_count: DefaultDict[str, int] = defaultdict(int) # If accessed like `d[n]`, it will automatically initialize the value with default value depending on the type (`int`: 0, `float`: 0.0, `bool`: False, `str`: "", `list`: [], `set`: {}, `dict`: {})
+iname_to_count: Mapping[str, int] = MappingProxyType({'birds': 1, 'mammals': 2, 'reptiles': 1}) # Returns: mappingproxy({'birds': 1, 'mammals': 2, 'reptiles': 1}) => Immutable version of 'dict'
 
 """
 Basic Operations
 
 Reserve generic variable / parameter names with
 - '{key}_to_{val}' for 'dict's
-- '{key}_{val}_tup' for 'tuple's
+- '{key}_{val}_par' for 'tuple'(pair)s
 """
 name_to_age = {'John': 23, 'Amy': 32, 'George': 43}
 name_to_age['John'] # TC: O(1) - Returns: 23
 name_to_age.pop('Amy') # TC: O(1) - Returns: 23, State: {'John': 23, 'George': 43} => Removes key and returns value. Raises 'KeyError' if key does not exist
 name_to_age.pop('Adam', 0) # TC: O(1) - Returns: 0, State: {'John': 23, 'George': 43} => Removes key and returns value. Returns default value if key does not exist
 list(name_to_age) # Returns: ['John', 'Amy', 'George']
-name_age_tups = list(name_to_age.items()) # Returns: [('John', 23), ('Amy', 32), ('George', 43)]
-dict(name_age_tups) # Returns: {'John': 23, 'Amy': 32, 'George': 43} => Tuples can be converted to 'map' easily. This is due to the fact that tuple itself is an immutable data model which implements hash and equal methods. It's also useful when the tuple object is to be shared with another datastructure. For example, the same tuple can be used in a heap but also be indexed in `dict` for fast lookup. Typing of tuple is `Tuple[Any, ...]`
+name_age_pars = list(name_to_age.items()) # Returns: [('John', 23), ('Amy', 32), ('George', 43)]
+dict(name_age_pars) # Returns: {'John': 23, 'Amy': 32, 'George': 43} => Tuples can be converted to 'map' easily. This is due to the fact that tuple itself is an immutable data model which implements hash and equal methods. It's also useful when the tuple object is to be shared with another datastructure. For example, the same tuple can be used in a heap but also be indexed in dictionary for fast lookup.
 
 # Each returns its own dynamic view object ('dict_keys', 'dict_values', 'dict_items')
 # However, we'll share the same variable names between

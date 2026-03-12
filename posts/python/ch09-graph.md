@@ -60,7 +60,7 @@
     Ordering of the vertices where each edge is from the vertex earlier in the ordering to vertex later in the ordering.
     It represents the dependency graph of vertices (thus can detect cycles in Directed Graphs).
 
-    ![topological_ordering](/images/graph/topological_ordering.png)
+    ![topological_ordering](/images/ch09-graph/topological_ordering.png)
 
     ```python
     ...
@@ -106,7 +106,7 @@
   - Trie:
     Tree that is optimized for matching prefix of words.
 
-    ![trie](/images/graph/trie.png)
+    ![trie](/images/ch09-graph/trie.png)
 
     ```python
     ...
@@ -157,7 +157,7 @@
 - Adjacency Matrix:
   Represents the Graph in N x N matrix.
 
-  ![adjmatrix](/images/graph/adj_matrix.png)
+  ![adjmatrix](/images/ch09-graph/adj_matrix.png)
 
   - [LeetCode 1615. Maximal Network rnk](https://leetcode.com/problems/maximal-network-rank)
 - Adjacency Set:

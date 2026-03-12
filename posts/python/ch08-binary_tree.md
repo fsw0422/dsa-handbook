@@ -7,12 +7,12 @@
 - Depth and Height:
   Height starts from leaf node, Depth starts from root node, thus height of a tree == maximum depth of subtree.
 
-  ![image](/images/binary_tree/height_depth.png)
+  ![image](/images/ch08-binary_tree/height_depth.png)
 
   - [LeetCode 110. Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree)
 - Various types of binary trees.
 
-  ![image](/images/binary_tree/variants.png)
+  ![image](/images/ch08-binary_tree/variants.png)
 
   Heap and Binary Search Tree are complete binary trees.
   Perfect Binary Tree contains `2^(h + 1) - 1` nodes and `2^h` leaf nodes.
@@ -161,7 +161,7 @@ def level_order(root: TreeNode) -> List[Any]:
 ```
 
 Problems often require you to construct / reconstruct a Binary Tree.
-- [LeetCode 108. Convert Sorted Array to Binary Search Tree](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree)
+- [LeetCode 108. Convert Sorted Array to Binary Search Tree](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree) (Divide and Conquer)
 - [LeetCode 226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree)
 
 In-order with either Pre-order or Post-order traversal, a unique Binary Tree can be constructed from a sorted List.

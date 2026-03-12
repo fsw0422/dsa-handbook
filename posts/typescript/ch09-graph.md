@@ -75,10 +75,12 @@
     Ordering of the vertices where each edge is from the vertex earlier in the ordering to vertex later in the ordering.
     It represents the dependency graph of vertices (thus can detect cycles in Directed Graphs).
 
-    ![topological_ordering](/images/graph/topological_ordering.png)
+    ![topological_ordering](/images/ch09-graph/topological_ordering.png)
 
     ```typescript
     ...
+
+    import { Queue } from '@datastructures-js/queue'
 
     function topSort<T>(gph: Map<T, Set<T>>): T[] {
         /*
@@ -95,15 +97,15 @@
         }
 
         // Initialize queue with vertices that have in-degree of 0 (starting vertices)
-        const que: T[] = []
+        const que = new Queue<T>()
         for (const [vtx, deg] of inDeg) {
             if (deg === 0) que.push(vtx)
         }
 
         // Remove in-degree one by one and add neighboring vertices only if there is no in-degree (meaning it turned into a start vertex) for the next process order
         const topSorted: T[] = []
-        while (que.length > 0) {
-            const start = que.shift()!
+        while (!que.isEmpty()) {
+            const start = que.pop()!
             topSorted.push(start)
             for (const nbr of (gph.get(start) ?? new Set())) {
                 const newDeg = inDeg.get(nbr)! - 1
@@ -128,13 +130,37 @@
     - [LeetCode 269. Alien Dictionary](https://leetcode.com/problems/alien-dictionary)
   - Trie:
     Tree that is optimized for matching prefix of words.
+    We use [`@datastructures-js/trie`](https://github.com/datastructures-js/trie).
 
-    ![trie](/images/graph/trie.png)
+    ![trie](/images/ch09-graph/trie.png)
 
     ```typescript
     ...
 
-    class Trie {
+    import { Trie } from '@datastructures-js/trie'
+
+    const trie = new Trie()
+    trie.insert('hi').insert('hit').insert('hide').insert('hello')
+
+    trie.has('hi') // true
+    trie.has('sky') // false
+
+    // find returns the TrieNode of the last character
+    const node = trie.find('hi') // node.getChar() === 'i'
+
+    trie.remove('hi') // returns 'hi'
+
+    trie.forEach((word) => console.log(word))
+    trie.toArray() // returns all words as string[]
+    trie.wordsCount() // number of words
+    ```
+
+    For problems that require custom trie logic (e.g. storing additional data per node, prefix matching with custom traversal), you may still need a manual implementation:
+
+    ```typescript
+    ...
+
+    class CustomTrie {
         private root: { childs: Map<string, any>, end: boolean }
 
         constructor() {
@@ -186,7 +212,7 @@
 - Adjacency Matrix:
   Represents the Graph in N x N matrix.
 
-  ![adjmatrix](/images/graph/adj_matrix.png)
+  ![adjmatrix](/images/ch09-graph/adj_matrix.png)
 
   - [LeetCode 1615. Maximal Network Rank](https://leetcode.com/problems/maximal-network-rank)
 - Adjacency Set:
@@ -213,6 +239,8 @@ You can build the graph in either way.
   ```typescript
   ...
 
+  import { Stack } from '@datastructures-js/stack'
+
   function dfs<T>(gph: Map<T, Set<T>>, start: T): T[] {
       /*
       TC: O(|V| + |E|)
@@ -233,10 +261,10 @@ You can build the graph in either way.
       }
 
       function iterate(vtx: T): void {
-          const stk: T[] = []
+          const stk = new Stack<T>()
           seen.add(vtx)
           stk.push(vtx)
-          while (stk.length > 0) {
+          while (!stk.isEmpty()) {
               const cur = stk.pop()!
               res.push(cur)
               for (const nbr of (gph.get(cur) ?? new Set())) {
@@ -263,6 +291,8 @@ You can build the graph in either way.
   ```typescript
   ...
 
+  import { Queue } from '@datastructures-js/queue'
+
   function bfs<T>(gph: Map<T, Set<T>>, start: T): T[] {
       /*
       TC: O(|V| + |E|)
@@ -272,11 +302,11 @@ You can build the graph in either way.
       const res: T[] = []
       const seen = new Set<T>()
 
-      const que: T[] = []
+      const que = new Queue<T>()
       seen.add(start)
       que.push(start)
-      while (que.length > 0) {
-          const cur = que.shift()!
+      while (!que.isEmpty()) {
+          const cur = que.pop()!
           res.push(cur)
           for (const nbr of (gph.get(cur) ?? new Set())) {
               if (seen.has(nbr)) continue

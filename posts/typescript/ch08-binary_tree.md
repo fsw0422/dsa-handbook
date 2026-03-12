@@ -7,12 +7,12 @@
 - Depth and Height:
   Height starts from leaf node, Depth starts from root node, thus height of a tree == maximum depth of subtree.
 
-  ![image](/images/binary_tree/height_depth.png)
+  ![image](/images/ch08-binary_tree/height_depth.png)
 
   - [LeetCode 110. Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree)
 - Various types of binary trees.
 
-  ![image](/images/binary_tree/variants.png)
+  ![image](/images/ch08-binary_tree/variants.png)
 
   Heap and Binary Search Tree are complete binary trees.
   Perfect Binary Tree contains `2^(h + 1) - 1` nodes and `2^h` leaf nodes.
@@ -23,6 +23,9 @@ Almost all Binary Tree problems are given a root node that represents the tree, 
 
 ```typescript
 ...
+
+import { Queue } from '@datastructures-js/queue'
+import { Stack } from '@datastructures-js/stack'
 
 /*
 N = number of Nodes in tree
@@ -62,9 +65,9 @@ function inorderRecursive<T>(root: TreeNode<T> | null): T[] {
 
 function inorderIterative<T>(root: TreeNode<T> | null): T[] {
     const res: T[] = []
-    const stk: TreeNode<T>[] = []
+    const stk = new Stack<TreeNode<T>>()
     let cur = root
-    while (stk.length > 0 || cur !== null) {
+    while (!stk.isEmpty() || cur !== null) {
         while (cur !== null) {
             stk.push(cur)
             cur = cur.left
@@ -97,9 +100,9 @@ function preorderIterative<T>(root: TreeNode<T> | null): T[] {
     if (root === null) return []
 
     const res: T[] = []
-    const stk: TreeNode<T>[] = []
+    const stk = new Stack<TreeNode<T>>()
     stk.push(root)
-    while (stk.length > 0) {
+    while (!stk.isEmpty()) {
         const cur = stk.pop()!
         res.push(cur.val)
 
@@ -131,15 +134,15 @@ function postorderIterative<T>(root: TreeNode<T> | null): T[] {
     if (root === null) return []
 
     const res: T[] = []
-    const stk: TreeNode<T>[] = []
+    const stk = new Stack<TreeNode<T>>()
     let cur: TreeNode<T> | null = root
     let last: TreeNode<T> | null = null
-    while (stk.length > 0 || cur !== null) {
+    while (!stk.isEmpty() || cur !== null) {
         if (cur !== null) {
             stk.push(cur)
             cur = cur.left
         } else {
-            const peeked = stk[stk.length - 1]
+            const peeked = stk.peek()!
             if (peeked.right && last !== peeked.right) {
                 cur = peeked.right
             } else {
@@ -156,12 +159,11 @@ function levelOrder<T>(root: TreeNode<T> | null): T[] {
     if (root === null) return []
 
     const res: T[] = []
-    const que: TreeNode<T>[] = []
-    que.push(root)
-    while (que.length > 0) {
-        let size = que.length
+    const que = new Queue<TreeNode<T>>([root])
+    while (!que.isEmpty()) {
+        let size = que.size()
         while (size > 0) {
-            const polled = que.shift()!
+            const polled = que.pop()!
             res.push(polled.val)
             if (polled.left) que.push(polled.left)
             if (polled.right) que.push(polled.right)
@@ -173,7 +175,7 @@ function levelOrder<T>(root: TreeNode<T> | null): T[] {
 ```
 
 Problems often require you to construct / reconstruct a Binary Tree.
-- [LeetCode 108. Convert Sorted Array to Binary Search Tree](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree)
+- [LeetCode 108. Convert Sorted Array to Binary Search Tree](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree) (Divide and Conquer)
 - [LeetCode 226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree)
 
 In-order with either Pre-order or Post-order traversal, a unique Binary Tree can be constructed from a sorted Array.

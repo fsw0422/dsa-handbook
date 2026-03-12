@@ -165,3 +165,6 @@
     dfs(root, float('-inf'))
     return res
   ```
+- Optimal substructure problem flowchart
+
+  ![Optimal substructure problem flowchart](../../images/ch16-coding_tips/optimal_substructure_problem_flowchart.jpg)

@@ -143,3 +143,25 @@
       name: str
       age: int
   ```
+- Use `nonlocal` in a nested function to rebind a variable from the enclosing (non-global) scope.
+  Without it, assigning to an outer variable inside an inner function creates a new local variable instead.
+
+  ```python
+  ...
+
+  """
+  Typical use case: accumulating state across recursive/nested calls without a mutable container
+  """
+  def count_good_nodes(root: TreeNode) -> int:
+    res = 0
+    def dfs(node: TreeNode, max_val: int):
+      nonlocal res
+      if not node:
+        return
+      if node.val >= max_val:
+        res += 1
+      dfs(node.left, max(max_val, node.val))
+      dfs(node.right, max(max_val, node.val))
+    dfs(root, float('-inf'))
+    return res
+  ```

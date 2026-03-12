@@ -164,10 +164,11 @@ Problems often require you to construct / reconstruct a Binary Tree.
 - [LeetCode 108. Convert Sorted Array to Binary Search Tree](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree) (Divide and Conquer)
 - [LeetCode 226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree)
 
-In-order with either Pre-order or Post-order traversal, a unique Binary Tree can be constructed from a sorted List.
+In-order with either Pre-order or Post-order traversal, a unique Binary Tree can be constructed from a sorted List (Divide and Conquer).
 - [LeetCode 105. Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal)
 
-However, In-order alone or pre-order with post-order traversal cannot construct a unique Binary Tree.
+However, In-order alone or pre-order with post-order traversal cannot construct a unique Binary Tree (Divide and Conquer).
+
 - [LeetCode 889. Construct Binary Tree from Preorder and Postorder traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-postorder-traversal)
 
 With the help of 'null' nodes marked as special characters, serialized representation of a Binary Tree can be derived from Pre-order or Post-order traversal.

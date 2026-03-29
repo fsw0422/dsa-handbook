@@ -38,6 +38,15 @@
   lo = ...
   hi = ...
   ```
+- Avoid single-line assignments
+
+  ```python
+  s, e = ... # (X)
+
+  # (O)
+  s = ...
+  e = ...
+  ```
 - For method names, if it's a helper function (like recursive function), make it concise as possible.
   However if it's the function name for the main solution itself, be as verbose as possible.
 

@@ -26,9 +26,17 @@
   start # (O)
   
   # If variables are in pair, it's generally ok to shorten as context itself is self-explanatory
-  s, e = ... # start / end
-  l, r =  ... # left / right
-  lo, hi = ... # low / high
+  # start / end
+  s = ...
+  e = ...
+
+  # left / right
+  l = ...
+  r = ...
+
+  # low / high
+  lo = ...
+  hi = ...
   ```
 - For method names, if it's a helper function (like recursive function), make it concise as possible.
   However if it's the function name for the main solution itself, be as verbose as possible.
@@ -94,19 +102,7 @@
   
   def increment(num: int):
       num += 1 # (X)
-      nnum = num + 1 # (O)
-  ```
-- Group related variable assignments in a single line when they belong to the same context (e.g., pointers, bounds, counters).
-
-  ```python
-  ...
-
-  l = 0
-  r = 0
-  lo = 0
-  hi = len(nums) - 1
-  i = 0
-  j = n - 1
+      new_num = num + 1 # (O)
   ```
 - Rather than Enums, use constants to save time
 

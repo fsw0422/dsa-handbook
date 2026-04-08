@@ -28,6 +28,7 @@ Almost all Binary Tree problems are given a root node that represents the tree, 
 ...
 
 from __future__ import annotations
+
 from typing import Any, List, Optional
 from collections import deque
 
@@ -40,22 +41,22 @@ SC: O(logN)
 """
 
 class TreeNode:
-    def __init__(self, val: Any, left: Optional[TreeNode], right: Optional[TreeNode]):
+    def __init__(self, val: Any, lft: Optional[TreeNode], rgt: Optional[TreeNode]):
         self.val = val
-        self.left = left
-        self.right = right
+        self.lft = lft
+        self.rgt = rgt
 
 
 def inorder_recursive(rt: TreeNode) -> List[Any]:
     res = list()
 
-    def rec(_rt: TreeNode):
-        if rt is None:
+    def rec(tnd: TreeNode):
+        if tnd is None:
             return
 
-        rec(_rt.left)
-        res.append(_rt)
-        rec(_rt.right)
+        rec(tnd.lft)
+        res.append(tnd)
+        rec(tnd.rgt)
 
     rec(rt)
     return res
@@ -68,23 +69,23 @@ def inorder_iterative(rt: TreeNode) -> List[Any]:
     while stk or cur:
         while cur:
             stk.append(cur)
-            cur = cur.left
+            cur = cur.lft
         cur = stk.pop()
         res.append(cur)
-        cur = cur.right
+        cur = cur.rgt
     return res
 
 
 def preorder_recursive(rt: TreeNode) -> List[Any]:
     res = list()
 
-    def rec(_rt: TreeNode):
-        if _rt is None:
+    def rec(tnd: TreeNode):
+        if tnd is None:
             return
 
-        res.append(_rt)
-        rec(_rt.left)
-        rec(_rt.right)
+        res.append(tnd)
+        rec(tnd.lft)
+        rec(tnd.rgt)
 
     rec(rt)
     return res
@@ -102,23 +103,23 @@ def preorder_iterative(rt: TreeNode) -> List[Any]:
         res.append(cur.val)
 
         # Push right first so that left is processed first
-        if cur.right:
-            stk.append(cur.right)
-        if cur.left:
-            stk.append(cur.left)
+        if cur.rgt:
+            stk.append(cur.rgt)
+        if cur.lft:
+            stk.append(cur.lft)
     return res
 
 
 def postorder_recursive(rt: TreeNode) -> List[Any]:
     res = list()
 
-    def rec(_rt: TreeNode):
-        if rt is None:
+    def rec(tnd: TreeNode):
+        if tnd is None:
             return
 
-        rec(_rt.left)
-        rec(_rt.right)
-        res.append(_rt)
+        rec(tnd.lft)
+        rec(tnd.rgt)
+        res.append(tnd)
 
     rec(rt)
     return res
@@ -135,13 +136,13 @@ def postorder_iterative(rt: TreeNode) -> List[Any]:
     while stk or cur:
         if cur:
             stk.append(cur)
-            cur = cur.left
+            cur = cur.lft
         else:
-            peeked = stk[-1]
-            if peeked.right and last != peeked.right:
-                cur = peeked.right
+            pkd = stk[-1]
+            if pkd.rgt and last != pkd.rgt:
+                cur = pkd.rgt
             else:
-                res.append(peeked)
+                res.append(pkd)
                 last = stk.pop()
     return res
 
@@ -153,12 +154,12 @@ def levelorder(rt: TreeNode) -> List[Any]:
     while que:
         size = len(que)
         while size > 0:
-            polled = que.popleft()
-            res.append(polled)
-            if polled.left:
-                que.append(polled.left)
-            if polled.right:
-                que.append(polled.right)
+            pld = que.popleft()
+            res.append(pld)
+            if pld.lft:
+                que.append(pld.lft)
+            if pld.rgt:
+                que.append(pld.rgt)
             size -= 1
     return res
 ```

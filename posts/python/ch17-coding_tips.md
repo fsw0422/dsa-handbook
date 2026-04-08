@@ -192,11 +192,11 @@
 
           if not nd:
               return
-          if nd.val >= max_val:
+            if nd.val >= max_val:
               res += 1
 
-          traverse(nd.left, max(max_val, nd.val))
-          traverse(nd.right, max(max_val, nd.val))
+            traverse(nd.lft, max(max_val, nd.val))
+            traverse(nd.rgt, max(max_val, nd.val))
 
       traverse(rt, -math.inf)
       return res

@@ -9,6 +9,7 @@ You will encounter in most part, 2 kinds of questions for Linked List in intervi
   ...
   
   from __future__ import annotations
+
   from typing import Any, Optional
   
 
@@ -25,6 +26,7 @@ You will encounter in most part, 2 kinds of questions for Linked List in intervi
   ...
   
   from __future__ import annotations
+
   from typing import Any, Optional
 
 

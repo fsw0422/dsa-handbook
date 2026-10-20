@@ -17,25 +17,25 @@ lst: List[int] = list() # Returns: []
     [3, 4],
     [5, 6],
 ]
-ilst: Tuple[int, ...] = tuple([1, 2, 3]) # Returns: (1, 2, 3) => Immutable version of 'list'
-name_age_par: Tuple[str, int] = ('John', 23) # Tuple can be used for pair, triple etc. However, better to use data classes if data model grows (refer to chapter 16 for more info).
+ilst: Tuple[int, ...] = tuple([1, 2, 3]) # Returns: (1, 2, 3) => An immutable alternative to a 'list'
+name_age_par: Tuple[str, int] = ('John', 23) # Tuples can represent pairs, triples, and other small groups of values. Use data classes if the data model grows; see Chapter 16 for more information.
 
 """
 Basic Operations
 
-Reserve generic variable / parameter names with '{val}s' or '{val}es' appended (plural)
-Apply this even if it's grammatically incorrect i.e.) children (x) -> childs (O)
+Form generic variable and parameter names by appending 's' or 'es' to the value name to make it plural.
+Follow this convention even when the plural is grammatically incorrect: use 'childs' instead of 'children'.
 """
 nums = [1, 6, 9, 7]
 nums.append(3) # TC: Amortized O(1) - State: [1, 6, 9, 7, 3]
-nums.insert(2, 1) # TC: O(N) - State: [1, 6, 1, 9, 7, 3] => If index is out-of-bounds towards lowest index, it will insert in first index. If index is out-of-bounds towards highest index, it will append to the end
-nums.remove(1) # TC: O(N) - State: [6, 1, 9, 7, 3] => If value does not exist, raises 'ValueError'
+nums.insert(2, 1) # TC: O(N) - State: [1, 6, 1, 9, 7, 3] => Inserts at the beginning if the index is below the valid range, or appends at the end if it is above the valid range
+nums.remove(1) # TC: O(N) - State: [6, 1, 9, 7, 3] => Raises 'ValueError' if the value does not exist
 nums[2]  # TC: O(1) - Returns: 9
 nums[-1]  # TC: O(1) - Returns: 3
 
 len(nums) # TC: O(1) - Returns: 3
-min(nums) # TC: O(N) - Returns: 9 => We mostly care about numbers, as elements in interviews
-max(nums) # TC: O(N) - Returns: 1 => We mostly care about numbers, as elements in interviews
+min(nums) # TC: O(N) - Returns: 9 => We mainly work with numeric elements in interviews
+max(nums) # TC: O(N) - Returns: 1 => We mainly work with numeric elements in interviews
 
 if 1 in nums: # TC: O(N)
     ...
@@ -45,13 +45,13 @@ for num in nums:
 """
 Range
 
-'range(..)' returns an immutable sequence object ('range'), which is also iterable
-It also doesn't create the materialized sequence beforehand (memory-efficient)
+'range(..)' returns an immutable, iterable 'range' object.
+It does not materialize the sequence upfront, which saves memory.
 """
 range(5) # Returns: range(0, 5) => 'range' object over 0, 1, 2, 3, 4
 range(2, 5) # Returns: range(2, 5) => 'range' object over 2, 3, 4
 range(2, 5, 2) # Returns: range(2, 5, 2) => 'range' object over 2, 4
-list(range(100)) # Returns: [0, 1, 2, ... , 99] => 'range' object is materialized only when wrapped with 'list'
+list(range(100)) # Returns: [0, 1, 2, ... , 99] => Wrap the 'range' object in 'list' to materialize the sequence
 
 """
 Copy
@@ -63,7 +63,7 @@ Reverse
 """
 nums = [1, 2, 3]
 reversed(nums) # TC: O(1) - Returns: list_reverseiterator object => Yields 3, 2, 1
-nums.reverse() # TC: O(N) - State: [3, 2, 1] => *In-place*
+nums.reverse() # TC: O(N) - State: [3, 2, 1] => Reverses the list *in place*
 
 """
 Slicing
@@ -72,24 +72,24 @@ nums = [0, 1, 2, 3, 4, 5, 6, 7]
 nums[2:2] # Returns: []
 nums[2:4] # Returns: [2, 4]
 nums[-3:-1] # Returns: [5, 6] => Same as `nums[len(nums)-3:len(nums)-1]`
-nums[1:5:2] # Returns: [1, 3] => Skip by 2 inclusive from the start index
-nums[5:1:-2] # Returns: [5, 3, 1] => Skip by -2 inclusive from the start index reverse
-nums[2:] + nums[:2] # Returns: [2, 3, 4, 5, 6, 7, 0, 1] => Rotates `nums` by '2' to the left
+nums[1:5:2] # Returns: [1, 3] => Include the start index and step forward by 2
+nums[5:1:-2] # Returns: [5, 3, 1] => Include the start index and step backward by 2
+nums[2:] + nums[:2] # Returns: [2, 3, 4, 5, 6, 7, 0, 1] => Rotates 'nums' two positions to the left
 
 """
 List Comprehension and Tricks
 """
 [0 for _ in range(2)] # Returns: [0, 0]
-[[0 for _ in range(2)] for _ in range(2)] # Returns: [[0, 0], [0, 0]] => **DO NOT USE** [0] * 2 since all rows have same pointer. This means single row modification will affect all rows
+[[0 for _ in range(2)] for _ in range(2)] # Returns: [[0, 0], [0, 0]] => **DO NOT USE** [0] * 2, as all rows share a reference; modifying one row affects them all
 [x for x in range(0, 3) if x % 2 == 0] # Returns: [0, 2]
 [num for nums in [[1, 2], [3, 4]] for num in nums] # Returns: [1, 2, 3, 4]
 
 """
 Others
 """
-tuple([1, 2, 3]) # Returns: (1, 2, 3) => You can use 'tuple' as immutable list. All operations that can be applied are identical to a normal 'list'
-zip([1, 2, 3], ['zebra', 'tiger', 'giraffe']) # TC: O(1) - Returns: zip object => Yields (1, 'zebra'), (2, 'tiger'), (3, 'giraffe'). You can also feed any 'Iterable' instead of a 'list' as parameter
-enumerate([1, 2, 3]) # TC: O(1) - Returns: enumerate object => Yields (0, 1), (1, 2), (2, 3). Useful when you need to map value -> index. You can also feed any 'Iterable' type instead of a 'list' type as parameter
+tuple([1, 2, 3]) # Returns: (1, 2, 3) => Use a tuple as an immutable list. Its supported operations work like the corresponding list operations
+zip([1, 2, 3], ['zebra', 'tiger', 'giraffe']) # TC: O(1) - Returns: zip object => Yields (1, 'zebra'), (2, 'tiger'), (3, 'giraffe'). Accepts any iterable as an argument
+enumerate([1, 2, 3]) # TC: O(1) - Returns: enumerate object => Yields (0, 1), (1, 2), (2, 3). Useful when you need both indices and values. Accepts any iterable as an argument
 ```
 
 # String
@@ -107,7 +107,7 @@ str() # Returns: '' => strings are immutable
 """
 Basic Operations
 
-Reserve generic variable / parameter names with 'txt'
+Use 'txt' as the generic name for string variables and parameters.
 """
 txt = 'hello'
 if 'abc' in txt: # TC: O(N)
@@ -118,8 +118,8 @@ for ch in txt:
 """
 Editing
 
-'str's are immutable, therefore it needs to be converted to list for efficient editing (and if needed converted back to string)
-Note that operations like `'text1' + 'text2'` is an expensive operation as it copies both strings to a new string
+Strings are immutable. For efficient editing, convert the string to a list and join it back into a string if needed.
+Concatenating strings, as in `'text1' + 'text2'`, is expensive because it copies both strings into a new string.
 """
 chs = list('hello') # Returns: ['h', 'e', 'l', 'l', 'o']
 ''.join(chs) # Returns: 'hello'
@@ -127,7 +127,7 @@ chs = list('hello') # Returns: ['h', 'e', 'l', 'l', 'o']
 """
 Slicing
 """
-# All slicing operations in list are possible in string as well
+# Strings support the same slicing operations as lists
 
 """
 Prefix / Suffix match
@@ -152,7 +152,7 @@ float('3.14') # Returns: 3.14 => float
 """
 Others
 """
-ord('a') # Returns: 97 => Converts character into unique integer. This is mostly useful when you want to further optimize time/space complexity from using Dictionaries (for example character counts), if you know that you are only dealing with English characters
+ord('a') # Returns: 97 => Converts a character to a unique integer. Useful when optimizing time or space usage compared with dictionaries, such as for character counts, if the input is limited to English characters
 
 """
 Utility Operations for input sanitization or debug output

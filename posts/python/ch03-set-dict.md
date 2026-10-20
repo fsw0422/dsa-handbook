@@ -20,8 +20,8 @@ ro_uq_nums: FrozenSet[int] = frozenset([1, 2, 3]) # Returns: frozenset({1, 2, 3}
 """
 Basic Operations
 
-Prefix generic set variable and parameter names with 'uq_' to indicate unique elements, such as 'uq_nums'.
-Use 'ro_' for read-only or immutable collections, such as 'ro_uq_nums'.
+You can use 'uq_' to indicate unique elements, such as 'uq_nums', and 'ro_' for read-only or immutable collections, such as 'ro_uq_nums'.
+These prefixes are optional; a simpler name such as 'nums' is sufficient when its meaning is clear and it does not overlap with another name in the same scope.
 """
 uq_nums = {1, 5, 3, 2}
 uq_nums.add(1) # TC: O(1) - State: {1, 5, 3, 2}
@@ -68,8 +68,10 @@ ro_name_to_count['birds'] # Returns: 2 => Reflects changes to the underlying dic
 """
 Basic Operations
 
-Use '{key}_to_{val}' for dictionary variable and parameter names, and '{key}_{val}_par' for pairs.
-Prefix defaultdict names with 'dd_' and read-only mapping names with 'ro_'.
+Names such as '{key}_to_{val}' for dictionaries and '{key}_{val}_par' for pairs make the relationship explicit.
+Use 'dd_' for defaultdicts and 'ro_' for read-only mappings when they help distinguish related collections.
+These prefixes are optional when names do not overlap in the same scope.
+A simple '{key}_{val}' name, such as 'name_count', is sufficient when its meaning is clear.
 
 Dictionary construction accepts an iterable of key-value pairs; the pairs themselves need not be hashable.
 A tuple can be a dictionary key only if all its elements are hashable.

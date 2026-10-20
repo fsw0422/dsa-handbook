@@ -18,7 +18,8 @@
 
 **Start drawing things no matter what:**
 
-Most people cannot keep the entire solution to a complex problem in mind while tracking state and developing the logic. Multitasking does not come naturally to everyone.
+Most people cannot keep the entire solution to a complex problem in mind while tracking state and developing the logic.
+Multitasking does not come naturally to everyone.
 For this reason, start by drawing something on the whiteboard, even if you're just illustrating the question as you repeat it aloud.
 This will help you focus on the solution logic.
 
@@ -30,7 +31,8 @@ Act as the debugger yourself to show how the input is processed at each step.
 **Think of a suboptimal solution first:**
 
 1. Always come up with a suboptimal solution first, even if it's brute force, for the following reasons:
-   - You're guaranteed a minimum score, and the solution provides a checkpoint. This is better than failing to implement an optimal approach on your first try.
+   - You're guaranteed a minimum score, and the solution provides a checkpoint.
+     This is better than failing to implement an optimal approach on your first try.
    - The interviewer can offer hints from this checkpoint if you cannot think of a better approach.
    - Improving the suboptimal approach earns extra points for the improvement process itself, compared with jumping straight to the optimal solution.
    - Some problems, such as dynamic programming problems, are already half-solved once you have a working suboptimal solution, because reaching the optimal approach only requires a small revision to the code.
@@ -84,7 +86,8 @@ Act as the debugger yourself to show how the input is processed at each step.
     Some problems also require specific knowledge, so follow these rules of thumb:
     - Look at the solution, but never skip implementing it yourself.
       Often, a problem will teach you specific concepts or tricks.
-    - Understand every aspect of the solution: Why was recursion used here? Why is this parameter passed this way?
+    - Understand every aspect of the solution: Why was recursion used here?
+      Why is this parameter passed this way?
     - Return to the problem one week later and solve it from scratch.
       If you can, you have fully understood the solution.
   - Exceptionally hard problems with an acceptance rate below 20% are generally not expected to be solved optimally within the allotted time, so focus on pattern recognition and a working solution.
@@ -95,7 +98,8 @@ Act as the debugger yourself to show how the input is processed at each step.
   - Defining method signatures yourself, since you can't rely on ready-made signatures as you can on LeetCode.
   - Coming up with typical inputs, edge cases, and extreme inputs yourself, since you can't rely on ready-made test cases as you can on LeetCode.
   - Testing your code line by line using the inputs you've chosen, since you can't compile, run, or debug your code in interviews as you can on LeetCode.
-    LeetCode's 'Run' button is particularly easy to overuse, leading you to commit to an approach prematurely. This is a huge red flag.
+    LeetCode's 'Run' button is particularly easy to overuse, leading you to commit to an approach prematurely.
+    This is a huge red flag.
     Only after you've finished coding in the editor should you copy and run the code on LeetCode to identify any test cases you've missed.
 - Finally, [NeetCode 150](leetcode.com/problem-list/adc2unt1) covers almost all patterns of questions.
   Understand every pattern and approach in this list, and implement each solution yourself.

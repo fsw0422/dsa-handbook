@@ -1,5 +1,9 @@
 # Set
 
+Sets store unique, hashable elements, and their iteration order is not guaranteed.
+For sets and dictionaries, O(1) hash-table operations are average-case bounds that assume constant-time hashing and equality checks.
+Insertions are also amortized over resizing; individual operations can take O(N) in the worst case.
+
 ```python
 ...
 
@@ -9,32 +13,36 @@ from typing import Set, FrozenSet
 """
 Allocation
 """
-ust: Set[int] = set() # Returns: {}
-iust: FrozenSet[int] = frozenset([1, 2, 3]) # Returns: frozenset({1, 2, 3}) => Immutable version of 'set'
+uq_nums: Set[int] = set() # Returns: set() => Use set() for an empty set; {} creates an empty dictionary
+ro_uq_nums: FrozenSet[int] = frozenset([1, 2, 3]) # Returns: frozenset({1, 2, 3}) => Immutable version of 'set'
 {1, 2, 3}
 
 """
 Basic Operations
 
-reserve generic variable / parameter names with 'u{val}s' (prepending 'u' for uniqueness)
+Prefix generic set variable and parameter names with 'uq_' to indicate unique elements, such as 'uq_nums'.
+Use 'ro_' for read-only or immutable collections, such as 'ro_uq_nums'.
 """
-unums = {1, 5, 3, 2}
-unums.add(1) # TC: O(1) - State: {1, 5, 3, 2}
-unums.remove(1) # TC: O(1) - State: {5, 3, 2} => Raises 'KeyError' if value does not exist
-unums.discard(1) # TC: O(1) - State: {5, 3, 2} => Does not raise 'KeyError' if value does not exist
-set([3, 2, 1, 3, 5]) # Returns: {3, 2, 1, 5} => Removes duplicate
+uq_nums = {1, 5, 3, 2}
+uq_nums.add(1) # TC: O(1) - State: {1, 5, 3, 2}
+uq_nums.remove(1) # TC: O(1) - State: {5, 3, 2} => Raises 'KeyError' if the value does not exist
+uq_nums.discard(1) # TC: O(1) - State: {5, 3, 2} => Does not raise 'KeyError' if the value does not exist
+set([3, 2, 1, 3, 5]) # Returns: {1, 2, 3, 5} => Removes duplicates; the displayed order is not guaranteed
 
-len(unums) # TC: O(1)
-min(unums) # TC: O(N) => We mostly care about numbers, as element in interviews
-max(unums) # TC: O(N) => We mostly care about numbers, as element in interviews
+len(uq_nums) # TC: O(1) - Returns: 3
+min(uq_nums) # TC: O(N) - Returns: 2 => Raises 'ValueError' for an empty set
+max(uq_nums) # TC: O(N) - Returns: 5 => Raises 'ValueError' for an empty set
 
-if 1 in unums: # TC: O(1)
+if 1 in uq_nums: # TC: O(1)
     ...
-for unum in unums:
+for num in uq_nums:
     ...
 ```
 
 # Dictionary
+
+Dictionary keys must be hashable; values need not be.
+Dictionaries preserve insertion order.
 
 ```python
 ...
@@ -49,38 +57,47 @@ Allocation
 """
 
 name_to_count: Dict[str, int] = dict() # Returns: {}
-{'birds': 1, 'mammals': 2, 'reptiles': 1}
-def_name_to_count: DefaultDict[str, int] = defaultdict(int) # If accessed like `d[n]`, it will automatically initialize the value with default value depending on the type (`int`: 0, `float`: 0.0, `bool`: False, `str`: "", `list`: [], `set`: {}, `dict`: {})
-iname_to_count: Mapping[str, int] = MappingProxyType({'birds': 1, 'mammals': 2, 'reptiles': 1}) # Returns: mappingproxy({'birds': 1, 'mammals': 2, 'reptiles': 1}) => Immutable version of 'dict'
+name_to_count = {'birds': 1, 'mammals': 2, 'reptiles': 1}
+dd_name_to_count: DefaultDict[str, int] = defaultdict(int) # Accessing a missing key with d[key] inserts 0. Other factory defaults: float -> 0.0, bool -> False, str -> '', list -> [], set -> set(), dict -> {}
+dd_name_to_count['birds'] # Returns: 0 => Inserts 'birds' with a default count
+dd_name_to_count.get('mammals') # Returns: None => Unlike d[key], get() does not insert a missing key
+ro_name_to_count: Mapping[str, int] = MappingProxyType(name_to_count) # Returns: mappingproxy({'birds': 1, 'mammals': 2, 'reptiles': 1}) => A read-only view, not an immutable copy
+name_to_count['birds'] = 2
+ro_name_to_count['birds'] # Returns: 2 => Reflects changes to the underlying dictionary
 
 """
 Basic Operations
 
-Reserve generic variable / parameter names with
-- '{key}_to_{val}' for 'dict's
-- '{key}_{val}_par' for 'tuple'(pair)s
+Use '{key}_to_{val}' for dictionary variable and parameter names, and '{key}_{val}_par' for pairs.
+Prefix defaultdict names with 'dd_' and read-only mapping names with 'ro_'.
+
+Dictionary construction accepts an iterable of key-value pairs; the pairs themselves need not be hashable.
+A tuple can be a dictionary key only if all its elements are hashable.
 """
 name_to_age = {'John': 23, 'Amy': 32, 'George': 43}
 name_to_age['John'] # TC: O(1) - Returns: 23
-name_to_age.pop('Amy') # TC: O(1) - Returns: 23, State: {'John': 23, 'George': 43} => Removes key and returns value. Raises 'KeyError' if key does not exist
-name_to_age.pop('Adam', 0) # TC: O(1) - Returns: 0, State: {'John': 23, 'George': 43} => Removes key and returns value. Returns default value if key does not exist
-list(name_to_age) # Returns: ['John', 'Amy', 'George']
-name_age_pars = list(name_to_age.items()) # Returns: [('John', 23), ('Amy', 32), ('George', 43)]
-dict(name_age_pars) # Returns: {'John': 23, 'Amy': 32, 'George': 43} => Tuples can be converted to 'map' easily. This is due to the fact that tuple itself is an immutable data model which implements hash and equal methods. It's also useful when the tuple object is to be shared with another datastructure. For example, the same tuple can be used in a heap but also be indexed in dictionary for fast lookup.
+name_to_age.pop('Amy') # TC: O(1) - Returns: 32, State: {'John': 23, 'George': 43} => Removes the key and returns its value. Raises 'KeyError' if the key does not exist
+name_to_age.pop('Adam', 0) # TC: O(1) - Returns: 0, State: {'John': 23, 'George': 43} => Returns the default value if the key does not exist
+list(name_to_age) # Returns: ['John', 'George']
+name_age_pars = list(name_to_age.items()) # Returns: [('John', 23), ('George', 43)]
+dict(name_age_pars) # Returns: {'John': 23, 'George': 43} => Builds a dictionary from key-value pairs
 
-# Each returns its own dynamic view object ('dict_keys', 'dict_values', 'dict_items')
-# However, we'll share the same variable names between
-# - `dict_keys` <-> `set`
-# - `dict_values` <-> 'list'
-# - `dict_items` <-> 'tuple'
-unames = name_to_age.keys()
+"""
+Dictionary Views
+
+keys(), values(), and items() return dynamic views rather than copies.
+Views reflect later changes to the dictionary, but they do not support indexing like a list.
+Keys views support set operations; items views can be used as sets of pairs when their values are also hashable.
+Values views are neither lists nor sets.
+"""
+uq_names = name_to_age.keys()
 if 'John' in name_to_age: # TC: O(1)
     ...
 for name in name_to_age:
     ...
-if 'John' in unames: # TC: O(1)
+if 'John' in uq_names: # TC: O(1)
     ...
-for name in unames:
+for name in uq_names:
     ...
 
 ages = name_to_age.values()
@@ -90,31 +107,40 @@ for age in ages:
     ...
 
 name_age_tups = name_to_age.items()
-if ('John', 23) in itms: # TC: O(N)
+if ('John', 23) in name_age_tups: # TC: O(1) => Looks up the key and compares its value
     ...
 for name, age in name_age_tups:
     ...
 
 """
 Dictionary Comprehension
+
+Use items() to iterate over key-value pairs when inverting a dictionary.
+The original values become keys, so they must be hashable.
+If multiple original keys share a value, later entries overwrite earlier ones in the inverted dictionary.
 """
-{v: k for k, v in {1: 'a', 2: 'b', 3: 'c'}} # Returns: {'a': 1, 'b': 2, 'c': 3}
+{v: k for k, v in {1: 'a', 2: 'b', 3: 'c'}.items()} # Returns: {'a': 1, 'b': 2, 'c': 3}
 
 """
 Counters
 
-It's a convenience collection to count items. It can remove a lot of boilerplate code compared with using a normal `dict` or `defaultdict`
+Counter is a dictionary subclass for counting hashable objects.
+It reduces boilerplate compared with a normal dict or defaultdict.
+Reading a missing key returns 0 without inserting the key.
 """
-Counter(['banana', 'orange', 'apple', 'apple']) # Returns: {'banana': 1, 'orange': 1, 'apple': 2}
-Counter('hello') # Returns: {'h': 1, 'e': 1, 'l': 2, 'o': 1}
+Counter(['banana', 'orange', 'apple', 'apple']) # Returns: Counter({'apple': 2, 'banana': 1, 'orange': 1})
+ch_to_count = Counter('hello') # Returns: Counter({'l': 2, 'h': 1, 'e': 1, 'o': 1})
+ch_to_count['z'] # Returns: 0 => Does not insert 'z'
 ```
 
-Make sure you understand how Set / Dictionary works internally.
+Make sure you understand how sets and dictionaries work internally.
 - [LeetCode 705. Design HashSet](https://leetcode.com/problems/design-hashset)
 - [LeetCode 706. Design HashMap](https://leetcode.com/problems/design-hashmap)
 
-Set / Dictionary often comes as supporting data structure of a main data structure for optimization purpose (mostly for List / String in interviews).
+Sets and dictionaries often support other data structures by providing efficient membership tests and lookups.
+Common interview examples combine them with lists and strings.
 - [LeetCode 1. Two Sum](https://leetcode.com/problems/two-sum)
-- [LeetCode 125. Valid Palindrome](https://leetcode.com/problems/valid-palindrome)
+- [LeetCode 242. Valid Anagram](https://leetcode.com/problems/valid-anagram)
 
-Set / Dictionary is also used to represent Graphs (covered later) and mark visited nodes.
+Sets and dictionaries are also used to represent graphs and track visited nodes.
+Graphs are covered in a later chapter.

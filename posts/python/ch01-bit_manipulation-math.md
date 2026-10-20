@@ -2,7 +2,8 @@
 
 Before diving in, review two's complement, which is used to represent signed integers.
 Python's bitwise operators behave as though integers use two's complement with infinitely many sign bits.
-Python has many built-in types, and their values are all objects. Unlike Java or C++, Python has no primitive types.
+Python has many built-in types, and their values are all objects.
+Unlike Java or C++, Python has no primitive types.
 The most commonly used types are:
 
 - `bool`:
@@ -30,7 +31,8 @@ num >>= n # Arithmetic right shift by 'n' bits => Floor-divide 'num' by 2 ** n, 
 """
 Useful tricks to learn by heart
 
-Bit indices start at 0 at the least significant bit. Shift counts must be nonnegative.
+Bit indices start at 0 at the least significant bit.
+Shift counts must be nonnegative.
 """
 num = 5
 n = 1

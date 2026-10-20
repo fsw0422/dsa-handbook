@@ -19,7 +19,8 @@ lst: List[int] = list() # Returns: []
     [5, 6],
 ]
 ilst: Tuple[int, ...] = tuple([1, 2, 3]) # Returns: (1, 2, 3) => An immutable alternative to a 'list'
-name_age_par: Tuple[str, int] = ('John', 23) # Tuples can represent pairs, triples, and other small groups of values. Use data classes if the data model grows; see Chapter 17 for more information.
+name_age_par: Tuple[str, int] = ('John', 23) # Tuples can represent pairs, triples, and other small groups of values.
+# Use data classes if the data model grows; see Chapter 17 for more information.
 
 """
 Basic Operations
@@ -95,8 +96,11 @@ Others
 Creating a 'zip' or 'enumerate' iterator takes O(1) time; consuming N results takes O(N).
 """
 tuple([1, 2, 3]) # Returns: (1, 2, 3) => Tuple items cannot be reassigned, but mutable objects inside a tuple can still change
-zip([1, 2, 3], ['zebra', 'tiger', 'giraffe']) # TC: O(1) - Returns: zip object => Yields (1, 'zebra'), (2, 'tiger'), (3, 'giraffe'). Accepts iterables and stops when the shortest input is exhausted
-enumerate([1, 2, 3]) # TC: O(1) - Returns: enumerate object => Yields (0, 1), (1, 2), (2, 3). Useful when you need both indices and values. Accepts any iterable as an argument
+zip([1, 2, 3], ['zebra', 'tiger', 'giraffe']) # TC: O(1) - Returns: zip object => Yields (1, 'zebra'), (2, 'tiger'), (3, 'giraffe').
+# Accepts iterables and stops when the shortest input is exhausted
+enumerate([1, 2, 3]) # TC: O(1) - Returns: enumerate object => Yields (0, 1), (1, 2), (2, 3).
+# Useful when you need both indices and values.
+# Accepts any iterable as an argument
 ```
 
 # String
@@ -125,8 +129,10 @@ for ch in txt:
 """
 Editing
 
-Strings are immutable. For repeated edits to individual characters, convert the string to a list and join it back afterward.
-Concatenation generally copies the string contents. Repeated concatenation in a loop can take quadratic time; collect pieces in a list and use ''.join(pieces) instead.
+Strings are immutable.
+For repeated edits to individual characters, convert the string to a list and join it back afterward.
+Concatenation generally copies the string contents.
+Repeated concatenation in a loop can take quadratic time; collect pieces in a list and use ''.join(pieces) instead.
 """
 chs = list('hello') # Returns: ['h', 'e', 'l', 'l', 'o']
 ''.join(chs) # Returns: 'hello'
@@ -161,7 +167,8 @@ float('3.14') # Returns: 3.14 => float
 """
 Others
 """
-ord('a') # Returns: 97 => The character's Unicode code point. With a small, known alphabet, character counts can use list indices instead of dictionary keys
+ord('a') # Returns: 97 => The character's Unicode code point.
+# With a small, known alphabet, character counts can use list indices instead of dictionary keys
 
 """
 Utility Operations for input sanitization or debug output

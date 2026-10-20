@@ -84,8 +84,7 @@ List Comprehension and Tricks
 """
 [0 for _ in range(2)] # Returns: [0, 0]
 [0] * 2 # Returns: [0, 0] => Safe for immutable elements such as integers
-[[0 for _ in range(2)] for _ in range(2)] # Returns: [[0, 0], [0, 0]] => Each row is a separate list
-# Avoid [[0] * 2] * 2: it repeats the same inner list, so modifying one row affects every row
+[[0 for _ in range(2)] for _ in range(2)] # Returns: [[0, 0], [0, 0]] => Each row is a separate list. Avoid [[0] * 2] * 2: it repeats the same inner list, so modifying one row affects every row
 [x for x in range(0, 3) if x % 2 == 0] # Returns: [0, 2]
 [num for nums in [[1, 2], [3, 4]] for num in nums] # Returns: [1, 2, 3, 4]
 

@@ -4,99 +4,99 @@
 
 **Never code first:**
 
-1. Clarify the problem with given examples to make sure you are on the right page with the interviewer.
-   If it's a design question (eg. design LRU cache) make sure to clarify interfaces of the class you are implementing along with the trade-offs of possible approaches.
-2. Discuss edge / extreme cases.
-   The cases defined here along with the given example cases become the test cases in the following steps.
-   Define the input / output of the cases found.
-3. When you came up with an algorithm, walk through the steps with drawings by using the test cases you've come up with in previous steps.
-   Write down key points in each step with pseudocode if you need to.
-4. Discuss time / space complexity.
-5. Implement code.
-6. Test with example and dry-run with edge / extreme cases.
-7. Optimize and reiterate.
+1. Clarify the problem using the given examples to make sure you and the interviewer are on the same page.
+   If it's a design question, such as designing an LRU cache, clarify the interfaces of the class you are implementing and the trade-offs of possible approaches.
+2. Discuss edge cases and extreme inputs.
+   These cases, together with the given examples, become your test cases in the following steps.
+   Define the input and expected output for each case.
+3. Once you've come up with an algorithm, walk through its steps using drawings and the test cases from the previous steps.
+   Use pseudocode to capture the key points of each step if needed.
+4. Discuss time and space complexity.
+5. Implement the code.
+6. Test with the given examples and dry-run the edge cases and extreme inputs.
+7. Optimize and repeat.
 
 **Start drawing things no matter what:**
 
-An average person cannot fit an entire solution process of a complex problem in their brain, since it is hard to keep track of states while coming up with logic for solution (multitasking is not a nature for everyone).
-For this reason, start out by drawing anything on whiteboard (even by reciting the question).
-This will help your brain to focus on the solution logic.
+Most people cannot keep the entire solution to a complex problem in mind while tracking state and developing the logic. Multitasking does not come naturally to everyone.
+For this reason, start by drawing something on the whiteboard, even if you're just illustrating the question as you repeat it aloud.
+This will help you focus on the solution logic.
 
 **Become a debugger yourself when testing:**
 
-When debugging with debugging tools, we have an observer window to observe variables or stack values for each step.
-You need to be the debugger yourself to show how the input is processed in each step.
+When using a debugger, you can inspect variables and call-stack values at each step.
+Act as the debugger yourself to show how the input is processed at each step.
 
 **Think of a suboptimal solution first:**
 
-1. Always come up with a suboptimal (can be even brute force) solution first, since it has the advantage of
-   - You're guaranteed minimum points, as it can be a checkpoint (better than not being able to implement an optimal approach on first try).
-   - The interviewer can offer hints from this checkpoint if you cannot think of further optimal approach.
-   - If the suboptimal approach gets improved, there will be extra points for the improvement process itself rather than jumping to the most optimal solution.
-   - Some problems (like Dynamic Programming problems) are mostly half-solved, when you have a working suboptimal solution because the optimal approach is to just revise the code a bit.
-2. Explain the steps in pseudocode but do not implement it yet.
-   If the suboptimal approach is either too simple or complex to code, ask the interviewer if we can jump to better solution.
-   This is better than not communicating the suboptimal approach at all and later mess up with the optimal approach.
-3. If you don't have much time left, but you know an optimisation technique, quickly just mentioning the approach along with time / space complexity can get you some extra points.
+1. Always come up with a suboptimal solution first, even if it's brute force, for the following reasons:
+   - You're guaranteed a minimum score, and the solution provides a checkpoint. This is better than failing to implement an optimal approach on your first try.
+   - The interviewer can offer hints from this checkpoint if you cannot think of a better approach.
+   - Improving the suboptimal approach earns extra points for the improvement process itself, compared with jumping straight to the optimal solution.
+   - Some problems, such as dynamic programming problems, are already half-solved once you have a working suboptimal solution, because reaching the optimal approach only requires a small revision to the code.
+2. Explain the steps in pseudocode, but do not implement the solution yet.
+   If the suboptimal approach is either too simple or too complex to code, ask the interviewer whether you can move on to a better solution.
+   This is better than skipping the explanation of the suboptimal approach and later struggling with the optimal one.
+3. If you don't have much time left but know an optimization technique, briefly mentioning the approach and its time and space complexity can earn you some extra points.
 
 **Stick to a coding style:**
 
-- Coding style seems trivial, but it may give the interviewer the impression of how much you care about code quality.
-- Google has great [coding standards](https://google.github.io/styleguide) you can use as a base.
+- Coding style may seem trivial, but it gives the interviewer a sense of how much you care about code quality.
+- Google has great [coding standards](https://google.github.io/styleguide) you can use as a starting point.
 
-**Smartly name parameter, variables and methods:**
+**Choose clear names for parameters, variables, and methods:**
 
-- This also gives the interviewer the impression of how much you care about code quality.
+- Clear naming also shows the interviewer how much you care about code quality.
 
-**Know your language libraries:**
+**Know your language's libraries:**
 
-- You need to be master of the language you've chosen for the interview.
-  You will not be able to look up the internet for core APIs, therefore be sure to learn them by heart.
-- Showing good knowledge of the language of your choice conveys good impression to the interviewer.
+- You need to master the language you've chosen for the interview.
+  You will not be able to look up core APIs online, so be sure to learn them by heart.
+- Demonstrating a strong knowledge of your chosen language makes a good impression on the interviewer.
 
-**Make use of non-implemented methods with robust interface when sketching higher level implementation:**
+**Use method stubs with well-defined interfaces when sketching a higher-level implementation:**
 
-- This can greatly help you focus on sketching the higher level code.
-  You can tell your interviewer you will implement the empty methods later.
-- You can demonstrate simple TDD lifecycle since empty methods will fail the test, and you can make it pass by implementing it.
-- The interviewer may give you extra points for testability, modularization and readability of code.
+- This can help you focus on sketching the higher-level code.
+  Tell the interviewer that you will implement the empty methods later.
+- You can demonstrate a simple test-driven development (TDD) cycle: tests fail while the methods are empty and pass once you implement them.
+- The interviewer may give you extra points for testability, modularization, and code readability.
 
 **Think of the interviewer as your colleague:**
 
-- Consider the interview as a laid back discussion in a meeting.
-- Don’t choke and always communicate with interviewer out loud even if you don't know where you're going.
+- Think of the interview as a relaxed discussion with a colleague.
+- Stay calm and keep explaining your thoughts to the interviewer, even when you're unsure how to proceed.
 
 ## How to Use LeetCode
 
-- Difficulties (easy, medium, hard) can be an overall indicator, yet do not get too much attached to it since difficulty is subjective.
-  Easy labeled problems can turn into medium if further optimisation is required, or mediums can turn easy if the problem is well-known.
-  Interviewer's expectation will also vary based on the these elements.
+- Difficulty labels such as easy, medium, and hard can serve as a general guide, but don't get too attached to them, since difficulty is subjective.
+  An easy problem can become a medium one if further optimization is required, while a medium problem can feel easy if you're familiar with it.
+  The interviewer's expectations will also vary based on these factors.
 - Learn various ways to solve a particular problem.
-  Only aiming for the most optimal solution will prevent you from learning many other creative ways to solve a problem.
-  Learning various ways to solve a particular problem will definitely strengthen your fundamentals and later help you approach problems you have never seen before.
-  For example, if you are introduced with a solution of a Dynamic Programming problem with Tabulation, try to solve it with Memoization.
-  Quality over quantity.
-- There are questions that are a tweak of another problem and look something like 'Some Problem I' and 'Some Problem II'.
-  Solve the original version 'Some Problem I' and others in ordering of number, as this will give you the feeling of solving a problem and it's follow-ups.
-- Do not hold on to one problem for more than 1 hour.
-  If the bar is too high, break open a hint or go to solutions.
-  - Not looking at the solution is a good practice but there is also limited time for preparation.
-    Also, some problems simply require specific knowledge to nail it, therefore as a rule of thumb
-    - Look at the solution although never skip implementing the solution yourself.
-      Oftentimes there are specific knowledge or tricks that you will learn from a problem.
-    - Understand every aspect of the solution (Why was recursion used here? /Why is parameter passed this way? etc.).
-    - Come back to the problem 1 week later and solve from scratch.
-      If you can, you have completely understood the solution.
-  - Exceptionally hard problems (acceptance rate lower than 20%) are mostly not expected to be solved optimally within time, so try to focus on pattern recognition and a working solution.
-  - When you're really short of time, follow the foundation above but leave out the coding part.
-    Compare your solutions with the LeetCode solutions, take notes and move on.
-- Code on Google Docs or Coder Pad since it does not rely on LeetCode's helper functionalities.
-  Coding on these plain text editors will be the more close to the actual interviewing environment and help you develop the habit of
-  - Defining the method signature yourself (you can't rely on ready-made method signature like in LeetCode in interviews).
-  - Coming up with generic and edge / extreme case inputs yourself (you can't rely on ready-made test cases like in LeetCode in interviews).
-  - Testing your application line-by-line with the input you came up with (You can't compile / run / debug your code like in LeetCode in interviews).
-    Especially in LeetCode, there is a 'run' button which is very easy to abuse leading to premature commitment of your code. This is a huge red flag.
-    Only once you're done coding in the plain text editor, copy-paste and run the code on LeetCode to confirm any missed test cases.
+  Aiming only for the optimal solution prevents you from learning other creative approaches.
+  Learning multiple approaches strengthens your fundamentals and helps you tackle problems you have never seen before.
+  For example, if you learn a tabulation solution to a dynamic programming problem, try solving it with memoization as well.
+  Prioritize quality over quantity.
+- Some questions are variations of another problem and have names such as 'Some Problem I' and 'Some Problem II'.
+  Solve the original version first, then the others in numerical order, to practice solving a problem and its follow-ups.
+- Do not spend more than one hour on a single problem.
+  If the problem is too difficult, use a hint or look at the solutions.
+  - Avoiding the solution is good practice, but preparation time is limited.
+    Some problems also require specific knowledge, so follow these rules of thumb:
+    - Look at the solution, but never skip implementing it yourself.
+      Often, a problem will teach you specific concepts or tricks.
+    - Understand every aspect of the solution: Why was recursion used here? Why is this parameter passed this way?
+    - Return to the problem one week later and solve it from scratch.
+      If you can, you have fully understood the solution.
+  - Exceptionally hard problems with an acceptance rate below 20% are generally not expected to be solved optimally within the allotted time, so focus on pattern recognition and a working solution.
+  - When you're very short on time, follow the foundational steps above but skip the implementation.
+    Compare your approaches with the LeetCode solutions, take notes, and move on.
+- Code in Google Docs or CoderPad to avoid relying on LeetCode's helper features.
+  Practicing in these editors more closely resembles the interview environment and helps you develop the following habits:
+  - Defining method signatures yourself, since you can't rely on ready-made signatures as you can on LeetCode.
+  - Coming up with typical inputs, edge cases, and extreme inputs yourself, since you can't rely on ready-made test cases as you can on LeetCode.
+  - Testing your code line by line using the inputs you've chosen, since you can't compile, run, or debug your code in interviews as you can on LeetCode.
+    LeetCode's 'Run' button is particularly easy to overuse, leading you to commit to an approach prematurely. This is a huge red flag.
+    Only after you've finished coding in the editor should you copy and run the code on LeetCode to identify any test cases you've missed.
 - Finally, [NeetCode 150](leetcode.com/problem-list/adc2unt1) covers almost all patterns of questions.
-  Digest every pattern and approaches in this list and implement it yourself.
-  If you can comfortably solve at least medium questions in 20 minutes, you are ready-for-interview.
+  Understand every pattern and approach in this list, and implement each solution yourself.
+  If you can comfortably solve problems of at least medium difficulty in 20 minutes, you are ready for an interview.

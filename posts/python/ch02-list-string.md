@@ -126,6 +126,7 @@ Editing
 
 Strings are immutable.
 For repeated edits to individual characters, convert the string to a list and join it back afterward.
+Use the '+' operator to concatenate strings, such as 'hello' + ' world'.
 Concatenation generally copies the string contents.
 Repeated concatenation in a loop can take quadratic time; collect pieces in a list and use ''.join(pieces) instead.
 """

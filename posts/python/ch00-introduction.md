@@ -5,7 +5,7 @@
 **Never code first:**
 
 1. Clarify the problem using the given examples to make sure you and the interviewer are on the same page.
-   If it's a design question (e.g., designing an LRU cache), clarify the interfaces of the class you are implementing and the trade-offs of possible approaches.
+   If it's a design question, such as designing an LRU cache, clarify the interfaces of the class you are implementing and the trade-offs of possible approaches.
 2. Discuss edge cases and extreme inputs.
    These cases, together with the given examples, become your test cases in the following steps.
    Define the input and expected output for each case.
@@ -18,7 +18,7 @@
 
 **Start drawing things no matter what:**
 
-Most people cannot keep the entire solution to a complex problem in mind while tracking state and developing the logic (multitasking does not come naturally to everyone).
+Most people cannot keep the entire solution to a complex problem in mind while tracking state and developing the logic. Multitasking does not come naturally to everyone.
 For this reason, start by drawing something on the whiteboard, even if you're just illustrating the question as you repeat it aloud.
 This will help you focus on the solution logic.
 
@@ -68,7 +68,7 @@ Act as the debugger yourself to show how the input is processed at each step.
 
 ## How to Use LeetCode
 
-- Difficulty labels (easy, medium, hard) can serve as a general guide, but don't get too attached to them, since difficulty is subjective.
+- Difficulty labels such as easy, medium, and hard can serve as a general guide, but don't get too attached to them, since difficulty is subjective.
   An easy problem can become a medium one if further optimization is required, while a medium problem can feel easy if you're familiar with it.
   The interviewer's expectations will also vary based on these factors.
 - Learn various ways to solve a particular problem.
@@ -87,7 +87,7 @@ Act as the debugger yourself to show how the input is processed at each step.
     - Understand every aspect of the solution: Why was recursion used here? Why is this parameter passed this way?
     - Return to the problem one week later and solve it from scratch.
       If you can, you have fully understood the solution.
-  - Exceptionally hard problems (with an acceptance rate below 20%) are generally not expected to be solved optimally within the allotted time, so focus on pattern recognition and a working solution.
+  - Exceptionally hard problems with an acceptance rate below 20% are generally not expected to be solved optimally within the allotted time, so focus on pattern recognition and a working solution.
   - When you're very short on time, follow the foundational steps above but skip the implementation.
     Compare your approaches with the LeetCode solutions, take notes, and move on.
 - Code in Google Docs or CoderPad to avoid relying on LeetCode's helper features.

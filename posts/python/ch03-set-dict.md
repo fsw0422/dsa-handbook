@@ -69,7 +69,7 @@ ro_name_to_count['birds'] # Returns: 2 => Reflects changes to the underlying dic
 Basic Operations
 
 Use '{key}_to_{val}' for dictionary variable and parameter names, such as 'name_to_age'.
-Use '{field1}_{field2}' for tuple pairs, such as 'name_age', and plural names such as 'name_age_pars' for collections of pairs.
+Use '{field1}_{field2}' for a tuple, such as 'name_age', and add '_tups' for a list of tuples, such as 'name_age_tups'.
 Add 'dd_' for defaultdicts and 'ro_' for read-only mappings only to distinguish coexisting variants.
 For example, 'name_to_count', 'dd_name_to_count', and 'ro_name_to_count' distinguish the three mapping objects in the allocation examples.
 
@@ -81,8 +81,8 @@ name_to_age['John'] # TC: O(1) - Returns: 23
 name_to_age.pop('Amy') # TC: O(1) - Returns: 32, State: {'John': 23, 'George': 43} => Removes the key and returns its value. Raises 'KeyError' if the key does not exist
 name_to_age.pop('Adam', 0) # TC: O(1) - Returns: 0, State: {'John': 23, 'George': 43} => Returns the default value if the key does not exist
 list(name_to_age) # Returns: ['John', 'George']
-name_age_pars = list(name_to_age.items()) # Returns: [('John', 23), ('George', 43)]
-dict(name_age_pars) # Returns: {'John': 23, 'George': 43} => Builds a dictionary from key-value pairs
+name_age_tups = list(name_to_age.items()) # Returns: [('John', 23), ('George', 43)]
+dict(name_age_tups) # Returns: {'John': 23, 'George': 43} => Builds a dictionary from key-value pairs
 
 """
 Dictionary Views

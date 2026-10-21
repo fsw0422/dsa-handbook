@@ -1,37 +1,36 @@
 # Linked List
 
-You will encounter in most part, 2 kinds of questions for Linked List in interviews.
+Interview questions about linked lists commonly fall into two categories.
 
-- Using a predefined singly-linked list node class.
-  Note that these problems are generally solved with previous, current, next and temp pointers.
+- Working with a predefined singly linked list node class.
+  These problems often involve tracking the previous, current, and next nodes while updating links.
+  Use the attributes defined by the question; the example below uses 'nxt', while some platforms use 'next'.
 
   ```python
-  ...
-  
   from __future__ import annotations
 
   from typing import Any, Optional
   
 
   class ListNode:
-      def __init__(self, val: Any, nxt: Optional[ListNode]):
+      def __init__(self, val: Any, nxt: Optional[ListNode] = None):
           self.val = val
           self.nxt = nxt
   ```
 
   - [LeetCode 141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle)
-- Using custom doubly-linked list that integrates with other data structures such as Dictionary for building efficient data structures.
+- Building a custom doubly linked list and combining it with other data structures, such as a dictionary.
+  An LRU cache uses a dictionary to find nodes and a doubly linked list to track recency.
+  A doubly linked list can remove a known node in O(1) time by updating its neighbors.
 
   ```python
-  ...
-  
   from __future__ import annotations
 
   from typing import Any, Optional
 
 
-  class ListNode:
-      def __init__(self, val: Any, prv: Optional[ListNode], nxt: Optional[ListNode]):
+  class DoublyListNode:
+      def __init__(self, val: Any, prv: Optional[DoublyListNode] = None, nxt: Optional[DoublyListNode] = None):
           self.val = val
           self.prv = prv
           self.nxt = nxt
@@ -41,17 +40,21 @@ You will encounter in most part, 2 kinds of questions for Linked List in intervi
 
 ## Tips
 
-- Dummy node:
-  When using a dummy node, we don't need to check the corner case where the head is null.
-  Definition of an empty list is now 'next node of head node equals null.
-- Tail node:
-  When you track the tail node, it's easier to append new nodes.
-  Creating a new list as a result of another operation will be a good example.
-  If the tail node is not given with the predefined list, you will have to at least traverse the entire list once, which makes the time complexity at least O(N).
-  Tail node can also point to a dummy node to simplify code.
+- Dummy head:
+  A dummy head provides a stable predecessor for the first real node, reducing special cases when inserting or deleting the head.
+  The actual head is 'dummy.nxt', and the list is empty when 'dummy.nxt is None'.
+- Tail pointer:
+  Tracking the last node lets you append new nodes in O(1) time, which is useful when building a list.
+  If only the head is available, finding the tail takes O(N) time.
+  When building a list with a dummy head, initialize the tail to the dummy node while the list is empty.
 - Middle node:
-  It is often asked in interviews of finding the middle node of a singly-linked list.
-  It is useful when we have to break the list into 2, or moving 2 pointers in different speed.
+  Use slow and fast pointers to find the middle of a singly linked list in O(N) time and O(1) auxiliary space.
+  Advance the slow pointer by one node and the fast pointer by two nodes.
+  For an even-length list, decide whether the problem needs the first or second middle node.
+  Finding the middle is useful when splitting a list, such as for merge sort.
+- Pointer updates:
+  Save the next node before overwriting the current node's 'nxt' link so you do not lose access to the rest of the list.
+  In a doubly linked list, update both the 'prv' and 'nxt' links when inserting or removing nodes.
 
-Some solutions may use all three tips
-- [LeetCode 148. sort-list](https://leetcode.com/problems/sort-list)
+Some solutions combine dummy heads, tail pointers, and middle-node searches.
+- [LeetCode 148. Sort List](https://leetcode.com/problems/sort-list)

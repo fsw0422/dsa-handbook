@@ -56,32 +56,32 @@ from typing import Dict, DefaultDict, Mapping
 Allocation
 """
 
-name_count: Dict[str, int] = dict() # Returns: {}
-name_count = {'birds': 1, 'mammals': 2, 'reptiles': 1}
-dd_name_count: DefaultDict[str, int] = defaultdict(int) # Accessing a missing key with d[key] inserts 0. Other factory defaults: float -> 0.0, bool -> False, str -> '', list -> [], set -> set(), dict -> {}
-dd_name_count['birds'] # Returns: 0 => Inserts 'birds' with a default count
-dd_name_count.get('mammals') # Returns: None => Unlike d[key], get() does not insert a missing key
-ro_name_count: Mapping[str, int] = MappingProxyType(name_count) # Returns: mappingproxy({'birds': 1, 'mammals': 2, 'reptiles': 1}) => A read-only view, not an immutable copy
-name_count['birds'] = 2
-ro_name_count['birds'] # Returns: 2 => Reflects changes to the underlying dictionary
+name_to_count: Dict[str, int] = dict() # Returns: {}
+name_to_count = {'birds': 1, 'mammals': 2, 'reptiles': 1}
+dd_name_to_count: DefaultDict[str, int] = defaultdict(int) # Accessing a missing key with d[key] inserts 0. Other factory defaults: float -> 0.0, bool -> False, str -> '', list -> [], set -> set(), dict -> {}
+dd_name_to_count['birds'] # Returns: 0 => Inserts 'birds' with a default count
+dd_name_to_count.get('mammals') # Returns: None => Unlike d[key], get() does not insert a missing key
+ro_name_to_count: Mapping[str, int] = MappingProxyType(name_to_count) # Returns: mappingproxy({'birds': 1, 'mammals': 2, 'reptiles': 1}) => A read-only view, not an immutable copy
+name_to_count['birds'] = 2
+ro_name_to_count['birds'] # Returns: 2 => Reflects changes to the underlying dictionary
 
 """
 Basic Operations
 
-Use simple '{key}_{val}' names, such as 'name_age', when their meaning is clear and names do not overlap in the same scope.
+Use '{key}_to_{val}' for dictionary variable and parameter names, such as 'name_to_age'.
+Use '{field1}_{field2}' for tuple pairs, such as 'name_age', and plural names such as 'name_age_pars' for collections of pairs.
 Add 'dd_' for defaultdicts and 'ro_' for read-only mappings only to distinguish coexisting variants.
-For example, 'name_count', 'dd_name_count', and 'ro_name_count' distinguish the three mapping objects in the allocation examples.
-Likewise, use a suffix such as '_pars' when a pair collection would otherwise share the mapping's name.
+For example, 'name_to_count', 'dd_name_to_count', and 'ro_name_to_count' distinguish the three mapping objects in the allocation examples.
 
 Dictionary construction accepts an iterable of key-value pairs; the pairs themselves need not be hashable.
 A tuple can be a dictionary key only if all its elements are hashable.
 """
-name_age = {'John': 23, 'Amy': 32, 'George': 43}
-name_age['John'] # TC: O(1) - Returns: 23
-name_age.pop('Amy') # TC: O(1) - Returns: 32, State: {'John': 23, 'George': 43} => Removes the key and returns its value. Raises 'KeyError' if the key does not exist
-name_age.pop('Adam', 0) # TC: O(1) - Returns: 0, State: {'John': 23, 'George': 43} => Returns the default value if the key does not exist
-list(name_age) # Returns: ['John', 'George']
-name_age_pars = list(name_age.items()) # Returns: [('John', 23), ('George', 43)]
+name_to_age = {'John': 23, 'Amy': 32, 'George': 43}
+name_to_age['John'] # TC: O(1) - Returns: 23
+name_to_age.pop('Amy') # TC: O(1) - Returns: 32, State: {'John': 23, 'George': 43} => Removes the key and returns its value. Raises 'KeyError' if the key does not exist
+name_to_age.pop('Adam', 0) # TC: O(1) - Returns: 0, State: {'John': 23, 'George': 43} => Returns the default value if the key does not exist
+list(name_to_age) # Returns: ['John', 'George']
+name_age_pars = list(name_to_age.items()) # Returns: [('John', 23), ('George', 43)]
 dict(name_age_pars) # Returns: {'John': 23, 'George': 43} => Builds a dictionary from key-value pairs
 
 """
@@ -92,23 +92,23 @@ Views reflect later changes to the dictionary, but they do not support indexing 
 Keys views support set operations; items views can be used as sets of pairs when their values are also hashable.
 Values views are neither lists nor sets.
 """
-names = name_age.keys()
-if 'John' in name_age: # TC: O(1)
+names = name_to_age.keys()
+if 'John' in name_to_age: # TC: O(1)
     ...
-for name in name_age:
+for name in name_to_age:
     ...
 if 'John' in names: # TC: O(1)
     ...
 for name in names:
     ...
 
-ages = name_age.values()
+ages = name_to_age.values()
 if 2 in ages: # TC: O(N)
     ...
 for age in ages:
     ...
 
-name_age_items = name_age.items()
+name_age_items = name_to_age.items()
 if ('John', 23) in name_age_items: # TC: O(1) => Looks up the key and compares its value
     ...
 for name, age in name_age_items:
@@ -131,8 +131,8 @@ It reduces boilerplate compared with a normal dict or defaultdict.
 Reading a missing key returns 0 without inserting the key.
 """
 Counter(['banana', 'orange', 'apple', 'apple']) # Returns: Counter({'apple': 2, 'banana': 1, 'orange': 1})
-ch_count = Counter('hello') # Returns: Counter({'l': 2, 'h': 1, 'e': 1, 'o': 1})
-ch_count['z'] # Returns: 0 => Does not insert 'z'
+ch_to_count = Counter('hello') # Returns: Counter({'l': 2, 'h': 1, 'e': 1, 'o': 1})
+ch_to_count['z'] # Returns: 0 => Does not insert 'z'
 ```
 
 Make sure you understand how sets and dictionaries work internally.

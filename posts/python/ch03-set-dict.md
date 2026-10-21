@@ -91,6 +91,7 @@ keys(), values(), and items() return dynamic views rather than copies.
 Views reflect later changes to the dictionary, but they do not support indexing like a list.
 Keys views support set operations; items views can be used as sets of pairs when their values are also hashable.
 Values views are neither lists nor sets.
+Use '_itms' for items-view variable names, such as 'name_age_itms'.
 """
 names = name_to_age.keys()
 if 'John' in name_to_age: # TC: O(1)
@@ -108,10 +109,10 @@ if 2 in ages: # TC: O(N)
 for age in ages:
     ...
 
-name_age_items = name_to_age.items()
-if ('John', 23) in name_age_items: # TC: O(1) => Looks up the key and compares its value
+name_age_itms = name_to_age.items()
+if ('John', 23) in name_age_itms: # TC: O(1) => Looks up the key and compares its value
     ...
-for name, age in name_age_items:
+for name, age in name_age_itms:
     ...
 
 """

@@ -1,9 +1,15 @@
 # Dynamic Programming
 
-Simply put, Dynamic Programming is an optimization technique for Optimal Substructure problems where there exist Overlapping Subproblems.
-Divide and Conquer solutions discussed in the previous chapter (merge sort, binary search etc) by property have no Overlapping Subproblems, thus is not a candidate for optimization.
+Dynamic programming builds answers from smaller subproblem answers and reuses their results.
+Depending on the problem, these answers may represent a best result (using optimal substructure), a count, or whether a solution exists.
 
-Let's revisit the 'nth Fibonacci number' calculation to see how Dynamic Programming can optimize this problem.
+Divide-and-conquer algorithms such as merge sort and binary search from Chapter 08 usually solve distinct subproblems, so memoization offers little benefit.
+
+Let's revisit the nth Fibonacci number to see how dynamic programming avoids repeated work.
+Each function below accepts a nonnegative integer `n`.
+
+For an input index `N = n`, the complexity labels count additions and stored integers.
+Python's arbitrary-precision integers grow in size, so their arithmetic and memory costs grow too.
 
 - Memoization
 
@@ -12,17 +18,19 @@ Let's revisit the 'nth Fibonacci number' calculation to see how Dynamic Programm
   
   def fibonacci_memoized(n: int) -> int:
       """
-      Starts from the original problem and descends toward the base-case (hence top-down approach)
+      Start from n and recurse toward the base cases, caching computed results.
   
-      TC: O(N)
-      SC: O(N)
-  
-      Constraint: 0 <= n <= 45
+      TC: O(N) additions.
+      SC: O(N) cached integers and recursive call frames.
       """
+
+      if n < 0:
+          raise ValueError("n must be nonnegative")
   
       memo = [-1 for _ in range(n + 1)]
   
-      def rec(_n: int) -> int
+      def rec(_n: int) -> int:
+          # Deep recursion can exceed Python's recursion-depth limit.
           if _n <= 1:
               return _n
   
@@ -33,6 +41,9 @@ Let's revisit the 'nth Fibonacci number' calculation to see how Dynamic Programm
           return memo[_n]
   
       return rec(n)
+
+
+  fibonacci_memoized(10) # Returns: 55
   ```
 - Tabulation
 
@@ -41,13 +52,14 @@ Let's revisit the 'nth Fibonacci number' calculation to see how Dynamic Programm
   
   def fibonacci_tabulation(n: int) -> int:
       """
-      Starts from the base-case and ascends toward the original problem (hence bottom-up approach)
+      Build results from the base cases up to n.
   
-      TC: O(N)
-      SC: O(N)
-  
-      Constraint: 0 <= n <= 45
+      TC: O(N) additions.
+      SC: O(N) stored integers.
       """
+
+      if n < 0:
+          raise ValueError("n must be nonnegative")
   
       if n <= 1:
           return n
@@ -62,11 +74,14 @@ Let's revisit the 'nth Fibonacci number' calculation to see how Dynamic Programm
   
   def fibonacci_tabulation_space_optimized(n: int) -> int:
       """
-      TC: O(N)
-      SC: O(1)
+      Keep only the two values needed to compute the next value.
   
-      Constraint: 0 <= num <= 45
+      TC: O(N) additions.
+      SC: O(1) stored integers.
       """
+
+      if n < 0:
+          raise ValueError("n must be nonnegative")
   
       if n <= 1:
           return n
@@ -74,37 +89,57 @@ Let's revisit the 'nth Fibonacci number' calculation to see how Dynamic Programm
       prv = 0
       cur = 1
       for _ in range(2, n + 1):
-          prv, cur = cur, cur + prv # This line is not sequential. Left-side 'prv' and right-side 'prv' is same value
+          prv, cur = cur, cur + prv # Both right-side expressions are evaluated before either variable is updated.
       return cur
+
+
+  fibonacci_tabulation(10) # Returns: 55
+  fibonacci_tabulation_space_optimized(10) # Returns: 55
   ```
 
-Any problem (most likely will be Bruteforcing or Backtracking problems in interviews) that satisfies this condition can be a candidate for optimization with Dynamic Programming.
-- Recurrence Relation problems:
-  Recurrence Relation problems are classic problems that can be optimally solved with Dynamic Programming.
+Look for repeated states whose results can be reused.
+
+- Recurrence relations:
+  A recurrence can benefit from DP when its subproblems overlap.
+
   - [LeetCode 70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs)
-  - [LeetCode 198. Min Cost Climbing Stairs](https://leetcode.com/problems/min-cost-climbing-stairs)
+  - [LeetCode 746. Min Cost Climbing Stairs](https://leetcode.com/problems/min-cost-climbing-stairs)
   - [LeetCode 198. House Robber](https://leetcode.com/problems/house-robber)
   - [LeetCode 213. House Robber II](https://leetcode.com/problems/house-robber-ii)
   - [LeetCode 1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence)
 - Backtracking problems:
-  Backtracking problems can be solved optimally with Dynamic Programming however, if constraints get complicated, it's not easy to identify overlapping subproblems.
-  In most cases, Backtracking solution will be enough to pass the interview however, there are some Backtracking problems where overlapping subproblems are easier to identify, thus can be further optimized with Dynamic Programming.
+  Memoization can speed up backtracking when different paths reach the same state.
+  Include every detail that affects future choices in that state.
+
   - [LeetCode 55. Jump Game](https://leetcode.com/problems/jump-game)
   - [LeetCode 45. Jump Game II](https://leetcode.com/problems/jump-game-ii)
   - [LeetCode 322. Coin Change](https://leetcode.com/problems/coin-change)
   - [LeetCode 518. Coin Change II](https://leetcode.com/problems/coin-change-ii)
-- Sub-list / Sub-string problems:
-  Tabulation is mostly used to solve these problems.
+- Array and string problems:
+  DP can track the best result ending at a position or over a prefix.
+
   - [LeetCode 53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray)
   - [LeetCode 121. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock)
-  - [LeetCode 238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self)
+
+Prefix and suffix products are a related array technique.
+
+- [LeetCode 238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self)
 
 ## Tips
 
-- Memoization should come up first as optimization because it's more intuitive than tabulation (non-memoized version is basically the plain DFS function).
-However, as Tabulation often is more efficient in terms of space complexity (since it does not use the recursion call stack), try solving the problem first with Memoization, and then optimize towards Tabulation if interviewer explicitly asks for a bottom-up approach.
-Tabulation, as explained above can also (but not always) lead to further space optimization as well.
-If you have defined the base case well, both Memoization and Tabulation will share the same base case and similar code structure.
-- If the problem asks for anything in context of min / max / number-of-XYZ etc that requires exploration OR anything in context of prefix sum, it is highly likely to be solved optimally with Dynamic Programming.
-As described in the first bullet-point, when initially coming up with a DFS function to solve these problems, the function will often return a type of either `int` or `bool`.
-These return values are likely cacheable, thus eligible for Memoization.
+Consider DP when:
+
+- An answer can be built from answers to smaller subproblems.
+- The same states recur, and their stored results can be reused.
+- For minimum, maximum, shortest, or longest questions, check whether the problem has optimal substructure (see [Chapter 07](ch07-recursion_and_subproblems.md#optimal-substructure)).
+- For counting or reachability questions, counts or boolean answers from smaller subproblems can be combined.
+
+After identifying that the problem can be solved with DP:
+
+- Start with a correct recursive solution and clear base cases, then add memoization to avoid repeated work.
+  Memoization is often more intuitive because it keeps the recursive structure.
+  Once it works, consider converting it to tabulation to avoid recursive calls and possibly reduce storage.
+  Tabulation computes states in an order where their dependencies are already available.
+- Include every changing input that affects the subproblem's answer in the state.
+  Use those values as the cache key, so calls with the same state can reuse the same answer.
+  For Coin Change with fixed denominations, the remaining amount is enough to identify the subproblem.

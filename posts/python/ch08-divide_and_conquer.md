@@ -1,16 +1,16 @@
 # Divide and Conquer
 
-Divide and Conquer in Optimal Substructure problems:
-- Do not have overlapping subproblems (which we will discuss later in Dynamic Programming chapter).
-- On every subproblem, the problem space significantly decreases.
+Divide and conquer splits a problem into smaller subproblems, solves them, and combines their results.
+The subproblems are typically solved independently.
+When the same subproblem is solved repeatedly, dynamic programming may help reuse its result.
 
-Sort / Binary Search are great examples use cases of Divide and Conquer.
+Merge sort and quicksort are common examples.
+Binary search uses a related idea: reduce the search space to one smaller subproblem at each step.
 
 ## Sort
 
-There are several sorting algorithms with quadratic runtime (Bubble Sort, Insertion Sort, Selection Sort).
-However, due to their time-complexity penalty, improved algorithms like below are more likely to be in interviews.
-Sorting algorithms introduced below use split-and-combine patterns. 
+Bubble sort, insertion sort, and selection sort have quadratic worst-case running time.
+The following examples use divide and conquer to achieve O(N * logN) time with balanced splits.
 
 - Merge Sort
 
@@ -20,16 +20,17 @@ Sorting algorithms introduced below use split-and-combine patterns.
   from typing import List
   
   
-  def merge_sort(nums: List[int]):
+  def merge_sort(nums: List[int]) -> None:
       """
-      Stable sorting algorithm (elements with same key preserves ordering) using Divide and Conquer technique.
-      The divide step is implemented in simple recursion top-down, while the merge step merge the split 2 lists bottom-up.
+      Sort nums using a stable divide-and-conquer algorithm.
+      Elements with equal keys keep their relative order.
+      Split the list recursively, then merge the sorted halves as the calls return.
   
-      TC: O(N*logN)
-      SC: O(N)
+      TC: O(N * logN) worst case.
+      SC: O(N) auxiliary space for the slices, plus O(logN) call-stack space.
       """
   
-      def merge(lo_nums: List[int], hi_nums: List[int]):
+      def merge(lo_nums: List[int], hi_nums: List[int]) -> None:
           i = 0
           j = 0
           k = 0
@@ -43,13 +44,13 @@ Sorting algorithms introduced below use split-and-combine patterns.
                   j += 1
               k += 1
   
-          # Drain rest of 'lo_nums'
+          # Copy the remaining elements from lo_nums.
           while i < len(lo_nums):
               nums[k] = lo_nums[i]
               i += 1
               k += 1
   
-          # Drain rest of 'hi_nums'
+          # Copy the remaining elements from hi_nums.
           while j < len(hi_nums):
               nums[k] = hi_nums[j]
               j += 1
@@ -67,26 +68,35 @@ Sorting algorithms introduced below use split-and-combine patterns.
       merge(left, right)
   ```
 
-  The more generic version of merge step will be K-Way Merge where it merges K Lists.
+  A k-way merge generalizes the merge step to combine K sorted lists.
+
   - [LeetCode 23. Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists)
 - Quick Sort
 
   ```python
   ...
   
+  from enum import Enum, auto
   from typing import List
-  
-  
-  def quick_sort(nums: List[int]):
+
+
+  class PartitionScheme(Enum):
+      LOMUTO = auto()
+      HOARE = auto()
+
+
+  def quick_sort(nums: List[int], partition: PartitionScheme) -> None:
       """
-      Unstable sorting algorithm (elements with same key does NOT preserve ordering) using Divide and Conquer technique
-      Most widely adapted sorting algorithm due to its performance
+      Sort nums by partitioning around a pivot and recursively sorting each side.
+      This algorithm is unstable: elements with equal keys may change relative order.
+      Set partition=PartitionScheme.HOARE to use Hoare partitioning.
   
-      TC: O(N*logN)
-      SC: O(logN)
+      TC: O(N * logN) average for randomly ordered distinct values, O(N^2) worst case.
+      SC: O(logN) average call-stack space, O(N) worst case.
       """
-  
-      def sort(lo: int, hi: int):
+
+      def sort(lo: int, hi: int) -> None:
+          # Unbalanced partitions can exceed Python's recursion-depth limit.
   
           def hoare_partition(_lo: int, _hi: int) -> int:
               i = _lo - 1
@@ -114,48 +124,72 @@ Sorting algorithms introduced below use split-and-combine patterns.
               nums[i], nums[_hi] = nums[_hi], nums[i]
               return i
   
-          if lo >= hi:
-              return
-  
-          # piv_idx = hoare_partition(lo, hi)
-          piv_idx = lomuto_partition(lo, hi)
-          sort(lo, piv_idx - 1)
-          sort(piv_idx + 1, hi)
+          if partition is PartitionScheme.HOARE:
+              if lo < hi:
+                  split_idx = hoare_partition(lo, hi) # Split boundary, not the pivot's final index.
+                  sort(lo, split_idx)
+                  sort(split_idx + 1, hi)
+          elif partition is PartitionScheme.LOMUTO:
+              if lo < hi:
+                  piv_idx = lomuto_partition(lo, hi) # Pivot's final index.
+                  sort(lo, piv_idx - 1)
+                  sort(piv_idx + 1, hi)
+          else:
+              raise TypeError("partition must be a PartitionScheme")
   
       sort(0, len(nums) - 1)
   ```
+
+  These fixed endpoint pivots can produce unbalanced splits, including on already sorted inputs.
+
+Counting sort and radix sort are alternatives that use properties of the keys.
+Counting sort uses a bounded integer key range, while radix sort processes keys digit by digit.
+
 - [Counting Sort](https://www.youtube.com/watch?v=OKd534EWcdk)
 - [Radix Sort](https://www.youtube.com/watch?v=XiuSW_mEn7g)
 
-Revisiting 'Finding top-K / bottom-K elements' problems using Quick Select (partitioning part of Quick Sort) or Counting (counting part of Counting Sort) to achieve near O(N) performance.
+For top-K or bottom-K selection, randomized quickselect uses partitioning to achieve O(N) expected time, with O(N^2) worst-case time.
+Sorting the selected K values afterward adds O(K * logK) time.
+Counting-based selection takes O(N + R) time and O(R) auxiliary space when integer keys span a range of size R.
+
 - [LeetCode 215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array)
 
 ```python
 """
 Basic Operations
 
-Python uses Tim Sort
-TC: O(NlogN)
-SC: O(N) Average
+Python's built-in sorts use Timsort and preserve the relative order of equal keys.
+TC: O(N * logN) worst case, O(N) best case when existing runs can be used.
+SC: O(N) worst-case auxiliary space.
 """
 nums = [3, 1, 6, 5]
-nums.sort() # State: [1, 3, 5, 6] => *In-place*
-sorted(nums) # Returns: [1, 3, 5, 6] => New 'list', not 'Iterator'
+nums.sort() # Returns: None, State: [1, 3, 5, 6] => Modifies the existing list.
+sorted(nums) # Returns: [1, 3, 5, 6] => Creates a new list.
 
 sorted('bacd') # Returns: ['a', 'b', 'c', 'd']
 
 num1_num2_tups = [(1, 3), (3, 2), (2, 1)]
-sorted(num1_num2_tups, key=lambda x: x[0]) # Returns: [(1, 3), (2, 1), (3, 2)]
-sorted(num1_num2_tups, key=lambda x: x[1]) # Returns: [(2, 1), (3, 2), (1, 3)]
+sorted(num1_num2_tups, key=lambda num1_num2: num1_num2[0]) # Returns: [(1, 3), (2, 1), (3, 2)]
+sorted(num1_num2_tups, key=lambda num1_num2: num1_num2[1]) # Returns: [(2, 1), (3, 2), (1, 3)]
 num1_num2_tups.sort() # State: [(1, 3), (2, 1), (3, 2)]
-num1_num2_tups.sort(key=lambda x: x[0]) # State: [(1, 3), (2, 1), (3, 2)]
-num1_num2_tups.sort(key=lambda x: x[1]) # State: [(2, 1), (3, 2), (1, 3)]
+num1_num2_tups.sort(key=lambda num1_num2: num1_num2[0]) # State: [(1, 3), (2, 1), (3, 2)]
+num1_num2_tups.sort(key=lambda num1_num2: num1_num2[1]) # State: [(2, 1), (3, 2), (1, 3)]
 ```
+
+Sorting can also simplify interval and string problems.
+
+- [LeetCode 56. Merge Intervals](https://leetcode.com/problems/merge-intervals)
+- [LeetCode 242. Valid Anagram](https://leetcode.com/problems/valid-anagram)
 
 ## Binary Search
 
-Binary Search comes in tandem with Sort (it's the requirement).
-Binary Search often doesn't require the 'combine' part of split-and-combine pattern.
+Binary search requires an ordered search space.
+For a sorted list, compare the target with the middle element and discard the half that cannot contain it.
+There is usually no combine step.
+
+The `bisect` functions find insertion points in a sorted list.
+The optional `lo` and `hi` bounds restrict the search to `nums[lo:hi]`, with `hi` excluded.
+The returned insertion index is measured from the start of the original list and can equal `hi`.
 
 ```python
 import bisect as bs
@@ -167,93 +201,107 @@ Basic Operations
 TC: O(logN)
 """
 nums = [0, 1, 2, 2, 3, 6]
-l = bs.bisect_left(nums, 2) # TC: O(logN) - Returns: 2 => Left-most place in the sorted list to insert the given element
-r = bs.bisect_right(nums, 2) # TC: O(logN) - Returns: 5 => Right-most place in the sorted list to insert the given element
-if l == r: # It means value is not found
+l = bs.bisect_left(nums, 2) # TC: O(logN) - Returns: 2 => Insert before existing values equal to 2.
+r = bs.bisect_right(nums, 2) # TC: O(logN) - Returns: 4 => Insert after existing values equal to 2.
+if l == r: # The value is absent.
     ...
-if l != r: # It means value is found
-    # To find the actual index of the first and last occurrence of the 'val', it should be either 'left' or 'right' - 1
-    ...
+if l != r: # The value is present.
+    first_idx = l
+    last_idx = r - 1
 
-bs.bisect_left(nums, 12, lo=1, hi=5) # TC: O(logN) - Returns: 5 => Parameters allow range search. Index will return based on the scope of range
-bs.bisect_right(nums, 12, lo=1, hi=5) # TC: O(logN) - Returns: 5 => Parameters allow range search. Index will return based on the scope of range
+bs.bisect_left(nums, 12, lo=1, hi=5) # TC: O(logN) - Returns: 5 => Insertion point at the end of the searched range.
+bs.bisect_right(nums, 12, lo=1, hi=5) # TC: O(logN) - Returns: 5 => Insertion point at the end of the searched range.
 ```
-- Almost all Binary Search questions involve using either
-  - Lists that is given either sorted or unsorted.
-    - Not sorted:
-      Need to use the built-in sort function and then think about what to apply with the sorted List.
-      - [LeetCode 56. Merge Intervals](https://leetcode.com/problems/merge-intervals)
-      - [LeetCode 242. Valid Anagram](https://leetcode.com/problems/valid-anagram)
-    - Sorted:
-      The intention of these questions is to reach the optimal time complexity (O(logN)) with a slightly tweaked sorted structure.
-      This means either using the built-in Binary Search method or implement a customized version yourself to meet the use case.
 
-      ```python
-      ...
-      
-      from typing import List
-      
-      """
-      This function is simplified (but customizable) Binary Search function.
-      There are problems that require you to tweak this function in order to solve the problem.
-      """
-      def binary_search(nums: List[int], trg: int) -> int:
+For a sorted list, a custom binary search can return a target's index or `-1` when it is absent.
+The following implementation returns any matching index when duplicates exist.
+Set `method=SearchMethod.RECURSIVE` to use the recursive version.
 
-          def rec(lo: int, hi: int):
-              if lo > hi:
-                return -1 
+```python
+...
 
-              mid = lo + (hi - lo) // 2 # Prevent overflow
+from enum import Enum, auto
+from typing import List
 
-              # Target is found (tweak is often required here)
-              if nums[mid] == trg:
-                  return mid
 
-              # Tune 'lo' and 'hi' if pivot is not found
-              if nums[mid] < trg:
-                  return rec(nums, lo, mid - 1, trg)
-              else:
-                  return rec(nums, mid + 1, hi, trg)
+class SearchMethod(Enum):
+    ITERATIVE = auto()
+    RECURSIVE = auto()
 
-          def itr() -> int:
-              lo = 0
-              hi = len(nums) - 1
-              while lo <= hi:
-                  mid = lo + (hi - lo) // 2 # Prevent overflow
-      
-                  # Target is found (tweak is often required here)
-                  if nums[mid] == trg:
-                      return mid
-      
-                  # Tune 'lo' and 'hi' if pivot is not found
-                  if nums[mid] < trg:
-                      lo = mid + 1
-                  else:
-                      hi = mid - 1
-              return -1
 
-          #return rec(0, len(nums) - 1)
-          return itr()
-      ```
+def binary_search(nums: List[int], trg: int, method: SearchMethod) -> int:
+    """
+    Search a list sorted in ascending order without modifying it.
 
-      - [LeetCode 33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array)
-      - [LeetCode 34. Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array)
-    - Root node of a Binary Tree that is sorted when traversed in-order.
+    TC: O(logN).
+    SC: O(1) for iteration, O(logN) call-stack space for recursion.
+    """
 
-# Self-Balancing Binary Search Tree
+    def rec(lo: int, hi: int) -> int:
+        if lo > hi:
+            return -1
 
-So far, we've looked into Sort / Binary Search on non-changing datasets since elements need to be sorted only once for Binary Search(es).
-However, when elements are dynamically added / deleted, sorting the entire List every time is not efficient.
-To address this issue, we use a special data structure called Self-Balancing Binary Search Tree.
-Self-Balancing Binary Search Tree is a unique data structure not only because it keeps the ordering of elements, but it also self-balances when you add / delete elements.
-This is an important feature since without it, the tree will eventually get imbalanced and the search can take up to O(N) in the worst case (same as linear scan).
-Below is the time complexity of core operations on Red Black Tree (a variant of Self-Balancing Binary Search Tree).
+        mid = (lo + hi) // 2 # Python integers have arbitrary precision. With fixed-width integers, use lo + (hi - lo) // 2 to avoid overflow.
+
+        if nums[mid] == trg:
+            return mid
+
+        if nums[mid] < trg:
+            return rec(mid + 1, hi)
+        else:
+            return rec(lo, mid - 1)
+
+    def itr() -> int:
+        lo = 0
+        hi = len(nums) - 1
+        while lo <= hi:
+            mid = (lo + hi) // 2 # Python integers have arbitrary precision. With fixed-width integers, use lo + (hi - lo) // 2 to avoid overflow.
+
+            if nums[mid] == trg:
+                return mid
+
+            if nums[mid] < trg:
+                lo = mid + 1
+            else:
+                hi = mid - 1
+        return -1
+
+    if method is SearchMethod.RECURSIVE:
+        return rec(0, len(nums) - 1)
+    elif method is SearchMethod.ITERATIVE:
+        return itr()
+    else:
+        raise TypeError("method must be a SearchMethod")
+
+
+binary_search([1, 3, 5], 3, method=SearchMethod.ITERATIVE) # Returns: 1
+binary_search([1, 3, 5], 4, method=SearchMethod.RECURSIVE) # Returns: -1
+```
+
+Searching rotated arrays or finding the first or last occurrence requires changes to the search conditions or bounds.
+
+- [LeetCode 33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array)
+- [LeetCode 34. Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array)
+
+Binary search also applies to an answer range when a predicate is monotonic, changing from false to true at most once or vice versa.
+A binary search tree provides another form of ordered lookup, whose cost depends on the tree's height.
+
+## Self-Balancing Binary Search Tree
+
+A sorted list supports O(logN) search, but insertion and deletion in the middle can require O(N) element shifts.
+A self-balancing binary search tree maintains O(logN) height as elements are added or deleted.
+An unbalanced binary search tree can reach O(N) height, making a search as slow as a linear scan.
+A red-black tree is one variant with the following worst-case operation costs.
+
 - [Insert](https://www.youtube.com/watch?v=UaLIHuR1t8Q) O(logN)
 - [Delete](https://www.youtube.com/watch?v=CTvfzU_uNKE) O(logN)
-- Access O(logN)
+- Search O(logN)
 
-Python does not have a built-in Red-Black tree.
-However, there is a widely used 3rd-party library called [sortedcontainers](https://grantjenks.com/docs/sortedcontainers/) and is generally allowed in interviews.
+Python's standard library does not provide a general-purpose self-balancing binary search tree.
+The third-party [sortedcontainers](https://grantjenks.com/docs/sortedcontainers/) package provides `SortedList`, `SortedDict`, and `SortedSet`.
+Its containers use sorted lists, so their complexity guarantees differ from those of a red-black tree.
+Whether third-party packages are allowed depends on the interview or platform.
+
 - [LeetCode 1244. Design A Leaderboard](https://leetcode.com/problems/design-a-leaderboard)
 - [LeetCode 729. My Calendar I](https://leetcode.com/problems/my-calendar-i)
 - [LeetCode 731. My Calendar II](https://leetcode.com/problems/my-calendar-ii)

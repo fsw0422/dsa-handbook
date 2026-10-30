@@ -1,171 +1,126 @@
-## Coding Tips
+# Coding Tips
 
-- Try to make variable names as short as possible without harming readability too much.
-  It's repetitive to type the whole variable every time, especially if you don't have autocompletion during interviews.
+These conventions keep the handbook's examples concise and consistent.
+Choose names that remain clear when explaining the solution.
+
+- Use familiar abbreviations when their meaning is clear.
+  Longer names are useful when shortening them would hide their purpose.
 
   ```python
-  ...
-  
-  # Clearly readable and concise when shortened
-  result = ... # (X)
-  res = ... # (O)
-  
-  stack = ... # (X)
-  stk = ... # (O)
-  
-  queue = ... # (X)
-  que = ... # (O)
-  
-  graph = ... # (X)
-  gph = ... # (O)
-  
-  # When shortened and not readable, just use entire word
-  s # (X)
-  st # (X)
-  stt # (X)
-  start # (O)
-  
-  # If variables are in pair, it's generally ok to shorten because the context itself is self-explanatory (especially if it's used as index or key to access a value) 
-  ## start / end
-  s = ...
-  e = ...
+  from collections import deque
 
-  ## left / right
-  l = ...
-  r = ...
 
-  ## row / column
-  r = ...
-  c = ...
+  # Common abbreviations in this handbook.
+  res = 0
+  stk = []
+  que = deque()
+  gph = {}
 
-  ## low / high
-  lo = ...
-  hi = ...
+  # Keep names readable when a short form would be ambiguous.
+  start = 0
+  end = 10
+
+  # Paired indices can use familiar short names.
+  r = 0
+  c = 1
+  lo = 0
+  hi = 9
   ```
-- Avoid single-line assignments
+- Use separate assignment lines for unrelated values.
+  Tuple unpacking and simultaneous assignments are useful for related values and swaps.
 
   ```python
-  s, e = ... # (X)
+  start = 0
+  end = 5
 
-  # (O)
-  s = ...
-  e = ...
+  name_age = ('Amy', 32)
+  name, age = name_age
+
+  a = 1
+  b = 2
+  a, b = b, a # State: a = 2, b = 1
   ```
-- For method names, if it's a helper function (like recursive function), make it concise as possible.
-  However if it's the function name for the main solution itself, be as verbose as possible.
+- Use descriptive names for the main solution function.
+  Helpers can use short names such as `rec` when their role is clear.
+- Use the collection conventions introduced in the earlier chapters.
+  Prefer names that describe the contents when possible.
+
+  | Value | Naming convention | Example |
+  | --- | --- | --- |
+  | List or set | A plural name for its contents | `nums`, `names` |
+  | String | `txt` or a name that describes the text | `txt`, `message` |
+  | Dictionary | `key_to_val` | `name_to_age` |
+  | Graph adjacency mapping | `gph` | `gph` |
+  | Tuple | `field1_field2` | `name_age` |
+  | List of tuples | `field1_field2_tups` | `name_age_tups` |
+  | Dictionary items view | A name ending in `_itms` | `name_age_itms` |
+
+  Prefixes such as `dd_`, `ro_`, and `uq_` are optional and can distinguish related variables used in the same scope.
+- Prefer single quotes for simple strings, and use double quotes when they avoid escaping an apostrophe.
+  Both quote styles are valid Python.
 
   ```python
-  ...
-
-  # Main function — verbose and descriptive
-  def my_great_solution(nums: List[int]) -> int:
-
-      # Helper function — simple and concise
-      def rec(i):
-          ...
+  txt = 'hello'
+  message = "Don't repeat work."
   ```
-- For 'list', 'string', 'set', 'dict', 'Tuple', unless the context naturally guides you to name your variables / parameters in a certain way, use generic reserved names (under 'Basic Operations' in every chapter).
-  It's designed to be concise, and not clash with built-in functions or keywords.
+- Use snake_case for variable and function names that contain multiple words.
 
   ```python
-  ...
-  
-  from typing import List
-  
-
-  """
-  Uses names in function context
-  """
-  def compare_marked_words(wrds: List[str]):
-      seen = ...
-  
-  """
-  Uses generic reserved names
-  """
-  def compare_unique_strings(txt: str):
-      utxts = ...
+  max_sum = 0
   ```
-- Always use *single quote* (') over *double quote* (") as pressing the Shift key every time is repetitive.
+- Avoid Python keywords and names that shadow built-in functions or types.
+  Keywords cannot be used as variable names.
+  Names such as `str`, `list`, and `sum` are legal identifiers, but assigning to them hides the corresponding built-in names.
 
   ```python
-  ...
-  
-  "string" # (X)
-  'string' # (O)
+  # Avoid: str = str(123)
+  txt = str(123) # Returns: '123'
   ```
-- Although not preferred, but if two or more words are unavoidable for readability (like adjectives or 2 variables with same type), use snake case to concatenate them.
+- Prefer separate local variables for transformed input values when that makes the code easier to follow.
+  Assigning a new integer to a parameter does not change the caller's variable.
+  Changing the contents of a list passed to a function changes the caller's list too, so copy it when mutation is not intended.
 
   ```python
-  ...
-  
-  awesome_num = 3
+  def increment(num: int) -> int:
+      new_num = num + 1
+      return new_num
+
+
+  num = 2
+  increment(num) # Returns: 3
+  num # Returns: 2
   ```
-- Avoid keywords for single-word variables.
-  
-  ```python
-  ...
-  
-  str = str() # (X)
-  txt = str() # (O)
-  ```
-- Don't use function parameters as mutable working variables; keep parameters as inputs and assign transformed values to new local variables.
+- Use enums for algorithm choices, as in [Chapter 08](ch08-divide_and_conquer.md) and [Chapter 10](ch10-graph.md).
+  Make selector parameters required and handle each supported value explicitly.
+  Use a final `else` to raise an exception for unsupported values.
+  Plain constants are useful for fixed numeric positions.
 
   ```python
-  ...
-  
-  def increment(num: int):
-      num += 1 # (X)
-      new_num = num + 1 # (O)
-  ```
-- Rather than Enums, use constants to save time
+  from enum import Enum, auto
 
-  ```python
-  ...
-  
-  from enum import Enum
-  
 
-  rng = range(10)
-  
-  """
-  Not recommended as it needs a lot more coding
-  """
-  class Interval(Enum):
-      START = 0
-      END = 1
-  rng[Interval.START.value]
-  rng[Interval.END.value]
-  
-  """
-  Recommended as it's simpler
-  """
+  class SearchMethod(Enum):
+      RECURSIVE = auto()
+      ITERATIVE = auto()
+
+
+  method = SearchMethod.ITERATIVE
+
+  # Constants identify the positions in a start/end tuple.
   START = 0
   END = 1
-  rng[START]
-  rng[END]
+  start_end = (3, 8)
+  start_end[START] # Returns: 3
+  start_end[END] # Returns: 8
   ```
-- When a nested function parameter has the same name as an outer function parameter, prepend '\_'.
+- When a nested function parameter repeats an outer parameter's name, prefix it with `_` to distinguish the two.
+  The `_n` parameter in [Chapter 12](ch12-dynamic_programming.md) follows this convention.
+- Tuples work well for small groups of values.
+  Use `@dataclass` when named fields improve readability.
+  `frozen=True` prevents ordinary field assignment, while `order=True` compares instances by their fields in declaration order.
+  Mutable objects stored inside a frozen dataclass can still change.
 
   ```python
-  ...
-  
-  def func1(num: int):
-      def func2(_num: int):
-          ...
-  ```
-  - Use single-line swap, as it removes the need to introduce another variable.
-    
-  ```python
-  ...
-  
-  a, b = b, a
-  ```
-- In interviews, there are rare cases where you will need to define a custom class over primitive types with tuples to encapsulate a certain data group.
-  However, if the data model grows, `@dataclass` will do the job.
-  
-  ```python
-  ...
-
   from dataclasses import dataclass
 
 
@@ -173,31 +128,51 @@
   class Contact:
       name: str
       age: int
+
+
+  contact = Contact('Amy', 32)
+  contact.name # Returns: 'Amy'
+  Contact('Amy', 32) == contact # Returns: True
+  contact < Contact('Bob', 25) # Returns: True => Name is compared before age.
   ```
-- Use `nonlocal` in a nested function to rebind a variable from the enclosing (non-global) scope.
-  Without it, assigning to an outer variable inside an inner function creates a new local variable instead.
+- Use `nonlocal` when a nested function assigns a new value to a variable in an enclosing function.
+  Calling `append()` on an outer list does not need `nonlocal` unless the list variable itself is reassigned.
+  The example below counts nodes whose value is at least as large as every earlier value on their path from the root.
 
   ```python
-  ...
+  from __future__ import annotations
 
-  """
-  Typical use case: accumulating state across recursive/nested calls without a mutable container
-  Often when the outside variable is a mutalbe object like 'list', you don't need to rebind them
-  """
-  def count_good_nodes(rt: TreeNode) -> int:
+  import math
+  from typing import Optional
+
+
+  class TreeNode:
+      def __init__(self, val: int, lft: Optional[TreeNode], rgt: Optional[TreeNode]) -> None:
+          self.val = val
+          self.lft = lft
+          self.rgt = rgt
+
+
+  def count_good_nodes(rt: Optional[TreeNode]) -> int:
       res = 0
 
-      def traverse(nd: TreeNode, max_val: int):
+      def rec(nd: Optional[TreeNode], max_val: float) -> None:
           nonlocal res
-
-          if not nd:
+          # Deep trees can exceed Python's recursion-depth limit.
+          if nd is None:
               return
-            if nd.val >= max_val:
+          if nd.val >= max_val:
               res += 1
 
-            traverse(nd.lft, max(max_val, nd.val))
-            traverse(nd.rgt, max(max_val, nd.val))
+          next_max = max(max_val, nd.val)
+          rec(nd.lft, next_max)
+          rec(nd.rgt, next_max)
 
-      traverse(rt, -math.inf)
+      rec(rt, -math.inf)
       return res
+
+
+  rt = TreeNode(3, TreeNode(1, None, None), TreeNode(4, None, None))
+  count_good_nodes(rt) # Returns: 2
+  count_good_nodes(None) # Returns: 0
   ```

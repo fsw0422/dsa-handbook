@@ -1,15 +1,17 @@
 # Bit Manipulation
 
-Before diving in, please review Two's Complement which is used to represent signed integers.
-Python has many built-in types, and they are all objects (there are no such thing as primitive types like Java or C++).
-However, primary ones that are most used are
+Before diving in, review two's complement, which is used to represent signed integers.
+Python's bitwise operators behave as though integers use two's complement with infinitely many sign bits.
+Python has many built-in types, and their values are all objects.
+Unlike Java or C++, Python has no primitive types.
+The most commonly used types are:
 
 - `bool`:
   Either `True` or `False`.
 - `int`:
-  Has infinite precision, meaning it can hold very large number that is bound to system memory (`2^63-1` for 64-bit system).
+  Has arbitrary precision, so its size is limited only by available memory.
 - `float`:
-  Does not have infinite precision (follows IEEE 754 Floating Point Standard).
+  Has finite precision, typically using IEEE 754 double precision.
 
 ```python
 ...
@@ -17,22 +19,27 @@ However, primary ones that are most used are
 """
 Basic Operations
 """
-num = ...
-n = ...
+num = 5
+n = 1
 num &= n # AND
 num |= n # OR
 num ^= n # XOR
-num = ~num # 'num''s complement
-num <<= n # Left shift 'n' bits from 'num' => Multiply 'num' by 2^'n'
-num >>= n # Right shift 'n' bits from 'num' => Divide 'num' by 2^'n'. Fills left-side bits with MSB as Python only has signed integer concept
+num = ~num # Bitwise complement of 'num'
+num <<= n # Shift 'num' left by 'n' bits => Multiply 'num' by 2 ** n
+num >>= n # Arithmetic right shift by 'n' bits => Floor-divide 'num' by 2 ** n, including for negative values
 
 """
-Tricks that help if you know them by heart
+Useful tricks to learn by heart
+
+Bit indices start at 0 at the least significant bit.
+Shift counts must be nonnegative.
 """
-num = ~num + 1 # Two's complement of 'num'
-num = (num >> (n - 1)) & 1 # Get 'n'th bit
-num = num | (1 << n) # Sets the 'n'th bit to 1
-num = num & ~(1 << n) # Sets the 'n'th bit to 0
+num = 5
+n = 1
+neg_num = ~num + 1 # Returns: -5 => Equivalent to -num
+bit = (num >> n) & 1 # Returns: 0 => Get the bit at index 'n'
+num = num | (1 << n) # State: 7 => Set the bit at index 'n' to 1
+num = num & ~(1 << n) # State: 5 => Set the bit at index 'n' to 0
 ```
 - [LeetCode 191. Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits)
 
@@ -51,7 +58,8 @@ Basic Operations
 3 * 4 # Returns: 12
 2 ** 3 # Returns: 8
 7 / 2 # Returns: 3.5
-7 // 2 # Returns: 3 => Quotient
+7 // 2 # Returns: 3 => Floor division
+-7 // 2 # Returns: -4 => Rounds toward negative infinity
 7 % 2 # Returns: 1 => Remainder
 
 sum([1,2,3]) # Returns: 6
@@ -63,25 +71,26 @@ min(5, 3) # Returns: 3
 Gotcha
 """
 res = 2
-res *= 3 + 1 # Returns: 8 => Same as `res = res * (3 + 1)`
+res *= 3 + 1 # State: 8 => Same as `res = res * (3 + 1)`
 
 """
 Additional math functions
 """
 math.ceil(3.12) # Returns: 4
 math.floor(3.12) # Returns: 3
-math.sqrt(9) # Returns: 3
-math.inf # Returns: float('Inf')
--math.inf # Returns: float(-'Inf')
+math.sqrt(9) # Returns: 3.0
+math.inf # Returns: inf => Same as float('inf')
+-math.inf # Returns: -inf => Same as float('-inf')
 
 """
 Random functions
 """
-random.randrange(5) # Returns: Random number of range [0, 5)
-random.randint(0, 3) # Returns: Random number of range [start, end]
-random.random() # Returns: Random number between [0.0, 1.0)
-random.shuffle([1, 3, 2, 4]) # State: *In-place* shuffles the list
-random.choice([1, 3, 2, 4]) # Returns: Random single item from list
+random.randrange(5) # Returns: Random integer in [0, 5)
+random.randint(0, 3) # Returns: Random integer in [0, 3], including both endpoints
+random.random() # Returns: Random float in [0.0, 1.0)
+nums = [1, 3, 2, 4]
+random.shuffle(nums) # State: Shuffles 'nums' in place; returns None
+random.choice([1, 3, 2, 4]) # Returns: A random item from the list
 ```
 
 - [LeetCode 50. Pow(x, n)](https://leetcode.com/problems/powx-n)

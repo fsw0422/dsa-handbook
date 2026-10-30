@@ -1,11 +1,16 @@
 # Backtracking
 
-Backtracking is a technique for solving problems where you explore all possible options, but revert to previous state (backtrack) as soon as you reach either the base case, or determine the current path cannot lead to a valid solution (pruning).
+Backtracking explores a sequence of choices, then returns to an earlier state to try another path.
+If a choice changes shared state, undo those changes when you return.
+A base case ends a search path, while pruning skips a branch that cannot lead to a valid solution.
+Depending on the problem, the search may stop after finding one solution or continue to find all solutions.
 
-As the approach is to explore all possible options, it resembles the traversal of a large acylic Graph (Tree) as we've seen in previous chapter.
-One difference is that for backtracking problems, you'll often need to construct the decision tree yourself (exploring) opposed to Binary Tree or Graphs, where you're given the data structure (or metadata to construct one) from the beginning.
+In many graph and binary tree problems, the structure is given upfront, and the task centers on traversing it.
+In backtracking, you explore an implicit decision tree whose nodes are partial solutions and whose branches represent choices.
+You generate these states as you explore, without building the entire tree in memory.
 
-Computing subsets, combinations, permutations, searching words etc are great candidates of Backtracking.
+Backtracking is commonly used to generate subsets, combinations, and permutations, and to search for words.
+
 - [LeetCode 78. Subsets](https://leetcode.com/problems/subsets)
 - [LeetCode 90. Subsets II](https://leetcode.com/problems/subsets-ii)
 - [LeetCode 46. Permutations](https://leetcode.com/problems/permutations)

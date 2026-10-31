@@ -97,7 +97,7 @@ Use `Lock` for mutual exclusion, `RLock` when the same thread must acquire a loc
 For synchronization patterns, see [The Little Book of Semaphores](https://greenteapress.com/wp/semaphores).
 Chapter 4 of that book covers classical synchronization problems.
 
-For database isolation levels, see the [Isolation Level Cheat Sheet](https://github.com/fsw0422/sd-handbook/blob/main/isolation-level-cheat-sheet.md) in the System Design Handbook.
+For database isolation levels, see the [Isolation Level Cheat Sheet](https://github.com/fsw0422/sd-handbook/blob/main/cheatsheets/isolation-level.md) in the System Design Handbook.
 
 # Remarks on Concurrency and Parallelism
 

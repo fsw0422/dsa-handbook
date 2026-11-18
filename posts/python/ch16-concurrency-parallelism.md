@@ -14,6 +14,12 @@ Common ways to organize asynchronous work include:
 - ReactiveX:
   Compose streams of values or events using operations such as filtering and mapping.
   The source and scheduler determine where and when the work runs.
+  The learning curve is steep.
+  Beyond `map` and `filter`, you must learn hot and cold sources, schedulers, unsubscribing, and a large set of operators for combining streams.
+  For example, a search box can use `switchMap` to cancel the previous request when the user types again.
+  Debugging is also hard because a pipeline is built in one place and runs later, sometimes on another thread.
+  Stack traces then show operator and scheduler internals rather than the code that built the pipeline.
+  A common workaround is to log each value with a side-effect operator such as RxJS `tap`.
 - Coroutines:
   Use `async` and `await` to suspend and resume work.
   In Python's `asyncio`, calling a coroutine function creates a coroutine object; await it or schedule it as a task to run it.
@@ -50,7 +56,9 @@ Parallelism means multiple tasks execute at the same time, usually on different 
 It can speed up computation when tasks can be divided and coordination costs remain manageable.
 
 Within a CPython interpreter with the GIL enabled, only one thread executes Python bytecode at a time.
-CPU-heavy Python work can use multiple processes or a free-threaded build with the GIL disabled.
+Before Python 3.13, multiple processes were the only way to run Python code in parallel.
+Python 3.13 added a free-threaded build that can turn the GIL off, and Python 3.14 made it officially supported.
+For example, `PYTHON_GIL=0 python3.14t main.py` or `python3.14t -X gil=0 main.py` runs `main.py` with the GIL off; the `t` marks the free-threaded build.
 Native extensions that release the GIL can also run work in parallel.
 
 Both concurrency and parallelism can cause race conditions when tasks share mutable state.
